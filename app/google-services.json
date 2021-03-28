@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "677804028533",
+    "project_id": "plogging-5f608",
+    "storage_bucket": "plogging-5f608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677804028533:android:f7e144db9addb51f587e3c",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677804028533-q624os2mg0p1ji1l9799i434c1ded025.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhTH7cgllnjCu2tfJe9V-TLz5rQlrerAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677804028533-q624os2mg0p1ji1l9799i434c1ded025.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
