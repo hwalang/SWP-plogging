@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_user"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="@string/user"/>
+    <item
+        android:id="@+id/action_plogging"
+        android:enabled="true"
+        android:icon="@android:drawable/btn_minus"
+        android:title="@string/plogging" />
+    <item
+        android:id="@+id/action_certify"
+        android:enabled="true"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="@string/certify" />
+    <item
+        android:id="@+id/action_recruit"
+        android:enabled="true"
+        android:icon="@android:drawable/btn_star"
+        android:title="@string/recruit" />
+    <item
+        android:id="@+id/action_issue"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/issue" />
+
+</menu>
