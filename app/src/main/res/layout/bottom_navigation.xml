@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/board_certify_list_scroll"
+        android:layout_above="@+id/main_navigation_division"
+        >
+        <FrameLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+        </FrameLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/main_navigation_division"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        android:layout_above="@+id/bottom_navigation"
+        />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_navigation_main"
+        android:layout_alignParentBottom="true"
+        >
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+
+
+
+</RelativeLayout>
