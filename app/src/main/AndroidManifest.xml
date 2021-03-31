@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BottomNavigation" android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
+<!-- 뒤로가기 누를때 나오는 화면 지정: parentActivityName -->
