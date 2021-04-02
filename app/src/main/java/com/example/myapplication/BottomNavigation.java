@@ -1,6 +1,10 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -8,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.fragment.NavigatioCertifyFragment;
@@ -39,7 +45,13 @@ public class BottomNavigation extends AppCompatActivity {
         // 첫 화면
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationUserFragment).commit();
 
-
+        // 갤러리 권한
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();
+        } else {
+            // 허용 요청
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
 
 
 
@@ -64,6 +76,10 @@ public class BottomNavigation extends AppCompatActivity {
                         case R.id.action_plogging:
                             Toast.makeText(getApplicationContext(), "plogging 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationPloggingFragment).commit();
+
+                            // 고쳐야함(인증글 작성창이 나온다)
+                            Intent intent = new Intent(this, AddPhotoActivity.class);
+                            startActivity(intent);
                             return true;
                         case R.id.action_certify:
                             Toast.makeText(getApplicationContext(), "certify 선택", Toast.LENGTH_SHORT).show();
