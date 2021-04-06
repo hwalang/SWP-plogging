@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* 인증 버튼 클릭시 BottomNavigation 으로 전환
+        /* 로그인이후 버튼 클릭시 BottomNavigation 으로 전환
         * */
         main_button = findViewById(R.id.main_button);
         main_button.setOnClickListener(view -> {
