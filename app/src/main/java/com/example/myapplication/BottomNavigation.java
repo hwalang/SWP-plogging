@@ -2,21 +2,17 @@ package com.example.myapplication;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.fragment.NavigatioCertifyFragment;
+import com.example.myapplication.fragment.NavigationCertifyFragment;
 import com.example.myapplication.fragment.NavigationIssueFragment;
 import com.example.myapplication.fragment.NavigationPloggingFragment;
 import com.example.myapplication.fragment.NavigationRecruitFragment;
@@ -26,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class BottomNavigation extends AppCompatActivity {
     NavigationUserFragment navigationUserFragment;
     NavigationPloggingFragment navigationPloggingFragment;
-    NavigatioCertifyFragment navigationCertifyFragment;
+    NavigationCertifyFragment navigationCertifyFragment;
     NavigationRecruitFragment navigationRecruitFragment;
     NavigationIssueFragment navigationIssueFragment;
 
@@ -38,7 +34,7 @@ public class BottomNavigation extends AppCompatActivity {
 
         navigationUserFragment = new NavigationUserFragment();
         navigationPloggingFragment = new NavigationPloggingFragment();
-        navigationCertifyFragment = new NavigatioCertifyFragment();
+        navigationCertifyFragment = new NavigationCertifyFragment();
         navigationRecruitFragment = new NavigationRecruitFragment();
         navigationIssueFragment = new NavigationIssueFragment();
 
@@ -49,10 +45,10 @@ public class BottomNavigation extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getApplicationContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();
         } else {
-            // 허용 요청
+            // 허용 요청: 허용을 하지 않으면 네비게이션바로 못가는 기능도 추가해야함!
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            Toast.makeText(getApplicationContext(), "권한을 허용해야 합니다.", Toast.LENGTH_SHORT).show();
         }
-
 
 
         // 내비게이션 이벤트
@@ -76,14 +72,14 @@ public class BottomNavigation extends AppCompatActivity {
                         case R.id.action_plogging:
                             Toast.makeText(getApplicationContext(), "plogging 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationPloggingFragment).commit();
-
-                            // 고쳐야함(인증글 작성창이 나온다)
-                            Intent intent = new Intent(this, AddPhotoActivity.class);
-                            startActivity(intent);
                             return true;
                         case R.id.action_certify:
                             Toast.makeText(getApplicationContext(), "certify 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationCertifyFragment).commit();
+
+                            // 이걸 certifyFragment.java 에 적용시켜야 한다.
+                            Intent intent = new Intent(this, AddPhotoActivity.class);
+                            startActivity(intent);
                             return true;
                         case R.id.action_recruit:
                             Toast.makeText(getApplicationContext(), "recruit 선택", Toast.LENGTH_SHORT).show();

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_certify"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,4 +12,15 @@
         android:textSize="35sp"
         />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/write_certification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/인증글작성"
+        />
+
+
+</RelativeLayout>

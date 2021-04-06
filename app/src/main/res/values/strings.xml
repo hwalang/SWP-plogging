@@ -12,4 +12,6 @@
     <string name="사진업로드">사진업로드</string>
     <string name="인증글내용" />
     <string name="사진대체">사진대체</string>
+    <string name="로그인이후">로그인이후</string>
+    <string name="인증글작성">인증글 작성</string>
 </resources>
