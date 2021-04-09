@@ -14,4 +14,8 @@
     <string name="사진대체">사진대체</string>
     <string name="로그인이후">로그인이후</string>
     <string name="인증글작성">인증글 작성</string>
+    <string name="확인">확인</string>
+    <string name="취소">취소</string>
+    <string name="내용">내용</string>
+    <string name="제목">제목</string>
 </resources>

@@ -78,7 +78,7 @@ public class BottomNavigation extends AppCompatActivity {
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationCertifyFragment).commit();
 
                             // 이걸 certifyFragment.java 에 적용시켜야 한다.
-                            Intent intent = new Intent(this, AddPhotoActivity.class);
+                            Intent intent = new Intent(this, AddCertificationActivity.class);
                             startActivity(intent);
                             return true;
                         case R.id.action_recruit:

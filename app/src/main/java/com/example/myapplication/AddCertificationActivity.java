@@ -9,17 +9,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.myapplication.schema.Board;
+import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -27,25 +30,27 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
-public class AddPhotoActivity extends AppCompatActivity {
+public class AddCertificationActivity extends AppCompatActivity {
     FirebaseStorage firebaseStorage = null;
     FirebaseAuth auth = null;
     FirebaseFirestore firebaseFirestore = null;
 
     Integer CHOOSE_IMAGE_FROM_GALLERY = 0;
     Uri photoUri = null;
-    Button uploadBtnAddPhoto;
+    Button write_certification_ok, write_certification_cancel;
     ImageView addPhoto;
+    EditText write_certification_title, write_certification_explain;
 
-    Board board;
-    Board.Certification certificationBoard;
+    private static final String TAG = "AddCertificationActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_photo);
+        setContentView(R.layout.activity_add_certification);
 
         /*초기화
         * 1. 파이어베이스 스토리지
@@ -60,9 +65,15 @@ public class AddPhotoActivity extends AppCompatActivity {
         photoChooseIntent.setType("image/*");
         startActivityForResult(photoChooseIntent, CHOOSE_IMAGE_FROM_GALLERY);
 
-        // 사진 업로드 이벤트
-        uploadBtnAddPhoto = findViewById(R.id.uploadBtnAddPhoto);
-        uploadBtnAddPhoto.setOnClickListener(view -> explainAndUploadPhoto());
+        // 인증글 작성 및 취소 이벤트
+        write_certification_ok = findViewById(R.id.write_certification_ok);
+        write_certification_cancel = findViewById(R.id.write_certification_cancel);
+
+        write_certification_ok.setOnClickListener(view -> explainAndUploadPhoto());
+
+        // 제목 및 내용 작성 ID
+        write_certification_title = findViewById(R.id.write_certification_title);
+        write_certification_explain = findViewById(R.id.write_certification_explain);
     }
 
     @Override
@@ -89,7 +100,7 @@ public class AddPhotoActivity extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String dateString = timestamp.format(new Date());
-        String photoFileName = "PHOTO_" + dateString + "_.png";
+        String photoFileName = "IMAGE_" + dateString + "_.png";
 
         // 폰에서 파이어베이스 스토리지로 파일 업로드
         StorageReference storageReference = firebaseStorage.getReference().child("images").child(photoFileName);
@@ -108,8 +119,42 @@ public class AddPhotoActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
-                    board = new Board("plogger@email.com", "테스트", "테스트 중 입니다.", "김동현", (long) 20210407);
-                    certificationBoard = new Board.Certification(1, downloadUri);
+
+                    Map<String, Object> data = new HashMap<>(); // data 추가 방법
+                    CertificationBoard certificationBoard = new CertificationBoard(
+                            "plogger@email.com",
+                            write_certification_title.getText().toString(),
+                            write_certification_explain.getText().toString(),
+                            "김동현",
+                            System.currentTimeMillis(),
+                            downloadUri.toString());
+                    data.put("userId", "plogger@email.com");
+                    data.put("boardTitle", write_certification_title.getText().toString());
+                    data.put("boardContent", write_certification_explain.getText().toString());
+                    data.put("name", "김동현");
+                    data.put("boardCreate", System.currentTimeMillis());
+                    data.put("certifyPhoto", downloadUri.toString());
+
+                    // add 말고 userId 를 document ID 값으로 설정하고 사용하는 방법도 있다.
+                    firebaseFirestore.collection("certification")
+                            .add(data)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @SuppressLint("LongLogTag")
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    documentReference.set(data);
+                                    Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 성공", Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "문서ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @SuppressLint("LongLogTag")
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 실패", Toast.LENGTH_SHORT).show();
+                                    Log.w(TAG, "문서 추가 에러", e);
+                                }
+                            });
                     setResult(Activity.RESULT_OK);
                     finish();
                 }
