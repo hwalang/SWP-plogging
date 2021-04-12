@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -70,6 +71,12 @@ public class AddCertificationActivity extends AppCompatActivity {
         write_certification_cancel = findViewById(R.id.write_certification_cancel);
 
         write_certification_ok.setOnClickListener(view -> explainAndUploadPhoto());
+        write_certification_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // 제목 및 내용 작성 ID
         write_certification_title = findViewById(R.id.write_certification_title);
@@ -95,7 +102,7 @@ public class AddCertificationActivity extends AppCompatActivity {
     }
 
     // 이건 인증글 작성때 사용하는게 좋겠다.
-    // 사진 이름 자동으로 정하기 + 파일 업로드
+    // 사진 업로드
     private void explainAndUploadPhoto() {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -121,6 +128,7 @@ public class AddCertificationActivity extends AppCompatActivity {
                     Uri downloadUri = task.getResult();
 
                     Map<String, Object> data = new HashMap<>(); // data 추가 방법
+                    assert downloadUri != null; // downloadUri.toString() 할 때 있으면 좋은 코드
                     CertificationBoard certificationBoard = new CertificationBoard(
                             "plogger@email.com",
                             write_certification_title.getText().toString(),
@@ -128,6 +136,7 @@ public class AddCertificationActivity extends AppCompatActivity {
                             "김동현",
                             System.currentTimeMillis(),
                             downloadUri.toString());
+                    // 파이어스토어에 데이터 넣기
                     data.put("userId", "plogger@email.com");
                     data.put("boardTitle", write_certification_title.getText().toString());
                     data.put("boardContent", write_certification_explain.getText().toString());

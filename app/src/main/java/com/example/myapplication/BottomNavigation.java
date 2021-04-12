@@ -41,18 +41,11 @@ public class BottomNavigation extends AppCompatActivity {
         // 첫 화면
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationUserFragment).commit();
 
-        // 갤러리 권한
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();
-        } else {
-            // 허용 요청: 허용을 하지 않으면 네비게이션바로 못가는 기능도 추가해야함!
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-            Toast.makeText(getApplicationContext(), "권한을 허용해야 합니다.", Toast.LENGTH_SHORT).show();
-        }
-
-
         // 내비게이션 이벤트
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // 기본 프래그먼트 정하기
+        //bottomNavigationView.setSelectedItemId(R.id.main_user);
         /*
          *  bottomNavigation 버튼 클릭시 이벤트
          *  1. 사용자 정보
@@ -77,9 +70,9 @@ public class BottomNavigation extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "certify 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationCertifyFragment).commit();
 
-                            // 이걸 certifyFragment.java 에 적용시켜야 한다.
-                            Intent intent = new Intent(this, AddCertificationActivity.class);
-                            startActivity(intent);
+//                            // 이걸 certifyFragment.java 에 적용시켜야 한다.
+//                            Intent intent = new Intent(this, NavigationCertifyFragment.class);
+//                            startActivity(intent);
                             return true;
                         case R.id.action_recruit:
                             Toast.makeText(getApplicationContext(), "recruit 선택", Toast.LENGTH_SHORT).show();

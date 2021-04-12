@@ -18,4 +18,10 @@
     <string name="취소">취소</string>
     <string name="내용">내용</string>
     <string name="제목">제목</string>
+    <string name="댓글">댓글</string>
+    <string name="certification_title">certification title</string>
+    <string name="user_name">user name</string>
+    <string name="작성일">작성일</string>
+    <string name="글작성">글 작성</string>
+    <string name="rank">rank</string>
 </resources>

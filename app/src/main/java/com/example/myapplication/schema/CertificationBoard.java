@@ -29,6 +29,13 @@ public class CertificationBoard {
         this.boardCreate = boardCreate;
         this.certifyPhoto = certifyPhoto;
     }
+    public CertificationBoard(String boardTitle, String boardContent, String name, long boardCreate, String certifyPhoto) {
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.name = name;
+        this.boardCreate = boardCreate;
+        this.certifyPhoto = certifyPhoto;
+    }
 
     public String getUserId() {
         return userId;
