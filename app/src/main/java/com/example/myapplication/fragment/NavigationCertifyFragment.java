@@ -81,7 +81,6 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
 
         // 파이어스토어에서 글 가져오기
         firebaseFirestore.collection("certification")
-                .orderBy("boardCreate")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @SuppressLint("LongLogTag")
@@ -112,7 +111,6 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
                     }
                 });
 
-//        certificationBoards.add(doc.toObject(CertificationBoard.class));
 //        certifyViewRecyclerViewAdapter.notifyDataSetChanged(); // 새로고침
 
         // 글 작성 페이지로 가는 버튼
@@ -145,89 +143,5 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
                 }
                 break;
         }
-    }
-
-    private static class CertifyViewRecyclerViewAdapter extends RecyclerView.Adapter<NavigationCertifyFragment.CertifyViewRecyclerViewAdapter.CertificationViewHolder> {
-        ArrayList<CertificationBoard> certificationBoards;
-
-        // 유저 계정 arraylist<계정 클래스> 생성
-
-        // 코틀린의 init
-        public CertifyViewRecyclerViewAdapter(ArrayList<CertificationBoard> certificationBoards) {
-            this.certificationBoards = certificationBoards;
-            // 유저 list 도 지정
-
-        }
-
-        public static class CertificationViewHolder extends RecyclerView.ViewHolder {
-            public CardView cardView;
-
-            public CertificationViewHolder(@NonNull CardView v, CertificationBoard certificationBoard) {
-                super(v);
-                cardView = v;
-            }
-        }
-
-        // 아이템 뷰를 위한 뷰홀더 객체 생성
-        @NonNull
-        @Override
-        public NavigationCertifyFragment.CertifyViewRecyclerViewAdapter.CertificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            CardView cardView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_board_certification, parent, false);
-            final CertificationViewHolder certificationViewHolder = new CertificationViewHolder(cardView, certificationBoards.get(viewType));
-            cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 해당 카드 뷰를 눌렀을때 인증글 보기로 이동
-                }
-            });
-            cardView.findViewById(R.id.certifyitem_favorite_imageview).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 좋아요 이미지를 눌렀을때 좋아요 수 증가시키기
-                }
-            });
-            return certificationViewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull CertificationViewHolder holder, int position) {
-            // position: 해당 글 인덱스
-            CardView cardView = holder.cardView;
-
-            // 제목
-            TextView certifyitem_title = cardView.findViewById(R.id.certifyitem_title);
-            certifyitem_title.setText(certificationBoards.get(position).getBoardTitle());
-
-            // 작성일
-            TextView certifyitem_created = cardView.findViewById(R.id.certifyitem_created);
-            certifyitem_created.setText((int) certificationBoards.get(position).getBoardCreate());
-
-            // 작성자
-            TextView certifyitem_user = cardView.findViewById(R.id.certifyitem_user);
-            certifyitem_user.setText(certificationBoards.get(position).getName());
-
-            // Image
-            Glide.with(cardView.getContext()).load(certificationBoards.get(position).getCertifyPhoto()).into(
-                    (ImageView) cardView.findViewById(R.id.certifyitem_imageview_content)
-            );
-
-            // 내용
-            TextView certifyitem_content_textview = cardView.findViewById(R.id.certifyitem_content_textview);
-            certifyitem_content_textview.setText(certificationBoards.get(position).getBoardContent());
-
-            // 좋아요 수
-            TextView certifyitem_favorite_count = cardView.findViewById(R.id.certifyitem_favorite_count);
-            certifyitem_favorite_count.setText((int) certificationBoards.get(position).getCertifyFeel());
-        }
-
-        // 전체 아이템 갯수 리턴: item_board_certification.xml
-        @Override
-        public int getItemCount() {
-            return certificationBoards.size();
-        }
-    }
-
-    private void setRecyclerview(RecyclerView recyclerview) {
-        this.recyclerview = recyclerview;
     }
 }

@@ -37,17 +37,16 @@
         android:id="@+id/rank_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_baseline_attribution_24"
-        android:layout_alignParentRight="true"
-        tools:ignore="RelativeOverlap,VectorDrawableCompat"
+        android:contentDescription="@string/rank"
         android:focusable="true"
-        android:contentDescription="@string/rank" />
+        app:srcCompat="@drawable/ic_baseline_attribution_24"
+        tools:ignore="RelativeOverlap,VectorDrawableCompat"
+        android:layout_alignParentLeft="true" />
 
 
 </RelativeLayout>
