@@ -52,6 +52,7 @@ public class AddCertificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_certification);
+        // 수정 테스트
 
         /*초기화
         * 1. 파이어베이스 스토리지
