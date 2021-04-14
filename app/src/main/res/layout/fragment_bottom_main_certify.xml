@@ -13,6 +13,7 @@
         android:id="@+id/certifyitemfragment_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         >
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -46,7 +47,8 @@
         android:focusable="true"
         app:srcCompat="@drawable/ic_baseline_attribution_24"
         tools:ignore="RelativeOverlap,VectorDrawableCompat"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="10dp" />
 
 
 </RelativeLayout>
