@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -90,40 +91,40 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @NonNull
     @Override
     public CommentAdapter.CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comment, parent, false);
-        return new CommentViewHolder(view);
+        CardView cardView = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comment, parent, false);
+        return new CommentViewHolder(cardView);
     }
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        private View view;
+        public CardView cardView;
 
-        public CommentViewHolder(View v) {
+        public CommentViewHolder(CardView v) {
             super(v);
-            view = v;
+            cardView = v;
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull final CommentViewHolder holder, int position) {
-        View view = holder.view;
+        CardView cardView = holder.cardView;
 
         // String userId, String name, String comment, long commentCreate
 
         // 작성자 프로필 이미지(임시)
-        ImageView profile = view.findViewById(R.id.item_comment_profile);
+        ImageView profile = cardView.findViewById(R.id.item_comment_profile);
         profile.setImageResource(R.drawable.common_google_signin_btn_icon_dark_normal);
 
         // 작성자 이름
-        TextView username = view.findViewById(R.id.item_comment_username);
+        TextView username = cardView.findViewById(R.id.item_comment_username);
         username.setText(comments.get(position).getName());
 
         // 작성일
-        TextView create = view.findViewById(R.id.item_comment_create);
+        TextView create = cardView.findViewById(R.id.item_comment_create);
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
         String created = timeFormat.format(new Date(comments.get(position).getCommentCreate()));
         create.setText(created);
 
         // 댓글 내용
-        TextView comment = view.findViewById(R.id.item_comment);
+        TextView comment = cardView.findViewById(R.id.item_comment);
         comment.setText(comments.get(position).getComment());
 
     }

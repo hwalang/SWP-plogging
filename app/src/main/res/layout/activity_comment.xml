@@ -10,24 +10,30 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         />
-    <Button
-        android:id="@+id/comment_btn_send"
-        android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/comment_recyclerview"
-        android:text="@string/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true" />
-    <EditText
-        android:id="@+id/comment_edit"
-        android:layout_toLeftOf="@+id/comment_btn_send"
-        android:layout_below="@+id/comment_recyclerview"
-        android:layout_margin="10dp"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
-
+        android:layout_alignParentBottom="true"
+        >
+        <EditText
+            android:id="@+id/comment_edit"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/comment_btn_send"
+            android:layout_toStartOf="@+id/comment_btn_send"
+            android:autofillHints="댓글"
+            android:inputType="none"
+            tools:ignore="LabelFor" />
+        <Button
+            android:layout_alignParentRight="true"
+            android:id="@+id/comment_btn_send"
+            android:layout_margin="10dp"
+            android:text="@string/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -110,40 +110,6 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
                 }
             }
         });
-
-        // 파이어스토어에서 글 가져오기
-
-//        firebaseFirestore.collection("certification")
-//                .orderBy("boardCreate")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @SuppressLint("LongLogTag")
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            certificationBoards.clear();
-//                            contentIdList.clear();
-//                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-//                                Log.d(TAG, document.getId() + "=> " + document.getData());
-//                                certificationBoards.add(new CertificationBoard(
-//                                        document.getData().get("boardTitle").toString(),
-//                                        document.getData().get("boardContent").toString(),
-//                                        document.getData().get("name").toString(),
-//                                        (Long) document.getData().get("boardCreate"),
-//                                        document.getData().get("certifyPhoto").toString()
-//                                ));
-//
-//                                documentReference = firebaseFirestore.collection("certification").document();
-//                                Log.d("documentReference", "getId = " + documentReference.getId());
-//                                contentIdList.add(documentReference.getId());
-//                            }
-//                        } else {
-//                            Log.d(TAG, "error getting documents", task.getException());
-//                        }
-//                        notifyDataSetChanged();
-//                    }
-//                });
-
     }
 
     @NonNull
@@ -160,7 +126,7 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         CardView cardView = holder.cardView;
 
         // 제목
-        TextView certifyitem_title = (TextView) cardView.findViewById(R.id.certifyitem_title);
+        TextView certifyitem_title = cardView.findViewById(R.id.certifyitem_title);
         certifyitem_title.setText(certificationBoards.get(position).getBoardTitle());
 
         // 작성일
