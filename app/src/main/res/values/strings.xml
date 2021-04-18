@@ -27,4 +27,7 @@
     <string name="좋아요">좋아요</string>
     <string name="explain_content">Explain content</string>
     <string name="like_0">like 0</string>
+    <string name="comment">comment</string>
+    <string name="profile">profile</string>
+    <string name="send">send</string>
 </resources>

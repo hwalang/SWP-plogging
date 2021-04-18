@@ -79,6 +79,41 @@ public class CertificationBoard implements Serializable {
     public Map<String, Boolean> getFavorites() {
         return favorites;
     }
+
+    /*
+    * 유저계정, 작성자 이름, 댓글 내용, 작성일
+    * */
+    public static class Comment implements Serializable {
+        private String userId;
+        private String name;
+        private String comment;
+        private long commentCreate;
+
+        public Comment(String userId, String name, String comment, long commentCreate) {
+            this.userId = userId;
+            this.name = name;
+            this.comment = comment;
+            this.commentCreate = commentCreate;
+        }
+        public Comment(String comment, long commentCreate) {
+            this.comment = comment;
+            this.commentCreate = commentCreate;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+        public String getName() {
+            return name;
+        }
+        public String getComment() {
+            return comment;
+        }
+        public long getCommentCreate() {
+            return commentCreate;
+        }
+    }
+
 //    /*모집글 스키마
 //    * 파라미터:
 //    3. 모집글key, 채팅key, 주소, 약속일, 클릭수, 모집인원*/

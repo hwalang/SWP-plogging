@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".CommentActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +24,6 @@
             android:name=".BottomNavigation"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".AddCertificationActivity" />
-        <activity android:name=".CertificationActivity" />
     </application>
 
 </manifest>

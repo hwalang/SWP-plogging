@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.myapplication.fragment.NavigationCertifyFragment;
 import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,8 +31,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 
@@ -71,7 +74,79 @@ public class AddCertificationActivity extends AppCompatActivity {
         write_certification_ok = findViewById(R.id.write_certification_ok);
         write_certification_cancel = findViewById(R.id.write_certification_cancel);
 
-        write_certification_ok.setOnClickListener(view -> explainAndUploadPhoto());
+
+        write_certification_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                String dateString = timestamp.format(new Date());
+                String photoFileName = "IMAGE_" + dateString + "_.png";
+
+                // 폰에서 파이어베이스 스토리지로 파일 업로드
+                StorageReference storageReference = firebaseStorage.getReference().child("images").child(photoFileName);
+                UploadTask uploadTask = (UploadTask) storageReference.putFile(photoUri);
+
+                Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw Objects.requireNonNull(task.getException());
+                        }
+                        return storageReference.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
+
+                            Map<String, Object> data = new HashMap<>(); // data 추가 방법
+                            assert downloadUri != null; // downloadUri.toString() 할 때 있으면 좋은 코드
+                            // 필요 없는듯
+                            CertificationBoard certificationBoard = new CertificationBoard(
+                                    "test@test.com",
+                                    write_certification_title.getText().toString(),
+                                    write_certification_explain.getText().toString(),
+                                    "이름",
+                                    System.currentTimeMillis(),
+                                    downloadUri.toString());
+                            // 파이어스토어에 데이터 넣기
+                            data.put("userId", "test@test.com");
+                            data.put("boardTitle", write_certification_title.getText().toString());
+                            data.put("boardContent", write_certification_explain.getText().toString());
+                            data.put("name", "이름");
+                            data.put("boardCreate", System.currentTimeMillis());
+                            data.put("certifyPhoto", downloadUri.toString());
+
+                            // add 말고 userId 를 document ID 값으로 설정하고 사용하는 방법도 있다.
+                            firebaseFirestore.collection("certification")
+                                    .add(data)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @SuppressLint("LongLogTag")
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            documentReference.set(data);
+                                            Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 성공", Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "문서ID: " + documentReference.getId());
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @SuppressLint("LongLogTag")
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 실패", Toast.LENGTH_SHORT).show();
+                                            Log.w(TAG, "문서 추가 에러", e);
+                                        }
+                                    });
+                            setResult(Activity.RESULT_OK);
+                            finish();
+                        }
+                    }
+                });
+            }
+        });
+
         write_certification_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +177,6 @@ public class AddCertificationActivity extends AppCompatActivity {
        }
     }
 
-    // 이건 인증글 작성때 사용하는게 좋겠다.
     // 사진 업로드
     private void explainAndUploadPhoto() {
         @SuppressLint("SimpleDateFormat")
@@ -131,17 +205,17 @@ public class AddCertificationActivity extends AppCompatActivity {
                     Map<String, Object> data = new HashMap<>(); // data 추가 방법
                     assert downloadUri != null; // downloadUri.toString() 할 때 있으면 좋은 코드
                     CertificationBoard certificationBoard = new CertificationBoard(
-                            "plogger@email.com",
+                            "test@test.com",
                             write_certification_title.getText().toString(),
                             write_certification_explain.getText().toString(),
-                            "김동현",
+                            "이름",
                             System.currentTimeMillis(),
                             downloadUri.toString());
                     // 파이어스토어에 데이터 넣기
-                    data.put("userId", "plogger@email.com");
+                    data.put("userId", "test@test.com");
                     data.put("boardTitle", write_certification_title.getText().toString());
                     data.put("boardContent", write_certification_explain.getText().toString());
-                    data.put("name", "김동현");
+                    data.put("name", "이름");
                     data.put("boardCreate", System.currentTimeMillis());
                     data.put("certifyPhoto", downloadUri.toString());
 
@@ -165,8 +239,6 @@ public class AddCertificationActivity extends AppCompatActivity {
                                     Log.w(TAG, "문서 추가 에러", e);
                                 }
                             });
-                    setResult(Activity.RESULT_OK);
-                    finish();
                 }
             }
         });
