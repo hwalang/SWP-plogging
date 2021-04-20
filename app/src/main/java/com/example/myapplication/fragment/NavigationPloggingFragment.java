@@ -17,4 +17,5 @@ public class NavigationPloggingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_bottom_main_plogging, container, false);
     }
+
 }

@@ -9,4 +9,6 @@
     <string name="랭킹">랭킹</string>
     <string name="인증글">인증글</string>
     <string name="로그인이후">로그인이후</string>
+    <string name="button">Button</string>
+    <string name="search">Search</string>
 </resources>
