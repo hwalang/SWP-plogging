@@ -8,5 +8,26 @@
     <string name="리스트">리스트</string>
     <string name="랭킹">랭킹</string>
     <string name="인증글">인증글</string>
+    <string name="사진이름">사진이름</string>
+    <string name="사진업로드">사진업로드</string>
+    <string name="인증글내용" />
+    <string name="사진대체">사진대체</string>
     <string name="로그인이후">로그인이후</string>
+    <string name="인증글작성">인증글 작성</string>
+    <string name="확인">확인</string>
+    <string name="취소">취소</string>
+    <string name="내용">내용</string>
+    <string name="제목">제목</string>
+    <string name="certification_title">certification title</string>
+    <string name="user_name">user name</string>
+    <string name="작성일">작성일</string>
+    <string name="글작성">글 작성</string>
+    <string name="rank">rank</string>
+    <string name="댓글">댓글</string>
+    <string name="좋아요">좋아요</string>
+    <string name="explain_content">Explain content</string>
+    <string name="like_0">like 0</string>
+    <string name="comment">comment</string>
+    <string name="profile">profile</string>
+    <string name="send">send</string>
 </resources>

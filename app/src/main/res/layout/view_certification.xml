@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/certifyitem_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/certification_title" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:paddingRight="8dp"
+                android:id="@+id/certifyitem_created"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/작성일"
+                android:paddingEnd="8dp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/certifyitem_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_name" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/certifyitem_imageview_content"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        tools:ignore="ContentDescription" />
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:id="@+id/certifyitem_content_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/explain_content"
+        android:layout_marginStart="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_marginLeft="8dp"
+            android:id="@+id/certifyitem_favorite_imageview"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="#FF0000"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/좋아요" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_margin="3.5dp"
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:contentDescription="@string/comment"
+            app:backgroundTint="#FFFFFF"
+            app:srcCompat="@drawable/ic_baseline_comment_24"
+            tools:ignore="UnusedAttribute,VectorDrawableCompat" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:id="@+id/certifyitem_favorite_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/like_0"
+        android:layout_marginStart="8dp" />
+</LinearLayout>
