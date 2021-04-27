@@ -69,10 +69,6 @@ public class BottomNavigation extends AppCompatActivity {
                         case R.id.action_certify:
                             Toast.makeText(getApplicationContext(), "certify 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationCertifyFragment).commit();
-
-//                            // 이걸 certifyFragment.java 에 적용시켜야 한다.
-//                            Intent intent = new Intent(this, NavigationCertifyFragment.class);
-//                            startActivity(intent);
                             return true;
                         case R.id.action_recruit:
                             Toast.makeText(getApplicationContext(), "recruit 선택", Toast.LENGTH_SHORT).show();
