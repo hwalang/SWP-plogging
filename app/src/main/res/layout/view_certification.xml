@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/certification_title" />
+            android:text="제목" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
                 android:id="@+id/certifyitem_created"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/작성일"
+                android:text="작성일"
                 android:paddingEnd="8dp"
                 tools:ignore="RtlSymmetry" />
 
@@ -40,7 +40,7 @@
                 android:id="@+id/certifyitem_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_name" />
+                android:text="작성자" />
         </LinearLayout>
     </LinearLayout>
 
@@ -55,7 +55,7 @@
         android:id="@+id/certifyitem_content_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/explain_content"
+        android:text="내용"
         android:layout_marginStart="8dp" />
 
     <LinearLayout
@@ -70,7 +70,7 @@
             android:layout_height="35dp"
             android:background="#FF0000"
             android:layout_marginStart="8dp"
-            android:contentDescription="@string/좋아요" />
+            android:contentDescription="좋아요" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_margin="3.5dp"
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#FFFFFF"
-            android:contentDescription="@string/comment"
+            android:contentDescription="댓글"
             app:backgroundTint="#FFFFFF"
             app:srcCompat="@drawable/ic_baseline_comment_24"
             tools:ignore="UnusedAttribute,VectorDrawableCompat" />
@@ -90,6 +90,6 @@
         android:id="@+id/certifyitem_favorite_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/like_0"
+        android:text="like_0"
         android:layout_marginStart="8dp" />
 </LinearLayout>

@@ -29,7 +29,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:clickable="true"
-        android:contentDescription="@string/글작성"
+        android:contentDescription="글작성"
         android:focusable="true"
         app:srcCompat="@drawable/ic_baseline_add_24"
         tools:ignore="VectorDrawableCompat" />
@@ -43,7 +43,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:clickable="true"
-        android:contentDescription="@string/rank"
+        android:contentDescription="rank"
         android:focusable="true"
         app:srcCompat="@drawable/ic_baseline_attribution_24"
         tools:ignore="RelativeOverlap,VectorDrawableCompat"
