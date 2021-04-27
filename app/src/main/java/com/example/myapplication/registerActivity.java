@@ -9,8 +9,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,10 +46,12 @@ public class registerActivity extends AppCompatActivity {
     private EditText editText3;
     private EditText editText1;
     private Long editText4;
-    private EditText editText5;
     private EditText editText6;
     private ImageView profile;
     private String name;
+    private RadioButton Radio1;
+    private RadioButton Radio2;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +66,15 @@ public class registerActivity extends AppCompatActivity {
         editText1 = findViewById(R.id.name);
         editText2 = findViewById(R.id.userId);
         editText3 = findViewById(R.id.userPw);
-        editText5 = findViewById(R.id.gender);
         editText6 = findViewById(R.id.userPwCheck);
         profile = findViewById(R.id.memberjoin_iv);
         Button signup = findViewById(R.id.register);
+
+        Radio1 = (RadioButton) findViewById(R.id.RadioBtn1);
+        Radio2 = (RadioButton) findViewById(R.id.RadioBtn2);
+        radioGroup = (RadioGroup)findViewById(R.id.radioGroup1);
+        radioGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
+
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,12 +91,17 @@ public class registerActivity extends AppCompatActivity {
         });
     }
 
-//    private void gotoAlbum() {
-//        startActivityForResult(
-//        Intent.createChooser(
-//                new Intent(Intent.ACTION_GET_CONTENT)
-//                .setType("image/*"), "Choose an image"), PICK_FROM_ALBLM);
-//    }
+    RadioGroup.OnCheckedChangeListener radioGroupButtonChangeListener = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (checkedId == R.id.RadioBtn1){
+                Toast.makeText(registerActivity.this, "성별 : 남", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(registerActivity.this, "성별 : 여", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
 
     private void gotoAlbum() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -137,10 +152,12 @@ public class registerActivity extends AppCompatActivity {
         String email = editText2.getText().toString();
         String emailPw = editText3.getText().toString();
         Long birth = Long.valueOf(((EditText) findViewById(R.id.birth)).getText().toString());
-        String gender = editText5.getText().toString();
         String emailPwCheck = editText6.getText().toString();
+        RadioButton Man = findViewById(R.id.RadioBtn1);
+        RadioButton Woman = findViewById(R.id.RadioBtn2);
 
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(emailPw)) {                    // profile == null 작동을 안해서 일단 뺌
+
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(emailPw) || profile == null) {
             Toast.makeText(registerActivity.this, "정보를 바르게 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -151,6 +168,7 @@ public class registerActivity extends AppCompatActivity {
             editText3.requestFocus();
             return;
         }
+
 
         try {
             mAuth.createUserWithEmailAndPassword(email, emailPw)
@@ -171,8 +189,16 @@ public class registerActivity extends AppCompatActivity {
                                         UserModel userModel = new UserModel();
 
                                         userModel.userName = name;
+                                        userModel.birth = birth;
                                         userModel.uid = uid;
                                         userModel.profileImageUrl = imageUrl.getResult().toString();
+
+                                        if (Man.isChecked()) {
+                                            userModel.gender = "남";
+                                        }
+                                        if (Woman.isChecked()) {
+                                            userModel.gender = "여";
+                                        }
 
                                         mDatabase.getReference().child("users").child(uid).setValue(userModel);
                                     }
