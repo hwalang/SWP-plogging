@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.CommentActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.ViewCertificationActivity;
 import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -148,6 +149,18 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         TextView certifyitem_content_textview = cardView.findViewById(R.id.certifyitem_content_textview);
         certifyitem_content_textview.setText(certificationBoards.get(position).getBoardContent());
 
+        // 상세보기
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, "인증글 상세보기", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity, ViewCertificationActivity.class);
+                intent.putExtra("certification", certificationBoards.get(position));
+                intent.putExtra("contentId", contentIdList.get(position));
+                activity.startActivity(intent);
+            }
+        });
+
         // 댓글
         FloatingActionButton comment = cardView.findViewById(R.id.comment);
         comment.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +184,6 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
             public void onClick(View v) {
                 Toast.makeText(activity, "좋아요 수 증가", Toast.LENGTH_SHORT).show();
                 Log.d("CertificationBoard", "getItemCount = " + getItemCount());
-//                Log.d("Recyclerview", "position = "+ certifyViewHolder.getAdapterPosition());
             }
         });
     }

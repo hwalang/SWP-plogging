@@ -32,6 +32,7 @@ import com.example.myapplication.AddCertificationActivity;
 import com.example.myapplication.BottomNavigation;
 import com.example.myapplication.CommentActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.ViewCertificationActivity;
 import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -117,7 +118,7 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
             case R.id.write_certification_button:
                 Toast.makeText(getContext(), "인증글 작성 버튼 클릭", Toast.LENGTH_SHORT).show();
                 // 갤러리 권한
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), AddCertificationActivity.class);
                     startActivity(intent);
