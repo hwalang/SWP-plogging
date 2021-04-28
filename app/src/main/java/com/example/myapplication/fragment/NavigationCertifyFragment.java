@@ -39,6 +39,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
@@ -64,33 +65,36 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
     private static final String TAG = "NavigationCertifyFragment";
 
     RecyclerView recyclerview;
-    FloatingActionButton rank_button;
     FloatingActionButton write_certification_button;
-    FloatingActionButton comment;
 
     RecyclerView.LayoutManager layoutManager;
-//    FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore = null;
-//    String userId = null; // user_id
+    CertificationAdapter certificationAdapter;
+    ArrayList<CertificationBoard> certificationBoards;
+    ArrayList<String> contentIdList;
+
+    FirebaseUser user;
+    String userId = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bottom_main_certify, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
-//        userId = firebaseAuth.getCurrentUser().getEmail();
-        final ArrayList<CertificationBoard> certificationBoards = new ArrayList<>();
-        final ArrayList<String> contentIdList = new ArrayList<>();
+        certificationBoards = new ArrayList<>();
+        contentIdList = new ArrayList<>();
 
-
-        // 랭킹페이지로 가는 버튼
-        rank_button = rootView.findViewById(R.id.rank_button);
-        rank_button.setOnClickListener(this);
-
-        CertificationAdapter certificationAdapter = new CertificationAdapter(getActivity(), certificationBoards, contentIdList);
+        // 계정작업
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+            Toast.makeText(getActivity(), "계정 확인", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "현재 계정이 없습니다.", Toast.LENGTH_SHORT).show();
+        }
         recyclerview = rootView.findViewById(R.id.certifyitemfragment_recyclerview);
+
         recyclerview.setHasFixedSize(true);
-        recyclerview.setAdapter(certificationAdapter);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(layoutManager);
 
@@ -100,21 +104,22 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
 
         return rootView;
     }
+    public void onResume() {
+        super.onResume();
+        certificationAdapter = new CertificationAdapter(getActivity(), certificationBoards, contentIdList);
+        recyclerview.setAdapter(certificationAdapter);
+    }
 
     /* 버튼 이벤트
-    * 랭킹
     * 인증글 작성
+    * 인증글 수정
+    * 인증글 삭제
     * */
     @Override
     public void onClick(View v) {
         FloatingActionButton button = (FloatingActionButton) v;
 
         switch (button.getId()) {
-            case R.id.rank_button:
-                //버튼 클릭시 아래 구현이 실행된다.
-                Toast.makeText(getContext(), "랭킹 버튼 클릭", Toast.LENGTH_SHORT).show();
-//                getActivity().startActivity(new Intent(getActivity(), Ranking.class));
-                break;
             case R.id.write_certification_button:
                 Toast.makeText(getContext(), "인증글 작성 버튼 클릭", Toast.LENGTH_SHORT).show();
                 // 갤러리 권한

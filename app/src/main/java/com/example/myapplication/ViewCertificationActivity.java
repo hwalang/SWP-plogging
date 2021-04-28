@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,19 +14,22 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ViewCertificationActivity extends AppCompatActivity {
-    Button deleteBtn;
-
+    FirebaseUser user = null;
+    String userId = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_certification);
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
         CertificationBoard certificationBoard = (CertificationBoard) getIntent().getSerializableExtra("certification");
 
         // 제목
@@ -71,24 +75,27 @@ public class ViewCertificationActivity extends AppCompatActivity {
         // 수정, 삭제 버튼
         Button modifyBtn = findViewById(R.id.modify_certification);
         Button deleteBtn = findViewById(R.id.delete_certification);
-        // 유저 데이터 받아야한다.
-//        if (certificationBoard.getName().equals(userData))
-        modifyBtn.setVisibility(View.VISIBLE);
-        modifyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ViewCertificationActivity.this, "인증글 수정", Toast.LENGTH_SHORT).show();
+
+        if (user != null) {
+            userId = user.getUid();
+
+            if (certificationBoard.getUserId().equals(userId)) {
+                modifyBtn.setVisibility(View.VISIBLE);
+                modifyBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ViewCertificationActivity.this, "인증글 수정", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                deleteBtn.setVisibility(View.VISIBLE);
+                deleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ViewCertificationActivity.this, "인증글 삭제", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-        });
-
-        deleteBtn.setVisibility(View.VISIBLE);
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ViewCertificationActivity.this, "인증글 삭제", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+        }
     }
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 public class CertificationBoard implements Serializable {
     // 인증글 key 는 파이어스토어에서 자동 생성 add() 이용
     private String userId;
+    private String email;
     private String boardTitle;
     private String boardContent;
     private String name;
@@ -22,15 +23,18 @@ public class CertificationBoard implements Serializable {
     private final long certifyFeel = 0;
     private final Map<String, Boolean> favorites = new HashMap<>();
 
-    public CertificationBoard(String userId, String boardTitle, String boardContent, String name, long boardCreate, String certifyPhoto) {
-        this.userId = userId;
+    // 유저id를 활용한 생성자
+    public CertificationBoard(String userId, String boardTitle, String boardContent, long boardCreate, String certifyPhoto) {
+        this.userId = userId;   // id
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
-        this.name = name;
         this.boardCreate = boardCreate;
         this.certifyPhoto = certifyPhoto;
     }
-    public CertificationBoard(String boardTitle, String boardContent, String name, long boardCreate, String certifyPhoto) {
+
+    // 계정 데이터에 이상이 있을때, 해당 생성자를 사용
+    public CertificationBoard(String email, String boardTitle, String boardContent, String name, long boardCreate, String certifyPhoto) {
+        this.email = email;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.name = name;
@@ -52,6 +56,9 @@ public class CertificationBoard implements Serializable {
         return userId;
     }
 
+    public String getEmail() {
+        return email;
+    }
     public String getBoardTitle() {
         return boardTitle;
     }
