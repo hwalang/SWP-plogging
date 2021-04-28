@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -18,6 +19,9 @@ import com.example.myapplication.fragment.NavigationPloggingFragment;
 import com.example.myapplication.fragment.NavigationRecruitFragment;
 import com.example.myapplication.fragment.NavigationUserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class BottomNavigation extends AppCompatActivity {
     NavigationUserFragment navigationUserFragment;

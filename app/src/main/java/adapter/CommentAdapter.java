@@ -109,11 +109,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         // String userId, String name, String comment, long commentCreate
 
-        // 작성자 프로필 이미지(임시)
+        // 작성자 프로필 이미지(임시): userId 를 통해서 작성자 프로필을 가져온다.
         ImageView profile = cardView.findViewById(R.id.item_comment_profile);
         profile.setImageResource(R.drawable.common_google_signin_btn_icon_dark_normal);
 
-        // 작성자 이름
+        // 작성자 이름: userId 를 통해서 작성자 이름을 가져온다.
         TextView username = cardView.findViewById(R.id.item_comment_username);
         username.setText(comments.get(position).getName());
 

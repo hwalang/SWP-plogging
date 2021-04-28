@@ -55,6 +55,10 @@ public class CommentActivity extends AppCompatActivity {
     EditText commentEdit;
     Button commentSend;
 
+    CommentAdapter commentAdapter;
+    RecyclerView recyclerview;
+    ArrayList<CertificationBoard.Comment> commentList;
+
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     private CertificationBoard.Comment commentInfo;
@@ -69,14 +73,12 @@ public class CommentActivity extends AppCompatActivity {
         contentId = getIntent().getStringExtra("contentId");
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
-        ArrayList<CertificationBoard.Comment> commentList = new ArrayList<>();
-        CommentAdapter commentAdapter = new CommentAdapter(this, commentList, contentId);
+        commentList = new ArrayList<>();
 
-        // 댓글 가져오기
-        RecyclerView recyclerview = findViewById(R.id.comment_recyclerview);
+        // 댓글 가져오기: resume
+        recyclerview = findViewById(R.id.comment_recyclerview);
         recyclerview.setHasFixedSize(true);
 
-        recyclerview.setAdapter(commentAdapter);
         recyclerview.setLayoutManager(layoutManager);
 
         // 입력 data
@@ -113,6 +115,7 @@ public class CommentActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                onResume();
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
                             }
                         })
@@ -126,5 +129,11 @@ public class CommentActivity extends AppCompatActivity {
                 Log.d("documentId", "documentId = " + contentId);
             }
         });
+    }
+
+    public void onResume() {
+        super.onResume();
+        commentAdapter = new CommentAdapter(this, commentList, contentId);
+        recyclerview.setAdapter(commentAdapter);
     }
 }

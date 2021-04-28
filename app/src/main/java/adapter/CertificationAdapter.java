@@ -3,6 +3,7 @@ package adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -48,6 +51,9 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
     private final Activity activity;
     private final ArrayList<String> contentIdList;
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    String userId = null;
 
     public static class CertifyViewHolder extends RecyclerView.ViewHolder {
         public CardView cardView;
@@ -59,10 +65,9 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
     }
 
     public CertificationAdapter(Activity activity, ArrayList<CertificationBoard> certificationBoards, ArrayList<String> contentIdList) {
+        this.activity = activity;
         this.certificationBoards = certificationBoards;
         this.contentIdList = contentIdList;
-        this.activity = activity;
-        // 유저 list 도 지정
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         final DocumentReference documentReference = firebaseFirestore.collection("certification").document();
@@ -87,9 +92,9 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
                                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                         Log.d(TAG, document.getId() + "=> " + document.getData());
                                         certificationBoards.add(new CertificationBoard(
+                                                document.getData().get("userId").toString(),
                                                 document.getData().get("boardTitle").toString(),
                                                 document.getData().get("boardContent").toString(),
-                                                document.getData().get("name").toString(),
                                                 (Long) document.getData().get("boardCreate"),
                                                 document.getData().get("certifyPhoto").toString()
                                         ));
@@ -136,7 +141,7 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         String created = timeFormat.format(new Date(certificationBoards.get(position).getBoardCreate()));
         certifyitem_created.setText(created);
 
-        // 작성자
+        // 작성자: userId 를 통해서 작성자 이름을 가져온다
         TextView certifyitem_user = cardView.findViewById(R.id.certifyitem_user);
         certifyitem_user.setText(certificationBoards.get(position).getName());
 
