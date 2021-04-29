@@ -134,6 +134,8 @@ public class CommentActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         commentAdapter = new CommentAdapter(this, commentList, contentId);
+        commentEdit = findViewById(R.id.comment_edit);
+        commentEdit.setText("");
         recyclerview.setAdapter(commentAdapter);
     }
 }
