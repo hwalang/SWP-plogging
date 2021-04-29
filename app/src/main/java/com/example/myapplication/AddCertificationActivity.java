@@ -44,6 +44,7 @@ public class AddCertificationActivity extends AppCompatActivity {
     FirebaseStorage firebaseStorage = null;
     FirebaseUser user = null;
     String userId = null;
+    String contentId = null;
     FirebaseFirestore firebaseFirestore = null;
 
     Integer CHOOSE_IMAGE_FROM_GALLERY = 0;
@@ -62,9 +63,12 @@ public class AddCertificationActivity extends AppCompatActivity {
         // 수정 테스트
 
         /*초기화
-        * 1. 파이어베이스 스토리지
-        * 2. 파이어베이스 계정
-        * 3. 파이어베이스 스토어*/
+         * 1. 파이어베이스 스토리지
+         * 2. 파이어베이스 계정
+         * 3. 파이어베이스 스토어*/
+        contentId = getIntent().getStringExtra("contentId");
+
+
         firebaseStorage = FirebaseStorage.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -129,26 +133,43 @@ public class AddCertificationActivity extends AppCompatActivity {
                                 data.put("boardCreate", System.currentTimeMillis());
                                 data.put("certifyPhoto", downloadUri.toString());
 
-                                // add 말고 userId 를 document ID 값으로 설정하고 사용하는 방법도 있다.
-                                firebaseFirestore.collection("certification")
-                                        .add(data)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @SuppressLint("LongLogTag")
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                documentReference.set(data);
-                                                Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 성공", Toast.LENGTH_SHORT).show();
-                                                Log.d(TAG, "문서ID: " + documentReference.getId());
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @SuppressLint("LongLogTag")
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 실패", Toast.LENGTH_SHORT).show();
-                                                Log.w(TAG, "문서 추가 에러", e);
-                                            }
-                                        });
+                                // 수정 또는 작성
+                                if (contentId != null) {
+                                    DocumentReference documentReference = firebaseFirestore.collection("certification").document(contentId);
+                                    documentReference.set(certificationBoard)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(AddCertificationActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error writing document", e);
+                                                }
+                                            });
+                                } else {
+                                    firebaseFirestore.collection("certification")
+                                            .add(data)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @SuppressLint("LongLogTag")
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    documentReference.set(data);
+                                                    Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 성공", Toast.LENGTH_SHORT).show();
+                                                    Log.d(TAG, "문서ID: " + documentReference.getId());
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @SuppressLint("LongLogTag")
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 실패", Toast.LENGTH_SHORT).show();
+                                                    Log.w(TAG, "문서 추가 에러", e);
+                                                }
+                                            });
+                                }
                                 setResult(Activity.RESULT_OK);
                                 finish();
                             }
@@ -188,6 +209,6 @@ public class AddCertificationActivity extends AppCompatActivity {
                 // 선택하지 않고 갤러리를 떠났을 때 일어나는 이벤트
                 finish();
             }
-       }
+        }
     }
 }

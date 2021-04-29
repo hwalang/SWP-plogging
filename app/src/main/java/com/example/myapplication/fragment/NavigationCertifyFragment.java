@@ -126,6 +126,7 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
                 if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(getContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), AddCertificationActivity.class);
+
                     startActivity(intent);
                 } else {
                     // 허용 요청
