@@ -32,6 +32,7 @@ import com.example.myapplication.AddCertificationActivity;
 import com.example.myapplication.BottomNavigation;
 import com.example.myapplication.CommentActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.UserModel;
 import com.example.myapplication.ViewCertificationActivity;
 import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
