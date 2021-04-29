@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.CommentActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.UserModel;
 import com.example.myapplication.ViewCertificationActivity;
 import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -51,6 +57,9 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
     private final Activity activity;
     private final ArrayList<String> contentIdList;
     FirebaseFirestore firebaseFirestore;
+
+    DatabaseReference firebaseDatabase;
+
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     String userId = null;
@@ -142,8 +151,28 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         certifyitem_created.setText(created);
 
         // 작성자: userId 를 통해서 작성자 이름을 가져온다
-        TextView certifyitem_user = cardView.findViewById(R.id.certifyitem_user);
-        certifyitem_user.setText(certificationBoards.get(position).getName());
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userId = user.getUid();
+
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseDatabase.child("users").child(userId).child("userName")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    // 성공
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    String userName = task.getResult().getValue().toString();
+                    // 작성자 이름
+                    TextView certifyitem_user = cardView.findViewById(R.id.certifyitem_user);
+                    certifyitem_user.setText(userName);
+                }
+            }
+        });
 
         // Image
         Glide.with(cardView.getContext()).load(certificationBoards.get(position).getCertifyPhoto()).into(
