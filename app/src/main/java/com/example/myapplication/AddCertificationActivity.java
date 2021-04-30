@@ -26,6 +26,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,6 +49,9 @@ public class AddCertificationActivity extends AppCompatActivity {
     String userId = null;
     String contentId = null;
     FirebaseFirestore firebaseFirestore = null;
+    DatabaseReference firebaseDatabase;
+    String boardName;
+    CertificationBoard certificationBoard;
 
     Integer CHOOSE_IMAGE_FROM_GALLERY = 0;
     Uri photoUri = null;
@@ -60,7 +66,6 @@ public class AddCertificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_certification);
-        // 수정 테스트
 
         /*초기화
          * 1. 파이어베이스 스토리지
@@ -112,66 +117,83 @@ public class AddCertificationActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 Uri downloadUri = task.getResult();
-
                                 Map<String, Object> data = new HashMap<>(); // data 추가 방법
-                                assert downloadUri != null; // downloadUri.toString() 할 때 있으면 좋은 코드
-                                // 필요 없는듯
-                                CertificationBoard certificationBoard = new CertificationBoard(
-                                        userId,
-                                        write_certification_title.getText().toString(),
-                                        write_certification_explain.getText().toString(),
-                                        System.currentTimeMillis(),
-                                        downloadUri.toString());
-                                // 파이어스토어에 데이터 넣기
-                                // userId -> getId 에서 받아오는 id 로 저장해야할 것 같다.
-                                // user 의 id를 가져와서 해당 id 안에 저장된 이름을 가져온다.
-                                // 즉, 여기서 name 은 필요없다.
-                                data.put("userId", userId);
-                                data.put("boardTitle", write_certification_title.getText().toString());
-                                data.put("boardContent", write_certification_explain.getText().toString());
-//                                data.put("name", name);
-                                data.put("boardCreate", System.currentTimeMillis());
-                                data.put("certifyPhoto", downloadUri.toString());
 
-                                // 수정 또는 작성
-                                if (contentId != null) {
-                                    DocumentReference documentReference = firebaseFirestore.collection("certification").document(contentId);
-                                    documentReference.set(certificationBoard)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(AddCertificationActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                // 작성자: userId 를 통해서 name 을 가져온다
+                                firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+                                firebaseDatabase.child("users").child(userId).child("userName")
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                if (!task.isSuccessful()) {
+                                                    Log.e("firebase", "Error getting data", task.getException());
                                                 }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w(TAG, "Error writing document", e);
-                                                }
-                                            });
-                                } else {
-                                    firebaseFirestore.collection("certification")
-                                            .add(data)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @SuppressLint("LongLogTag")
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    documentReference.set(data);
-                                                    Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 성공", Toast.LENGTH_SHORT).show();
-                                                    Log.d(TAG, "문서ID: " + documentReference.getId());
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @SuppressLint("LongLogTag")
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 실패", Toast.LENGTH_SHORT).show();
-                                                    Log.w(TAG, "문서 추가 에러", e);
-                                                }
-                                            });
-                                }
-                                setResult(Activity.RESULT_OK);
-                                finish();
+                                                else {
+                                                    // 성공
+                                                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                                    boardName = task.getResult().getValue().toString();
+
+                                                    assert downloadUri != null; // downloadUri.toString() 할 때 있으면 좋은 코드
+                                                    certificationBoard = new CertificationBoard(
+                                                            userId,
+                                                            boardName,
+                                                            write_certification_title.getText().toString(),
+                                                            write_certification_explain.getText().toString(),
+                                                            System.currentTimeMillis(),
+                                                            downloadUri.toString()
+                                                    );
+
+                                                    // 파이어스토어에 데이터 넣기
+                                                    data.put("userId", userId);
+                                                    data.put("name", boardName);
+                                                    data.put("boardTitle", write_certification_title.getText().toString());
+                                                    data.put("boardContent", write_certification_explain.getText().toString());
+                                                    data.put("boardCreate", System.currentTimeMillis());
+                                                    data.put("certifyPhoto", downloadUri.toString());
+
+                                                    // 수정 또는 작성
+                                                    if (contentId != null) {
+                                                        DocumentReference documentReference = firebaseFirestore.collection("certification").document(contentId);
+                                                        documentReference.set(certificationBoard)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Toast.makeText(AddCertificationActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Log.w(TAG, "Error writing document", e);
+                                                                    }
+                                                                });
+                                                    } else {
+                                                        firebaseFirestore.collection("certification")
+                                                                .add(data)
+                                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                    @SuppressLint("LongLogTag")
+                                                                    @Override
+                                                                    public void onSuccess(DocumentReference documentReference) {
+                                                                        documentReference.set(data);
+                                                                        Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 성공", Toast.LENGTH_SHORT).show();
+                                                                        Log.d(TAG, "문서ID: " + documentReference.getId());
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @SuppressLint("LongLogTag")
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 실패", Toast.LENGTH_SHORT).show();
+                                                                        Log.w(TAG, "문서 추가 에러", e);
+                                                                    }
+                                                                });
+                                                    }
+                                                } // 계정 받아오기
+                                                setResult(Activity.RESULT_OK);
+                                                finish();
+                                            }
+                                        });
                             }
                         }
                     });

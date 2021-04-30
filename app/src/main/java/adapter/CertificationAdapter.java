@@ -58,8 +58,6 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
     private final ArrayList<String> contentIdList;
     FirebaseFirestore firebaseFirestore;
 
-    DatabaseReference firebaseDatabase;
-
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     String userId = null;
@@ -100,8 +98,10 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
                                     contentIdList.clear();
                                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                         Log.d(TAG, document.getId() + "=> " + document.getData());
+
                                         certificationBoards.add(new CertificationBoard(
                                                 document.getData().get("userId").toString(),
+                                                document.getData().get("name").toString(),
                                                 document.getData().get("boardTitle").toString(),
                                                 document.getData().get("boardContent").toString(),
                                                 (Long) document.getData().get("boardCreate"),
@@ -150,29 +150,9 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         String created = timeFormat.format(new Date(certificationBoards.get(position).getBoardCreate()));
         certifyitem_created.setText(created);
 
-        // 작성자: userId 를 통해서 작성자 이름을 가져온다
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userId = user.getUid();
-
-        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
-        firebaseDatabase.child("users").child(userId).child("userName")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    // 성공
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    String userName = task.getResult().getValue().toString();
-                    // 작성자 이름
-                    TextView certifyitem_user = cardView.findViewById(R.id.certifyitem_user);
-                    certifyitem_user.setText(userName);
-                }
-            }
-        });
+        // 작성자 이름
+        TextView certifyitem_user = cardView.findViewById(R.id.certifyitem_user);
+        certifyitem_user.setText(certificationBoards.get(position).getName());
 
         // Image
         Glide.with(cardView.getContext()).load(certificationBoards.get(position).getCertifyPhoto()).into(
