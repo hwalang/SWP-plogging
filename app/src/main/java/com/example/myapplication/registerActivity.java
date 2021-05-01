@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -67,12 +66,12 @@ public class registerActivity extends AppCompatActivity {
         editText2 = findViewById(R.id.userId);
         editText3 = findViewById(R.id.userPw);
         editText6 = findViewById(R.id.userPwCheck);
-        profile = findViewById(R.id.memberjoin_iv);
+        profile = findViewById(R.id.proFIle);
         Button signup = findViewById(R.id.register);
 
         Radio1 = (RadioButton) findViewById(R.id.RadioBtn1);
         Radio2 = (RadioButton) findViewById(R.id.RadioBtn2);
-        radioGroup = (RadioGroup)findViewById(R.id.radioGroup1);
+        radioGroup = (RadioGroup)findViewById(R.id.gender);
         radioGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
 
 

@@ -24,11 +24,20 @@ public class CertificationBoard implements Serializable {
     private final Map<String, Boolean> favorites = new HashMap<>();
 
     // 유저id를 활용한 생성자
-    public CertificationBoard(String userId, String name, String boardTitle, String boardContent, long boardCreate, String certifyPhoto) {
+    public CertificationBoard(String userId, String boardTitle, String boardContent, long boardCreate, String certifyPhoto) {
         this.userId = userId;   // id
-        this.name = name;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
+        this.boardCreate = boardCreate;
+        this.certifyPhoto = certifyPhoto;
+    }
+
+    // 계정 데이터에 이상이 있을때, 해당 생성자를 사용
+    public CertificationBoard(String email, String boardTitle, String boardContent, String name, long boardCreate, String certifyPhoto) {
+        this.email = email;
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.name = name;
         this.boardCreate = boardCreate;
         this.certifyPhoto = certifyPhoto;
     }
@@ -83,15 +92,17 @@ public class CertificationBoard implements Serializable {
     * */
     public static class Comment implements Serializable {
         private String userId;
-        private String profileUrl;
         private String name;
         private String comment;
         private long commentCreate;
 
-        public Comment(String userId, String profileUrl, String name, String comment, long commentCreate) {
+        public Comment(String userId, String name, String comment, long commentCreate) {
             this.userId = userId;
-            this.profileUrl = profileUrl;
             this.name = name;
+            this.comment = comment;
+            this.commentCreate = commentCreate;
+        }
+        public Comment(String comment, long commentCreate) {
             this.comment = comment;
             this.commentCreate = commentCreate;
         }
@@ -99,7 +110,6 @@ public class CertificationBoard implements Serializable {
         public String getUserId() {
             return userId;
         }
-        public String getProfileUrl() {return profileUrl;}
         public String getName() {
             return name;
         }

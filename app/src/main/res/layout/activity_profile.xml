@@ -10,43 +10,82 @@
         android:id="@+id/proFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066"
+        app:layout_constraintVertical_bias="0.177"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/profileName"
-        android:layout_width="130dp"
-        android:layout_height="30dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/proFile"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.379"
+        android:background="@drawable/border"/>
 
     <TextView
         android:id="@+id/profileRank"
-        android:layout_width="130dp"
-        android:layout_height="30dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/border"
+        android:text="랭크"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileName"
-        app:layout_constraintVertical_bias="0.062" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.483" />
 
     <TextView
         android:id="@+id/profileStep"
-        android:layout_width="130dp"
-        android:layout_height="30dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@drawable/border"
+        android:text="누적 걸음 수"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileRank"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.587" />
+
+    <Button
+        android:id="@+id/btn_Navigation"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="활동"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.684"
+        android:background="@drawable/border"/>
+
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="메 뉴"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        android:background="@drawable/border"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

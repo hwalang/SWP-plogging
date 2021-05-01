@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.schema.CertificationBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -69,7 +68,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                                 comments.add(new CertificationBoard.Comment(
                                                         document.getData().get("userId").toString(),
-                                                        document.getData().get("profileUrl").toString(),
                                                         document.getData().get("name").toString(),
                                                         document.getData().get("comment").toString(),
                                                         (Long) document.getData().get("commentCreate")
@@ -109,12 +107,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public void onBindViewHolder(@NonNull final CommentViewHolder holder, int position) {
         CardView cardView = holder.cardView;
 
-        // 작성자 프로필
-        Glide.with(cardView.getContext()).load(comments.get(position).getProfileUrl()).into(
-                (ImageView) cardView.findViewById(R.id.item_comment_profile)
-        );
+        // String userId, String name, String comment, long commentCreate
 
-        // 작성자 이름
+        // 작성자 프로필 이미지(임시): userId 를 통해서 작성자 프로필을 가져온다.
+        ImageView profile = cardView.findViewById(R.id.item_comment_profile);
+        profile.setImageResource(R.drawable.common_google_signin_btn_icon_dark_normal);
+
+        // 작성자 이름: userId 를 통해서 작성자 이름을 가져온다.
         TextView username = cardView.findViewById(R.id.item_comment_username);
         username.setText(comments.get(position).getName());
 

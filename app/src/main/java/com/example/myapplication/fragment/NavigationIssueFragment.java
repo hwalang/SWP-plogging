@@ -94,7 +94,7 @@ public class NavigationIssueFragment extends Fragment {
 
     public String getCountry(){
         Locale locale = Locale.getDefault();
-        String country = "Environment";
+        String country = "kr";
         return country.toLowerCase();
     }
 }

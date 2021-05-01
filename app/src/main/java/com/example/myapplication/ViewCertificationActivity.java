@@ -1,30 +1,21 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.fragment.NavigationCertifyFragment;
 import com.example.myapplication.schema.CertificationBoard;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,22 +24,13 @@ import java.util.Date;
 public class ViewCertificationActivity extends AppCompatActivity {
     FirebaseUser user = null;
     String userId = null;
-    FirebaseFirestore firebaseFirestore = null;
-    CertificationBoard certificationBoard;
-    String contentId;
-
-    Integer MODIFY_CODE = 101;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_certification);
 
-        contentId = getIntent().getStringExtra("contentId");
-        certificationBoard = (CertificationBoard) getIntent().getSerializableExtra("certification");
-
         user = FirebaseAuth.getInstance().getCurrentUser();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        CertificationBoard certificationBoard = (CertificationBoard) getIntent().getSerializableExtra("certification");
 
         // 제목
         TextView title = findViewById(R.id.view_certifyitem_title);
@@ -83,6 +65,7 @@ public class ViewCertificationActivity extends AppCompatActivity {
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String contentId = getIntent().getStringExtra("contentId");
                 Intent intent = new Intent(getApplicationContext(), CommentActivity.class);
                 intent.putExtra("contentId", contentId);
                 startActivity(intent);
@@ -102,9 +85,6 @@ public class ViewCertificationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(ViewCertificationActivity.this, "인증글 수정", Toast.LENGTH_SHORT).show();
-                        Intent intentModify = new Intent(getApplicationContext(), AddCertificationActivity.class);
-                        intentModify.putExtra("contentId", contentId);
-                        startActivityForResult(intentModify, MODIFY_CODE);
                     }
                 });
 
@@ -113,29 +93,9 @@ public class ViewCertificationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(ViewCertificationActivity.this, "인증글 삭제", Toast.LENGTH_SHORT).show();
-                        firebaseFirestore.collection("certification").document(contentId)
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ViewCertificationActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
-                                        Log.d("ViewCertification", "contentId = " + contentId);
-                                        finish();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ViewCertificationActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
-                                        Log.d("ViewCertification", "contentId = " + contentId);
-                                    }
-                                });
                     }
                 });
             }
         }
-    }
-    public void onResume() {
-        super.onResume();
     }
 }
