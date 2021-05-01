@@ -33,7 +33,6 @@ public class profileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView editText1;
     private TextView editText2;
-    private TextView editText3;
     private ImageView profile;
     private Button menu;
     private Button navigation;
@@ -58,8 +57,7 @@ public class profileActivity extends AppCompatActivity {
 
 
         editText1 = findViewById(R.id.profileName);
-        editText2 = findViewById(R.id.profileRank);
-        editText3 = findViewById(R.id.profileStep);
+        editText2 = findViewById(R.id.profileStep);
         profile = findViewById(R.id.proFile);
         menu = findViewById(R.id.menu);
         navigation = findViewById(R.id.btn_Navigation);

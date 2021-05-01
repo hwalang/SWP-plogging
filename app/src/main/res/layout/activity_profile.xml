@@ -26,28 +26,14 @@
         android:id="@+id/profileName"
         android:layout_width="200dp"
         android:layout_height="50dp"
+        android:background="@drawable/border"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.379"
-        android:background="@drawable/border"/>
-
-    <TextView
-        android:id="@+id/profileRank"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:background="@drawable/border"
-        android:text="랭크"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintVertical_bias="0.437" />
 
     <TextView
         android:id="@+id/profileStep"
@@ -61,7 +47,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.587" />
+        app:layout_constraintVertical_bias="0.565" />
 
     <Button
         android:id="@+id/btn_Navigation"
