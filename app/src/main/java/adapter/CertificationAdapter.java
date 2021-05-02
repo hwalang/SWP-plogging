@@ -155,9 +155,11 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         certifyitem_user.setText(certificationBoards.get(position).getName());
 
         // Image
-        Glide.with(cardView.getContext()).load(certificationBoards.get(position).getCertifyPhoto()).into(
-                (ImageView) cardView.findViewById(R.id.certifyitem_imageview_content)
-        );
+        Glide.with(cardView.getContext())
+                .load(certificationBoards.get(position).getCertifyPhoto())
+                .into(
+                        (ImageView) cardView.findViewById(R.id.certifyitem_imageview_content)
+                );
 
         // 내용
         TextView certifyitem_content_textview = cardView.findViewById(R.id.certifyitem_content_textview);
