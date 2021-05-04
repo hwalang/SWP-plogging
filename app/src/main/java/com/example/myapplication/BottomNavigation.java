@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class BottomNavigation extends AppCompatActivity {
-
     NavigationPloggingFragment navigationPloggingFragment;
     NavigationCertifyFragment navigationCertifyFragment;
     NavigationRecruitFragment navigationRecruitFragment;
@@ -35,8 +34,6 @@ public class BottomNavigation extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_navigation);
-
-
         navigationPloggingFragment = new NavigationPloggingFragment();
         navigationCertifyFragment = new NavigationCertifyFragment();
         navigationRecruitFragment = new NavigationRecruitFragment();
