@@ -43,7 +43,7 @@ public class BottomNavigation extends AppCompatActivity {
         navigationIssueFragment = new NavigationIssueFragment();
 
         // 첫 화면
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationPloggingFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationCertifyFragment).commit();
 
         // 내비게이션 이벤트
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
