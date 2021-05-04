@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,8 @@ public class CommentActivity extends AppCompatActivity {
         // 댓글 가져오기: resume
         recyclerview = findViewById(R.id.comment_recyclerview);
         recyclerview.setHasFixedSize(true);
+
+
 
         recyclerview.setLayoutManager(layoutManager);
 

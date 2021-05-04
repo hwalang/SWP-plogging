@@ -26,7 +26,8 @@
             android:layout_toStartOf="@+id/comment_btn_send"
             android:autofillHints="댓글"
             android:inputType="none"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor"
+            android:scrollbars="vertical|horizontal" />
 
         <Button
             android:id="@+id/comment_btn_send"

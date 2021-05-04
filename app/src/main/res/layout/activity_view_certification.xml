@@ -22,6 +22,7 @@
             android:layout_gravity="center"
             android:text="제목"
             android:textSize="25dp"
+
             />
 
         <LinearLayout
@@ -29,23 +30,24 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_gravity="end"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:gravity="center">
 
             <TextView
-                android:paddingRight="8dp"
+                android:paddingRight="10dp"
                 android:id="@+id/view_certifyitem_created"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="작성일"
                 android:paddingEnd="8dp"
-                tools:ignore="RtlSymmetry"
-                android:fontFamily="@font/surroundair"/>
+                android:gravity="center"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/view_certifyitem_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:paddingRight="10dp"
                 android:text="작성자" />
         </LinearLayout>
     </LinearLayout>
@@ -74,7 +76,7 @@
         <ImageView
             android:id="@+id/view_certifyitem_favorite"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:contentDescription="좋아요"
@@ -82,15 +84,21 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/view_certifyitem_comment"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
-            app:backgroundTint="#FFFFFF"
-            app:srcCompat="@drawable/ic_baseline_comment_24"
-            tools:ignore="VectorDrawableCompat"
+            android:contentDescription="댓글"
             android:focusable="true"
-            android:contentDescription="댓글" />
+            android:foregroundGravity="center"
+            android:tint="#FFFFFF"
+
+            app:backgroundTint="#FFFFFF"
+            app:fabSize="mini"
+            app:maxImageSize="25dp"
+            app:rippleColor="#00FFFFFF"
+            app:srcCompat="@drawable/ic_baseline_comment_24"
+            tools:ignore="VectorDrawableCompat" />
 
 
     </LinearLayout>
@@ -117,14 +125,14 @@
             android:visibility="invisible"
             android:text="수정"
             />
+
         <Button
             android:id="@+id/delete_certification"
-            android:layout_margin="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:layout_margin="5dp"
             android:text="삭제"
-            />
+            android:visibility="invisible" />
 
     </LinearLayout>
 
