@@ -144,7 +144,6 @@
         android:layout_width="wrap_content"
         android:layout_height="39dp"
         android:layout_marginTop="100dp"
-        android:background="@color/purple_200"
         android:fontFamily="@font/surroundair"
         android:text="register"
         app:layout_constraintBottom_toBottomOf="parent"
