@@ -7,13 +7,12 @@ import java.util.Map;
 
 /*인증글 스키마
 * 파라미터:
-* 1. 유저 계정, 게시글 제목, 게시글 내용, 작성자 이름, 작성일
+* 1. 계정 id, 게시글 제목, 게시글 내용, 작성자 이름, 작성일
 * 2. 사진경로, 좋아요수, 좋아요 중복 방지
 * */
 public class CertificationBoard implements Serializable {
     // 인증글 key 는 파이어스토어에서 자동 생성 add() 이용
     private String userId;
-    private String email;
     private String boardTitle;
     private String boardContent;
     private String name;
@@ -33,23 +32,10 @@ public class CertificationBoard implements Serializable {
         this.certifyPhoto = certifyPhoto;
     }
 
-    public Map<String, Object> getCertificationBoard() {
-        Map<String, Object> docData = new HashMap<>();
-        docData.put("boardTitle", boardTitle);
-        docData.put("boardContent", boardContent);
-        docData.put("name", name);
-        docData.put("boardCreate", boardCreate);
-        docData.put("certifyPhoto", certifyPhoto);
-        return docData;
-    }
-
     public String getUserId() {
         return userId;
     }
 
-    public String getEmail() {
-        return email;
-    }
     public String getBoardTitle() {
         return boardTitle;
     }

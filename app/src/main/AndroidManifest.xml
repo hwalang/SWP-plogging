@@ -29,7 +29,8 @@
         <activity android:name=".CommentActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AddCertificationActivity" />
-        <activity android:name=".ViewCertificationActivity"/>
+        <activity android:name=".AddRecruitActivity"/>
+        <activity android:name=".ViewCertificationActivity" />
         <activity android:name=".Detailed" />
         <activity
             android:name=".registerActivity"
