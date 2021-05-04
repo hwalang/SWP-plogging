@@ -7,10 +7,11 @@
 
 
     <ImageView
+
         android:id="@+id/addPhoto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="10dp"
         android:contentDescription="사진대체" />
 
     <LinearLayout
@@ -26,6 +27,9 @@
             android:layout_height="wrap_content"
             android:autofillHints="제목"
             android:hint="제목"
+
+            android:layout_margin = "5dp"
+
             android:inputType="text" />
 
         <EditText
@@ -34,6 +38,8 @@
             android:layout_height="wrap_content"
             android:autofillHints="내용"
             android:hint="내용"
+            android:layout_margin = "5dp"
+
             android:inputType="text" />
 
     </LinearLayout>
@@ -43,17 +49,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="6dp"
         android:layout_toLeftOf="@id/write_certification_cancel"
         android:padding="5dp"
         android:text="확인"
         android:theme="@style/Widget.AppCompat.Button.Small"
-        android:layout_toStartOf="@id/write_certification_cancel" />
+        android:layout_toStartOf="@id/write_certification_cancel"
+        android:fontFamily="@font/surroundair"/>
 
     <Button
         android:id="@+id/write_certification_cancel"
@@ -62,8 +64,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
+        android:layout_margin="6dp"
         android:padding="5dp"
         android:text="취소"
-        android:theme="@style/Widget.AppCompat.Button.Small" />
+        android:theme="@style/Widget.AppCompat.Button.Small"
+        android:fontFamily="@font/surroundair"/>
 </RelativeLayout>
