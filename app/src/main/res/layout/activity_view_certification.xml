@@ -10,8 +10,9 @@
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <TextView
@@ -19,7 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="제목" />
+            android:text="제목"
+            android:textSize="25dp"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,12 +38,14 @@
                 android:layout_height="wrap_content"
                 android:text="작성일"
                 android:paddingEnd="8dp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:fontFamily="@font/surroundair"/>
 
             <TextView
                 android:id="@+id/view_certifyitem_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="작성자" />
         </LinearLayout>
     </LinearLayout>
@@ -58,6 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="내용"
+
         android:layout_marginStart="8dp" />
 
     <LinearLayout

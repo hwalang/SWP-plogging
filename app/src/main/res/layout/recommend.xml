@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ISSUE"
+        android:text="플로깅 추천 "
         android:textColor="@color/black"
         android:textSize="20sp"
         android:background="@color/grey"
@@ -19,17 +19,11 @@
         android:fontFamily="@font/surround"/>
 
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+    <ImageView
+        android:id="@+id/graf"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient"
-        android:ems="10"
-        android:textColor="@color/white"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:text="Search"/>
-
+        android:layout_height="228dp"
+        app:srcCompat="@drawable/img" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
@@ -44,6 +38,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
 </LinearLayout>
