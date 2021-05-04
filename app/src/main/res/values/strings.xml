@@ -11,6 +11,10 @@
     <string name="로그인이후">로그인이후</string>
     <string name="button">Button</string>
     <string name="search">Search</string>
-
-    <string name="msg_token_fmt">메시지 보내기</string>
+    <string name="title_activity_maps">Current Place Details</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
+    <string name="option_get_place">Get place</string>
+    <string name="pick_place">Choose a place</string>
+    <string name="maps_api_key">AIzaSyCi3Xj2JecpxezGBDG9eWo3kd1rjK42lac</string>
 </resources>
