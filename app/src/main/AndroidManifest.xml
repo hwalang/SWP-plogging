@@ -43,6 +43,7 @@
         <activity android:name=".ViewCertificationActivity"/>
         <activity android:name=".Detailed" />
         <activity android:name=".maps.MapsActivityCurrentPlace" />
+        <activity android:name=".maps.Tmap" />
         <activity
             android:name=".registerActivity"
             android:label="activity_sign_up" />

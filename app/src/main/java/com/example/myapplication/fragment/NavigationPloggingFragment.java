@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.BottomNavigation;
 import com.example.myapplication.R;
-import com.example.myapplication.maps.MapsActivityCurrentPlace;
-import com.example.myapplication.profileActivity;
+import com.example.myapplication.maps.Tmap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class NavigationPloggingFragment extends Fragment implements View.OnClickListener {
@@ -36,7 +33,7 @@ public class NavigationPloggingFragment extends Fragment implements View.OnClick
 
         switch (button.getId()) {
             case R.id.maps:
-                Intent intent = new Intent(getActivity(), MapsActivityCurrentPlace.class);
+                Intent intent = new Intent(getActivity(), Tmap.class);
 
                 startActivity(intent);
         }
