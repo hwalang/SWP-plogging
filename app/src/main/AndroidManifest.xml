@@ -16,6 +16,7 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
         <activity android:name=".ViewRecruitActivity" />
         <activity android:name=".loginActivity">
             <intent-filter>

@@ -2,9 +2,17 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,14 +21,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.schema.RecruitBoard;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class ViewRecruitActivity extends AppCompatActivity implements View.OnClickListener {
     TextView viewTitle,
@@ -38,16 +52,24 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
              viewModifyBtn,
              viewDeleteBtn;
 
-    FirebaseUser user = null;
-    String userId = null;
+    FirebaseUser user                   = null;
+    String userId                       = null;
     FirebaseFirestore firebaseFirestore = null;
-    RecruitBoard recruitBoard;
-    String contentId;
-    int nowMember;
-    int totalMember;
-    String chatRoom;
 
-    private final Integer RECRUIT_MODIFY_CODE = 102;
+    RecruitBoard            recruitBoard;
+    String                  contentId;
+    String                  userName;
+    int                     nowMember;
+    int                     totalMember;
+    String                  chatRoom;
+    NotificationManager     notificationManager;
+    NotificationChannel     notificationChannel;
+    Notification.Builder    builder;
+    DatabaseReference       databaseReference;
+
+    private final Integer RECRUIT_MODIFY_CODE   = 102;
+    private final String PRIMARY_CHANNEL_ID     = "primary_notification_channel";
+    private final int NOTIFICATION_ID           = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,24 +126,54 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
             viewDeadLine.setText("모집 중");
         }
 
+        // 푸시알림 시스템 권한 요청
+        notificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         if (user != null) {
             userId = user.getUid();
-            if (recruitBoard.getUserIdRecruit().equals(userId)) {
-                // 작성자와 동일한 유저일 경우
-                viewEnterChatBtn    .setVisibility(View.VISIBLE);
-                viewModifyBtn       .setVisibility(View.VISIBLE);
-                viewDeleteBtn       .setVisibility(View.VISIBLE);
+            databaseReference.child("users").child(userId).child("userName")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            } else {
+                                // 성공
+                                Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
+                                userName = Objects.requireNonNull(task.getResult().getValue()).toString();
 
-                viewEnterChatBtn    .setOnClickListener(this);  // chat 으로 이동
-                viewModifyBtn       .setOnClickListener(this);
-                viewDeleteBtn       .setOnClickListener(this);
-            } else {
-                // 가입했다면 입장 버튼 보이기
 
-                // 가입 안했다면 신청 버튼 보이기
+                                // 푸시알림 객체 생성
+                                builder = new Notification.Builder(getApplicationContext());
+                                Intent pushIntent = new Intent(ViewRecruitActivity.this.getApplicationContext(), ViewRecruitActivity.class);
+                                // THIS.최상단 | 최상단 액티비티 제외한 모든 액티비티 삭제
+                                pushIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-            }
+                                if (recruitBoard.getUserIdRecruit().equals(userId)) {
+                                    // 작성자와 동일한 유저일 경우
+                                    viewEnterChatBtn.setVisibility(View.VISIBLE);
+                                    viewModifyBtn.setVisibility(View.VISIBLE);
+                                    viewDeleteBtn.setVisibility(View.VISIBLE);
+
+                                    viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);  // chat 으로 이동
+                                    viewModifyBtn.setOnClickListener(ViewRecruitActivity.this);
+                                    viewDeleteBtn.setOnClickListener(ViewRecruitActivity.this);
+                                } else {
+                                    // 가입 안했다면 신청 버튼 보이기
+                                    viewApplyBtn.setVisibility(View.VISIBLE);
+                                    viewApplyBtn.setOnClickListener(ViewRecruitActivity.this);
+                                    createNotificationChannel();
+
+                                    // 가입했다면 입장 버튼 보이기
+
+                                }
+                            }
+                        }
+                    });
         }
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -132,7 +184,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
         switch (btn.getId()) {
             case R.id.view_recruit_apply:
                 Toast.makeText(this, "신청 버튼", Toast.LENGTH_SHORT).show();
-                // intent = new Intent(getApplicationContext(), )
+                sendNotification();
                 break;
             case R.id.view_recruit_enter_chat:
                 Toast.makeText(this, "입장 버튼", Toast.LENGTH_SHORT).show();
@@ -172,6 +224,46 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                         });
                 break;
         }
+    }
+
+    // 푸시알림 채널설정
+    public void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = new NotificationChannel(
+                    PRIMARY_CHANNEL_ID,
+                    "TEST",
+                    notificationManager.IMPORTANCE_HIGH
+            );
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.GREEN);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setDescription(userName + "님이 가입 신청을 했습니다.");
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
+
+    // 푸시알림 builder 생성
+    private NotificationCompat.Builder getNotificationBuilder() {
+        // 사용자정보화면으로 보내고 싶은데 로그인 유지 기능이 없다.
+        Intent intent = new Intent(this, loginActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
+                .setContentTitle("test")
+                .setContentText("누군가가 가입 신청을 했습니다.")
+                .setSmallIcon(R.drawable.people)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        return builder;
+    }
+
+    // 푸시알림 보내기
+    public void sendNotification() {
+        NotificationCompat.Builder builder = getNotificationBuilder();
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
 }

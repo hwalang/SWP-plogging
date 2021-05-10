@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -117,7 +120,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                     Log.e("firebase", "Error getting data", task.getException());
                                 } else {
                                     // 성공
-                                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                    Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
 
                                     userName = Objects.requireNonNull(task.getResult().getValue()).toString();
                                     databaseReference.child("users").child(userId).child("profileImageUrl")
@@ -129,9 +132,9 @@ public class ChatRoomActivity extends AppCompatActivity {
                                                         Log.e("firebase", "Error getting data", task.getException());
                                                     } else {
                                                         // 성공
-                                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                                        Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
 
-                                                        userProfileUrl = task.getResult().getValue().toString();
+                                                        userProfileUrl = Objects.requireNonNull(task.getResult().getValue()).toString();
                                                         long timestamp = System.currentTimeMillis();
 
                                                         chatInfo = new RecruitBoard.Chat(
@@ -173,6 +176,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                // 초마다 갱신될까?
+                chatAdapter.notifyDataSetChanged();
                 Log.d("documentId", "documentId = " + contentId);
             }
         });
@@ -183,5 +188,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatEdit = findViewById(R.id.chat_edit);
         chatEdit.setText("");
         recyclerView.setAdapter(chatAdapter);
+    }
+
+    // 초마다 갱신될까?
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        chatAdapter.notifyDataSetChanged();
     }
 }
