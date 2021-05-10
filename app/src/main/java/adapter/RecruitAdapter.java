@@ -87,20 +87,19 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                                     nowMeetingNumberList.clear();
                                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                         Log.d(TAG, document.getId() + "=> " + document.getData());
-                                        int totalMeetingNumber = Integer.parseInt(document.getData().get("totalMember").toString());
-                                        int nowMeetingNumber = Integer.parseInt(document.getData().get("nowMember").toString());
+                                        int totalMeetingNumber = Integer.parseInt(Objects.requireNonNull(document.getData().get("totalMember")).toString());
+                                        int nowMeetingNumber = Integer.parseInt(Objects.requireNonNull(document.getData().get("nowMember")).toString());
 
                                         recruitBoards.add(new RecruitBoard(
-                                                document.getData().get("userId").toString(),
-                                                document.getData().get("userName").toString(),
-                                                document.getData().get("title").toString(),
-                                                document.getData().get("content").toString(),
+                                                Objects.requireNonNull(document.getData().get("userId")).toString(),
+                                                Objects.requireNonNull(document.getData().get("userName")).toString(),
+                                                Objects.requireNonNull(document.getData().get("title")).toString(),
+                                                Objects.requireNonNull(document.getData().get("content")).toString(),
                                                 (Long) document.getData().get("recruitCreate"),
-                                                document.getData().get("month").toString(),
-                                                document.getData().get("day").toString(),
+                                                Objects.requireNonNull(document.getData().get("month")).toString(),
+                                                Objects.requireNonNull(document.getData().get("day")).toString(),
                                                 (Integer) totalMeetingNumber,
                                                 (Integer) nowMeetingNumber
-
                                         ));
                                         contentIdList.add(document.getId());
                                         totalMeetingNumberList.add(totalMeetingNumber);

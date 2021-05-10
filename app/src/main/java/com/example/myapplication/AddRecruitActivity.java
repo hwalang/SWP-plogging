@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Objects;
 
 public class AddRecruitActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     FirebaseUser            user = null;
@@ -85,7 +86,7 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
         // select item
         spinnerMember.setOnItemSelectedListener(this);
 
-        contentId = getIntent().getStringExtra("contentId");    // 수정 및 삭제
+        contentId = getIntent().getStringExtra("contentId");
         user      = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             userId = user.getUid();
@@ -104,8 +105,8 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                     if (!task.isSuccessful()) {
                                         Log.e("firebase", "Error getting data", task.getException());
                                     } else {
-                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                                        userName = task.getResult().getValue().toString();
+                                        Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
+                                        userName = Objects.requireNonNull(task.getResult().getValue()).toString();
 
                                         // 주소는 아직 안 넣음
                                         recruitBoard = new RecruitBoard(
@@ -132,22 +133,39 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                         data.put("clickCount", recruitBoard.getClickCount());
                                         data.put("deadLine", recruitBoard.isDeadlineCheck());
 
-                                        firebaseFirestore.collection("recruitment")
-                                                .add(data)
-                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                    @Override
-                                                    public void onSuccess(DocumentReference documentReference) {
-                                                        documentReference.set(data);
-                                                        Toast.makeText(AddRecruitActivity.this, "모집글 작성", Toast.LENGTH_SHORT).show();
-                                                        Log.d("documentId", "문서 id = " + documentReference.getId());
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(AddRecruitActivity.this, "모집글 작성 실패", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
+                                        if (contentId != null) {
+                                            DocumentReference documentReference = firebaseFirestore.collection("recruitment").document(contentId);
+                                            documentReference.set(data)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Toast.makeText(AddRecruitActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w("AddRecruitActivity", "Error writing document", e);
+                                                        }
+                                                    });
+                                        } else {
+                                            firebaseFirestore.collection("recruitment")
+                                                    .add(data)
+                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentReference documentReference) {
+                                                            documentReference.set(data);
+                                                            Toast.makeText(AddRecruitActivity.this, "모집글 작성", Toast.LENGTH_SHORT).show();
+                                                            Log.d("documentId", "문서 id = " + documentReference.getId());
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(AddRecruitActivity.this, "모집글 작성 실패", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                        }
                                     }
                                     finish();
                                 }
