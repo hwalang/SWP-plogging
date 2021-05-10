@@ -15,6 +15,7 @@
 package com.example.myapplication.maps;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,6 +25,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -33,6 +35,8 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -40,8 +44,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
@@ -59,6 +67,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.maps.android.SphericalUtil;
+import com.example.myapplication.maps.PermissionUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -67,16 +76,17 @@ import java.util.Locale;
 
 public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback {
-
+        ActivityCompat.OnRequestPermissionsResultCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
+    private GoogleApiClient mGoogleApiClient;
     private Marker currentMarker = null;
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
     private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
 
     // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
@@ -93,11 +103,20 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     LatLng latLng = null;
     LatLng previousPosition = null;
     Marker addedMarker = null;
+    List<Polyline>polylines;
     int tracking = 0;
 
-
+    private FusedLocationProviderApi mFusedLocationProviderApi;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
+
+    private boolean mPermissionDenied;
+    private LocationManager locationManager;
+    private Marker mCurrentMarker;
+    private LatLng startLatLng = new LatLng(0, 0);        //polyline 시작점
+    private LatLng endLatLng = new LatLng(0, 0);          //polyline 끝점
+    private boolean walkState = false;                                      //걸음 상태
+
 
 
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
@@ -135,6 +154,16 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addApi(LocationServices.API)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
+        }
+        createLocationRequest();
+
+
         final Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +181,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         });
 
     }
-
 
 
     LocationCallback locationCallback = new LocationCallback() {
@@ -295,7 +323,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
                         // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                         ActivityCompat.requestPermissions( MapsActivityCurrentPlace.this, REQUIRED_PERMISSIONS,
-                                PERMISSIONS_REQUEST_CODE);
+                                LOCATION_PERMISSION_REQUEST_CODE);
                     }
                 }).show();
 
@@ -304,7 +332,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions( this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
+                        LOCATION_PERMISSION_REQUEST_CODE);
             }
 
         }
@@ -377,7 +405,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 mMap.setMyLocationEnabled(true);
 
         }
-
+        mGoogleApiClient.connect();
 
     }
 
@@ -392,6 +420,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             Log.d(TAG, "onStop : call stopLocationUpdates");
             mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
+        mGoogleApiClient.disconnect();
     }
 
 
@@ -529,9 +558,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                                            @NonNull String[] permissions,
                                            @NonNull int[] grandResults) {
 
-        if ( permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
+        if ( permsRequestCode == LOCATION_PERMISSION_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
-            // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
+            // 요청 코드가 LOCATION_PERMISSION_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
 
             boolean check_result = true;
 
@@ -640,6 +669,87 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
     }
 
+    private void drawPath(){
+        PolylineOptions options = new PolylineOptions().add(startLatLng).add(endLatLng).width(15).color(Color.BLACK).geodesic(true);
+        polylines.add(mMap.addPolyline(options));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startLatLng, 18));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.current_place_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        enableMyLocation();
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 
 
+    public void onLocationChanged(Location location) {
+        double latitude = location.getLatitude(), longtitude = location.getLongitude();
+
+        if (mCurrentMarker != null) mCurrentMarker.remove();
+        mCurrentLocation = location;
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(new LatLng(latitude, longtitude));
+        mCurrentMarker =  mMap.addMarker(markerOptions);
+
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), 18));
+        if(walkState){                        //걸음 시작 버튼이 눌렸을 때
+            endLatLng = new LatLng(latitude, longtitude);        //현재 위치를 끝점으로 설정
+            drawPath();                                            //polyline 그리기
+            startLatLng = new LatLng(latitude, longtitude);        //시작점을 끝점으로 다시 설정
+        }
+    }
+
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission to access the location is missing.
+            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        } else if (mMap != null) {
+            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            // Start location updates.
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, locationRequest, this::onLocationChanged);
+
+            if (mCurrentLocation != null) {
+                Log.i("Location", "Latitude: " + mCurrentLocation.getLatitude()
+                        + ", Longitude: " + mCurrentLocation.getLongitude());
+            }
+        }
+    }
+
+
+
+
+    protected void createLocationRequest() {
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
 }
