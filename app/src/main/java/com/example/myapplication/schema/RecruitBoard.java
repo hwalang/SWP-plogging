@@ -98,6 +98,7 @@ public class RecruitBoard implements Serializable {
 
 
     /**
+     * chatRoom: contentId(문서 id)
      * userId
      * user profile
      * userName
@@ -105,14 +106,16 @@ public class RecruitBoard implements Serializable {
      * create
      */
     public static class Chat implements Serializable{
+        private String chatRoom;
         private String userChatId;
         private String profileUrl;
         private String chatName;
         private String message;
         private long chatCreate;
 
-        public Chat(String userChatId, String profileUrl, String chatName,
-                    String message, long chatCreate) {
+        public Chat(String chatRoom, String userChatId, String profileUrl,
+                    String chatName, String message, long chatCreate) {
+            this.chatRoom = chatRoom;
             this.userChatId = userChatId;
             this.profileUrl = profileUrl;
             this.chatName = chatName;
@@ -138,6 +141,13 @@ public class RecruitBoard implements Serializable {
 
         public String getChatName() {
             return chatName;
+        }
+
+        public String getChatRoom() {
+            return chatRoom;
+        }
+        public void setChatRoom(String chatRoom) {
+            this.chatRoom = chatRoom;
         }
     }
 }

@@ -15,7 +15,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ViewCertificationActivity;
 import com.example.myapplication.ViewRecruitActivity;
 import com.example.myapplication.fragment.NavigationRecruitFragment;
 import com.example.myapplication.schema.RecruitBoard;
@@ -55,7 +54,8 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
         }
     }
 
-    public RecruitAdapter(NavigationRecruitFragment activity, ArrayList<RecruitBoard> recruitBoards, ArrayList<String> contentIdList,
+    public RecruitAdapter(NavigationRecruitFragment activity, ArrayList<RecruitBoard> recruitBoards,
+                          ArrayList<String> contentIdList,
                           ArrayList<Integer> totalMeetingNumberList, ArrayList<Integer> nowMeetingNumberList) {
         this.activity = activity;
         this.recruitBoards = recruitBoards;
@@ -104,6 +104,7 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                                         contentIdList.add(document.getId());
                                         totalMeetingNumberList.add(totalMeetingNumber);
                                         nowMeetingNumberList.add(nowMeetingNumber);
+
                                     }
                                 } else {
                                     Log.d(TAG, "error getting documents", task.getException());
@@ -183,7 +184,7 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                 Toast.makeText(activity.getContext(), "모집글 상세보기", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity.getContext(), ViewRecruitActivity.class);
                 intent.putExtra("recruit", recruitBoards.get(position));
-                intent.putExtra("contentId", contentIdList.get(position));
+                intent.putExtra("contentId", contentIdList.get(position));  // chat + recruitment document id
 
                 intent.putExtra("nowMember", nowMeetingNumberList.get(position));
                 intent.putExtra("totalMember", totalMeetingNumberList.get(position));

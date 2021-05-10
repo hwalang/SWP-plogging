@@ -65,13 +65,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
                                             comments.clear();
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                                 comments.add(new CertificationBoard.Comment(
-                                                        document.getData().get("userId").toString(),
-                                                        document.getData().get("profileUrl").toString(),
-                                                        document.getData().get("name").toString(),
-                                                        document.getData().get("comment").toString(),
+                                                        Objects.requireNonNull(document.getData().get("userId")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("profileUrl")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("name")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("comment")).toString(),
                                                         (Long) document.getData().get("commentCreate")
                                                 ));
                                             }

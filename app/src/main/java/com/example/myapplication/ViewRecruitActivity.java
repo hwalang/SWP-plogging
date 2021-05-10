@@ -45,6 +45,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
     String contentId;
     int nowMember;
     int totalMember;
+    String chatRoom;
 
     private final Integer RECRUIT_MODIFY_CODE = 102;
 
@@ -54,6 +55,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_view_recruit);
 
         contentId       = getIntent().getStringExtra("contentId");
+        chatRoom        = getIntent().getStringExtra("contentId");
         recruitBoard    = (RecruitBoard) getIntent().getSerializableExtra("recruit");
         nowMember       = getIntent().getIntExtra("nowMember", 1);
         totalMember     = getIntent().getIntExtra("totalMember", 4);
@@ -110,13 +112,14 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                 viewModifyBtn       .setVisibility(View.VISIBLE);
                 viewDeleteBtn       .setVisibility(View.VISIBLE);
 
-                viewEnterChatBtn    .setOnClickListener(this);
+                viewEnterChatBtn    .setOnClickListener(this);  // chat 으로 이동
                 viewModifyBtn       .setOnClickListener(this);
                 viewDeleteBtn       .setOnClickListener(this);
             } else {
                 // 가입했다면 입장 버튼 보이기
 
                 // 가입 안했다면 신청 버튼 보이기
+
             }
         }
     }
@@ -133,6 +136,10 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.view_recruit_enter_chat:
                 Toast.makeText(this, "입장 버튼", Toast.LENGTH_SHORT).show();
+                intent = new Intent(getApplicationContext(), ChatRoomActivity.class);
+                intent.putExtra("contentId", contentId);
+                intent.putExtra("recruitUserId", recruitBoard.getUserIdRecruit());
+                startActivity(intent);
                 break;
             case R.id.view_recruit_modify:
                 if (recruitBoard.getNowMeetingNumber() != 1) {

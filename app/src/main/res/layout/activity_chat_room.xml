@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatRoomActivity">
+    <TextView
+        android:id="@+id/frame_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="채팅방 이름"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:background="@color/grey"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/surround"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_recyclerview"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/frame_chat"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        >
+        <EditText
+            android:id="@+id/chat_edit"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/chat_btn_send"
+            android:layout_toStartOf="@+id/chat_btn_send"
+            android:autofillHints="댓글"
+            android:inputType="none"
+            tools:ignore="LabelFor" />
+
+        <Button
+            android:id="@+id/chat_btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/surroundair"
+            android:text="SEND" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
