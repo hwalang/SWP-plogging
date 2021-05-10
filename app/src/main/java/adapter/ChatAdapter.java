@@ -82,7 +82,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
                         firebaseFirestore.collection("recruitment").document(contentId)
                                 .collection("chats")
-                                .orderBy("chatCreate", Query.Direction.DESCENDING)
+                                .orderBy("chatCreate", Query.Direction.ASCENDING)
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @SuppressLint("LongLogTag")
@@ -132,13 +132,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         // position: 해당 글 인덱스
         CardView cardView = holder.cardView;
 
-        if (user != null) {
-            userId = user.getUid();
-            if (userId.equals(recruitUserId)) {
-                cardView.findViewById(R.id.recruit_cardView).setBackgroundColor(Color.parseColor("#31ED7C"));
-            }
-        }
-
         // 프로필
         Glide.with(cardView.getContext()).load(chats.get(position).getProfileUrl()).into(
                 (ImageView) cardView.findViewById(R.id.item_chat_profile)
@@ -147,6 +140,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         // 작성자
         TextView userName = cardView.findViewById(R.id.item_chat_username);
         userName.setText(chats.get(position).getChatName());
+
+        if (user != null) {
+            userId = user.getUid();
+            if (userId.equals(recruitUserId)) {
+                userName.setTextColor(Color.parseColor("#31ED7C"));
+            }
+        }
 
         // 작성일
         TextView create = cardView.findViewById(R.id.item_chat_create);
