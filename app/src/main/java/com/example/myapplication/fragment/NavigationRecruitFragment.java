@@ -35,6 +35,8 @@ public class NavigationRecruitFragment extends Fragment implements View.OnClickL
 
     ArrayList<String>               contentIdList;
     ArrayList<RecruitBoard>         recruitBoards;
+    ArrayList<Integer>              nowMemberList;
+    ArrayList<Integer>              totalMemberList;
 
     FirebaseUser                    user;
     String                          userId = null;
@@ -42,11 +44,13 @@ public class NavigationRecruitFragment extends Fragment implements View.OnClickL
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView =     inflater.inflate(R.layout.fragment_bottom_main_recruit, container, false);
-        recruitBoards =     new ArrayList<>();
-        contentIdList =     new ArrayList<>();
+        View rootView     = inflater.inflate(R.layout.fragment_bottom_main_recruit, container, false);
+        recruitBoards     = new ArrayList<>();
+        contentIdList     = new ArrayList<>();
+        totalMemberList   = new ArrayList<>();
+        nowMemberList     = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        user =              FirebaseAuth.getInstance().getCurrentUser();
+        user              = FirebaseAuth.getInstance().getCurrentUser();
 
         // 계정 작업
         if (user != null) {
@@ -67,7 +71,7 @@ public class NavigationRecruitFragment extends Fragment implements View.OnClickL
     }
     public void onResume() {
         super.onResume();
-//         recruitAdapter = new RecruitAdapter();
+        recruitAdapter = new RecruitAdapter(this, recruitBoards, contentIdList, totalMemberList, nowMemberList);
         recyclerView.setAdapter(recruitAdapter);
     }
 

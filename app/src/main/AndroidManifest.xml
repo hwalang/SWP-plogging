@@ -16,6 +16,7 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ViewRecruitActivity"></activity>
         <activity android:name=".loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +30,7 @@
         <activity android:name=".CommentActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AddCertificationActivity" />
-        <activity android:name=".AddRecruitActivity"/>
+        <activity android:name=".AddRecruitActivity" />
         <activity android:name=".ViewCertificationActivity" />
         <activity android:name=".Detailed" />
         <activity

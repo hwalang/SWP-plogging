@@ -39,7 +39,6 @@ import java.util.ListIterator;
 import java.util.Map;
 
 public class AddRecruitActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    FirebaseStorage         firebaseStorage = null;
     FirebaseUser            user = null;
     String                  userId = null;
     String                  contentId = null;
@@ -117,7 +116,8 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                                 System.currentTimeMillis(),
                                                 recruitMonth.getText().toString(),
                                                 recruitDay.getText().toString(),
-                                                recruitMemberNumber
+                                                recruitMemberNumber,
+                                                1
                                         );
 
                                         data.put("userId", userId);
@@ -127,7 +127,8 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                         data.put("recruitCreate", System.currentTimeMillis());
                                         data.put("month", recruitMonth.getText().toString());
                                         data.put("day", recruitDay.getText().toString());
-                                        data.put("member", recruitMemberNumber);
+                                        data.put("totalMember", recruitMemberNumber);
+                                        data.put("nowMember", 1);
                                         data.put("clickCount", recruitBoard.getClickCount());
                                         data.put("deadLine", recruitBoard.isDeadlineCheck());
 
