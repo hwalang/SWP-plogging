@@ -82,10 +82,4 @@ public class BottomNavigation extends AppCompatActivity {
                 }
         );
     }
-    public void onBackPressed() {
-//        super.onBackPressed();
-        Intent intent = new Intent(BottomNavigation.this, profileActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

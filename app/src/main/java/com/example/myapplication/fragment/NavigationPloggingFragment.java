@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.maps.MapsActivityCurrentPlace;
 import com.example.myapplication.maps.Tmap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,7 +34,7 @@ public class NavigationPloggingFragment extends Fragment implements View.OnClick
 
         switch (button.getId()) {
             case R.id.maps:
-                Intent intent = new Intent(getActivity(), Tmap.class);
+                Intent intent = new Intent(getActivity(), MapsActivityCurrentPlace.class);
 
                 startActivity(intent);
         }
