@@ -1,92 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_recruit"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="7dp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:padding="7dp">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recruit_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/recruit_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp"
-            android:text="모집글"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 
-            />
-        <Button
-            android:id="@+id/alarm_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp"
-            android:text="알림"
-            />
-    </LinearLayout>
-    <ViewFlipper
-        android:id="@+id/category"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <RelativeLayout
-            android:id="@+id/click_recruit_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recruit_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_recruit_btn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginBottom="3dp"
-                android:background="@color/purple_200"
-                android:clickable="true"
-                android:contentDescription="글작성"
-                android:focusable="true"
-                android:hapticFeedbackEnabled="false"
-                app:backgroundTint="@color/purple_200"
-                app:rippleColor="@color/purple_200"
-                app:srcCompat="@drawable/ic_baseline_add_24"
-                tools:ignore="VectorDrawableCompat" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/write_recruit_button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/purple_200"
+        android:clickable="true"
+        android:contentDescription="글작성"
+        android:focusable="true"
+        android:hapticFeedbackEnabled="false"
+        app:backgroundTint="@color/purple_200"
+        app:rippleColor="@color/purple_200"
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        tools:ignore="VectorDrawableCompat" />
 
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/click_alarm_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/alarm_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
-        </RelativeLayout>
-    </ViewFlipper>
-</LinearLayout>
+</RelativeLayout>

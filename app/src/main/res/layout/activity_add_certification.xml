@@ -39,8 +39,11 @@
             android:autofillHints="내용"
             android:hint="내용"
             android:layout_margin = "5dp"
-
-            android:inputType="text" />
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:maxLines="12"
+            android:scrollbars="vertical"
+            />
 
     </LinearLayout>
 

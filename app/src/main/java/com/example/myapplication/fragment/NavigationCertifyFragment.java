@@ -63,8 +63,6 @@ import adapter.CertificationAdapter;
 import static android.app.Activity.RESULT_OK;
 
 public class NavigationCertifyFragment extends Fragment implements View.OnClickListener {
-    private static final String TAG = "NavigationCertifyFragment";
-
     RecyclerView recyclerview;
     FloatingActionButton write_certification_button;
 
@@ -120,21 +118,19 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         FloatingActionButton button = (FloatingActionButton) v;
 
-        switch (button.getId()) {
-            case R.id.write_certification_button:
-                Toast.makeText(getContext(), "인증글 작성 버튼 클릭", Toast.LENGTH_SHORT).show();
-                // 갤러리 권한
-                if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), AddCertificationActivity.class);
+        if (button.getId() == R.id.write_certification_button) {
+            Toast.makeText(getContext(), "인증글 작성 버튼 클릭", Toast.LENGTH_SHORT).show();
+            // 갤러리 권한
+            if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), AddCertificationActivity.class);
 
-                    startActivity(intent);
-                } else {
-                    // 허용 요청
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                    Toast.makeText(getContext(), "권한을 허용해야 합니다.", Toast.LENGTH_SHORT).show();
-                }
-                break;
+                startActivity(intent);
+            } else {
+                // 허용 요청
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                Toast.makeText(getContext(), "권한을 허용해야 합니다.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

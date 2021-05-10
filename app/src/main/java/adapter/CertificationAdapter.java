@@ -58,10 +58,6 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
     private final ArrayList<String> contentIdList;
     FirebaseFirestore firebaseFirestore;
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    String userId = null;
-
     public static class CertifyViewHolder extends RecyclerView.ViewHolder {
         public CardView cardView;
 

@@ -29,6 +29,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewCertificationActivity extends AppCompatActivity {
     FirebaseUser user = null;
@@ -37,7 +39,7 @@ public class ViewCertificationActivity extends AppCompatActivity {
     CertificationBoard certificationBoard;
     String contentId;
 
-    Integer MODIFY_CODE = 101;
+    private final Integer MODIFY_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,19 +110,17 @@ public class ViewCertificationActivity extends AppCompatActivity {
                     }
                 });
 
+                // collection 삭제하려면 nodeJs 를 사용해야 하는데 내가 사용 못함..
                 deleteBtn.setVisibility(View.VISIBLE);
                 deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ViewCertificationActivity.this, "인증글 삭제", Toast.LENGTH_SHORT).show();
                         firebaseFirestore.collection("certification").document(contentId)
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(ViewCertificationActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
-                                        Log.d("ViewCertification", "contentId = " + contentId);
-                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
