@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical"
     app:cardCornerRadius="10dp">
 
@@ -27,10 +28,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="7.5dp"
+            android:layout_weight="2"
             android:ems="15"
             android:text="작성자"
-            android:layout_weight="2"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/item_comment_create"
             android:layout_width="wrap_content"
@@ -42,9 +44,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="50dp"
+        android:orientation="vertical"
         android:paddingLeft="30dp"
-        android:orientation="vertical">
+        android:paddingTop="50dp">
 
         <TextView
             android:id="@+id/item_comment"

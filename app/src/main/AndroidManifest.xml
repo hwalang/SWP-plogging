@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".Mountine"></activity>
+        <activity android:name=".Park" />
+        <activity android:name=".Walk" />
         <activity android:name=".loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +32,7 @@
         <activity android:name=".CommentActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AddCertificationActivity" />
-        <activity android:name=".ViewCertificationActivity"/>
+        <activity android:name=".ViewCertificationActivity" />
         <activity android:name=".Detailed" />
         <activity
             android:name=".registerActivity"

@@ -5,45 +5,57 @@
     android:id="@+id/main_recruit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="7dp"
+    android:background="@color/white"
     android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:fontFamily="@font/surround"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="모집글"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:orientation="horizontal"
-        >
+        android:weightSum="2">
+
         <Button
             android:id="@+id/recruit_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
             android:text="모집글"
 
             />
+
         <Button
             android:id="@+id/alarm_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
-            android:text="알림"
-            />
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:text="알림" />
     </LinearLayout>
+
     <ViewFlipper
         android:id="@+id/category"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <RelativeLayout
             android:id="@+id/click_recruit_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recruit_recyclerview"
@@ -79,14 +91,13 @@
         <RelativeLayout
             android:id="@+id/click_alarm_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/alarm_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </RelativeLayout>
     </ViewFlipper>
 </LinearLayout>

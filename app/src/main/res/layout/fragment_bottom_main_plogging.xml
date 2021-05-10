@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_plogging"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/plogging"
-        android:textSize="35sp"
-        />
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:fontFamily="@font/surround"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="폴로깅"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/walk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:text="walk"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/walk"
+        app:iconSize="130dp"
+
+        app:iconTint="@color/purple_700" />
+
+    <Button
+        android:id="@+id/park"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="park"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:icon="@drawable/park"
+        app:iconSize="130dp" />
+
+    <Button
+        android:id="@+id/mountine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:text="mountine"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/mountine"
+        app:iconSize="130dp"
+        app:iconTint="@color/purple_200" />
 </LinearLayout>

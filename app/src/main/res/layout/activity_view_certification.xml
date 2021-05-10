@@ -1,140 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewCertificationActivity"
-    android:orientation="vertical"
-    >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical">
+    android:background="@color/white">
 
-        <TextView
-            android:id="@+id/view_certifyitem_title"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ViewCertificationActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/view_certifyitem_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="제목"
+                android:textSize="25dp"
+
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/view_certifyitem_created"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="10dp"
+                    android:text="작성일"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/view_certifyitem_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="작성자" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/view_certifyitem_imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="제목"
-            android:textSize="25dp"
+            android:scaleType="fitXY"
+            tools:ignore="ContentDescription" />
 
-            />
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/view_certifyitem_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="8dp"
-            android:gravity="center">
-
-            <TextView
-                android:paddingRight="10dp"
-                android:id="@+id/view_certifyitem_created"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="작성일"
-                android:paddingEnd="8dp"
-                android:gravity="center"
-                tools:ignore="RtlSymmetry" />
-
-            <TextView
-                android:id="@+id/view_certifyitem_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:text="작성자" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/view_certifyitem_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:layout_marginLeft="8dp"
-        android:id="@+id/view_certifyitem_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내용"
-
-        android:layout_marginStart="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/view_certifyitem_favorite"
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:contentDescription="좋아요"
-            app:srcCompat="@drawable/feel" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/view_certifyitem_comment"
+            android:text="내용" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/view_certifyitem_favorite"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:contentDescription="좋아요"
+                app:srcCompat="@drawable/feel" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/view_certifyitem_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:contentDescription="댓글"
+                android:focusable="true"
+                android:foregroundGravity="center"
+                android:tint="#FFFFFF"
+
+                app:backgroundTint="#FFFFFF"
+                app:fabSize="mini"
+                app:maxImageSize="25dp"
+                app:rippleColor="#00FFFFFF"
+                app:srcCompat="@drawable/ic_baseline_comment_24"
+                tools:ignore="VectorDrawableCompat" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/view_certifyitem_favorite_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="like_0" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="댓글"
-            android:focusable="true"
-            android:foregroundGravity="center"
-            android:tint="#FFFFFF"
+            android:gravity="right"
+            android:orientation="horizontal">
 
-            app:backgroundTint="#FFFFFF"
-            app:fabSize="mini"
-            app:maxImageSize="25dp"
-            app:rippleColor="#00FFFFFF"
-            app:srcCompat="@drawable/ic_baseline_comment_24"
-            tools:ignore="VectorDrawableCompat" />
+            <Button
+                android:id="@+id/modify_certification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="수정"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/delete_certification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="삭제"
+                android:visibility="invisible" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
-
-    <TextView
-        android:layout_marginLeft="8dp"
-        android:id="@+id/view_certifyitem_favorite_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="like_0"
-        android:layout_marginStart="8dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right"
-        >
-        <Button
-            android:id="@+id/modify_certification"
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:text="수정"
-            />
-
-        <Button
-            android:id="@+id/delete_certification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="삭제"
-            android:visibility="invisible" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>
