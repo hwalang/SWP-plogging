@@ -46,6 +46,7 @@ public class registerActivity extends AppCompatActivity {
     private EditText editText1;
     private Long editText4;
     private EditText editText6;
+    private EditText editText5;
     private ImageView profile;
     private String name;
     private RadioButton Radio1;
@@ -66,6 +67,7 @@ public class registerActivity extends AppCompatActivity {
         editText2 = findViewById(R.id.userId);
         editText3 = findViewById(R.id.userPw);
         editText6 = findViewById(R.id.userPwCheck);
+        editText5 = findViewById(R.id.address);
         profile = findViewById(R.id.proFIle);
         Button signup = findViewById(R.id.register);
 
@@ -151,6 +153,7 @@ public class registerActivity extends AppCompatActivity {
         String email = editText2.getText().toString();
         String emailPw = editText3.getText().toString();
         Long birth = Long.valueOf(((EditText) findViewById(R.id.birth)).getText().toString());
+        String address = editText5.getText().toString();
         String emailPwCheck = editText6.getText().toString();
         RadioButton Man = findViewById(R.id.RadioBtn1);
         RadioButton Woman = findViewById(R.id.RadioBtn2);
@@ -190,6 +193,7 @@ public class registerActivity extends AppCompatActivity {
                                         userModel.userName = name;
                                         userModel.birth = birth;
                                         userModel.uid = uid;
+                                        userModel.address = address;
                                         userModel.profileImageUrl = imageUrl.getResult().toString();
 
                                         if (Man.isChecked()) {
