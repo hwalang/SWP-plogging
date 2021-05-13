@@ -4,36 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CommentActivity">
+    tools:context=".ChatRoomActivity">
+    <TextView
+        android:id="@+id/frame_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="채팅방 이름"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:background="@color/grey"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/surround"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comment_recyclerview"
+        android:id="@+id/chat_recyclerview"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/comment_input"
+        android:layout_below="@+id/frame_chat"
+        android:layout_above="@+id/chat_input"
         />
     <RelativeLayout
-        android:id="@+id/comment_input"
+        android:id="@+id/chat_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         >
         <EditText
-            android:id="@+id/comment_edit"
+            android:id="@+id/chat_edit"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/comment_btn_send"
-            android:layout_toStartOf="@+id/comment_btn_send"
+            android:layout_toLeftOf="@+id/chat_btn_send"
+            android:layout_toStartOf="@+id/chat_btn_send"
             android:autofillHints="댓글"
             android:inputType="none"
-            tools:ignore="LabelFor"
-            android:scrollbars="vertical|horizontal" />
+            tools:ignore="LabelFor" />
 
         <Button
-            android:id="@+id/comment_btn_send"
+            android:id="@+id/chat_btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -47,4 +61,6 @@
             android:fontFamily="@font/surroundair"
             android:text="SEND" />
     </RelativeLayout>
+
+
 </RelativeLayout>
