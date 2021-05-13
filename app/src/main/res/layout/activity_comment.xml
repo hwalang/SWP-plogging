@@ -3,47 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CommentActivity">
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
-        android:fontFamily="@font/surround"
-        android:gravity="center_horizontal"
-        android:padding="10dp"
         android:text="댓글"
-        android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@color/grey"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/surround"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comment_recyclerview"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:paddingTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/white"
-        android:paddingTop="50dp" />
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comment_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
-
+        android:background="@color/white"
+        >
         <EditText
             android:id="@+id/comment_edit"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_toStartOf="@+id/comment_btn_send"
             android:layout_toLeftOf="@+id/comment_btn_send"
+            android:layout_toStartOf="@+id/comment_btn_send"
             android:autofillHints="댓글"
             android:inputType="none"
-            android:scrollbars="vertical|horizontal"
-            tools:ignore="LabelFor" />
+            tools:ignore="LabelFor"
+            android:scrollbars="vertical|horizontal" />
 
         <Button
             android:id="@+id/comment_btn_send"

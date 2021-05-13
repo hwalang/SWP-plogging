@@ -84,6 +84,7 @@ public class NavigationIssueFragment extends Fragment {
 
             }
 
+
             @Override
             public void onFailure(Call<Headlines> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
