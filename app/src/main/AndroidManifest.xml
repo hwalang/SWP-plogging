@@ -17,7 +17,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
-        <activity android:name=".ViewRecruitActivity" />
         <activity android:name=".loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,21 +25,39 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".profileActivity"
+            android:label="activity_profile"
+            android:parentActivityName=".loginActivity"/>
+        <activity
             android:name=".BottomNavigation"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".CommentActivity" />
-        <activity android:name=".ChatRoomActivity"/>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".AddCertificationActivity" />
-        <activity android:name=".AddRecruitActivity" />
-        <activity android:name=".ViewCertificationActivity" />
+            android:parentActivityName=".profileActivity" />
+
+        <activity
+            android:name=".AddCertificationActivity"
+            android:parentActivityName=".BottomNavigation"/>
+        <activity
+            android:name=".ViewCertificationActivity"
+            android:parentActivityName=".BottomNavigation"/>
+        <activity
+            android:name=".CommentActivity"
+            android:parentActivityName=".BottomNavigation"/>
+
+        <activity
+            android:name=".ViewRecruitActivity"
+            android:parentActivityName=".BottomNavigation"/>
+        <activity
+            android:name=".ChatRoomActivity"
+            android:parentActivityName=".ViewRecruitActivity"/>
+        <activity
+            android:name=".AddRecruitActivity"
+            android:parentActivityName=".BottomNavigation"/>
+
+
         <activity android:name=".Detailed" />
         <activity
             android:name=".registerActivity"
             android:label="activity_sign_up" />
-        <activity
-            android:name=".profileActivity"
-            android:label="activity_profile" />
+
     </application>
 
 </manifest>

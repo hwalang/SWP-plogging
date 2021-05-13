@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -45,9 +46,9 @@ import static android.content.ContentValues.TAG;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
     private final ArrayList<RecruitBoard.Chat> chats;
+    private final ArrayList<String> userChatName;
     private final Activity activity;
     private final String contentId;
-    private String recruitUserId;
     private String userId;
     FirebaseFirestore firebaseFirestore;
     FirebaseUser user;
@@ -62,11 +63,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     }
 
     public ChatAdapter(Activity activity, ArrayList<RecruitBoard.Chat> chats,
-                       String contentId, String recruitUserId) {
+                       String contentId, ArrayList<String> userChatName) {
         this.activity = activity;
         this.chats = chats;
         this.contentId = contentId;
-        this.recruitUserId = recruitUserId;
+        this.userChatName = userChatName;
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -89,6 +90,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
+                                            userChatName.clear();
                                             chats.clear();
                                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                                 Log.d(TAG, document.getId() + "=> " + document.getData());
@@ -101,6 +103,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                                                         Objects.requireNonNull(document.getData().get("message")).toString(),
                                                         (Long) document.getData().get("chatCreate")
                                                 ));
+                                                userChatName.add(Objects.requireNonNull(document.getData().get("userChatId")).toString());
                                             }
                                         } else {
                                             Log.d(TAG, "error getting documents", task.getException());
@@ -143,8 +146,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         if (user != null) {
             userId = user.getUid();
-            if (userId.equals(recruitUserId)) {
-                userName.setTextColor(Color.parseColor("#31ED7C"));
+            if (userChatName.get(position).equals(userId)) {
+                int color = ContextCompat.getColor(cardView.getContext(), R.color.purple_200);
+                userName.setTextColor(color);
             }
         }
 

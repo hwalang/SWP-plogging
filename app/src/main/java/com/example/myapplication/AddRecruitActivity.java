@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -28,14 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -58,7 +53,10 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
 
     Spinner                 spinnerMember;
     ArrayAdapter<String>    adapterMember;
+    ArrayList<String>       userIdList;
     int                     recruitMemberNumber;
+    String                  day;
+    String                  month;
 
     @SuppressLint("ResourceType")
     @Override
@@ -93,6 +91,9 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
             firebaseFirestore = FirebaseFirestore.getInstance();
             firebaseDatabase = FirebaseDatabase.getInstance().getReference();
 
+            month           = recruitMonth.getText().toString();
+            day             = recruitDay.getText().toString();
+
             ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -115,10 +116,11 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                                 title.getText().toString(),
                                                 content.getText().toString(),
                                                 System.currentTimeMillis(),
-                                                recruitMonth.getText().toString(),
-                                                recruitDay.getText().toString(),
+                                                month,
+                                                day,
                                                 recruitMemberNumber,
-                                                1
+                                                1,
+                                                userId
                                         );
 
                                         data.put("userId", userId);
@@ -132,6 +134,10 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                         data.put("nowMember", 1);
                                         data.put("clickCount", recruitBoard.getClickCount());
                                         data.put("deadLine", recruitBoard.isDeadlineCheck());
+                                        data.put("chatUserId1", userId);
+                                        //data.put("chatUserId2", "");
+                                        //data.put("chatUserId3", "");
+                                        //data.put("chatUserId4", "");
 
                                         if (contentId != null) {
                                             DocumentReference documentReference = firebaseFirestore.collection("recruitment").document(contentId);
@@ -170,14 +176,15 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                     finish();
                                 }
                             });
+
                 }
             });
             cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
         } else {
             Toast.makeText(this, "계정 없음", Toast.LENGTH_SHORT).show();
         }

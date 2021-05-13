@@ -32,6 +32,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import adapter.CertificationAdapter;
+
 public class ViewCertificationActivity extends AppCompatActivity {
     FirebaseUser user = null;
     String userId = null;
@@ -39,7 +41,12 @@ public class ViewCertificationActivity extends AppCompatActivity {
     CertificationBoard certificationBoard;
     String contentId;
 
-    private final Integer MODIFY_CODE = 101;
+    TextView title;
+    TextView created;
+    TextView writer;
+    TextView content;
+
+    private static final int MODIFY_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +60,17 @@ public class ViewCertificationActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         // 제목
-        TextView title = findViewById(R.id.view_certifyitem_title);
+        title = findViewById(R.id.view_certifyitem_title);
         title.setText(certificationBoard.getBoardTitle());
 
         // 작성일
-        TextView created = findViewById(R.id.view_certifyitem_created);
+        created = findViewById(R.id.view_certifyitem_created);
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
         String createText = timeFormat.format(new Date(certificationBoard.getBoardCreate()));
         created.setText(createText);
 
         // 작성자
-        TextView writer = findViewById(R.id.view_certifyitem_user);
+        writer = findViewById(R.id.view_certifyitem_user);
         writer.setText(certificationBoard.getName());
 
         // 이미지
@@ -71,7 +78,7 @@ public class ViewCertificationActivity extends AppCompatActivity {
                 (ImageView) findViewById(R.id.view_certifyitem_imageview));
 
         // 내용
-        TextView content = findViewById(R.id.view_certifyitem_content);
+        content = findViewById(R.id.view_certifyitem_content);
         content.setText(certificationBoard.getBoardContent());
 
         // 좋아요

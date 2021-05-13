@@ -90,21 +90,81 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                                         int totalMeetingNumber = Integer.parseInt(Objects.requireNonNull(document.getData().get("totalMember")).toString());
                                         int nowMeetingNumber = Integer.parseInt(Objects.requireNonNull(document.getData().get("nowMember")).toString());
 
-                                        recruitBoards.add(new RecruitBoard(
-                                                Objects.requireNonNull(document.getData().get("userId")).toString(),
-                                                Objects.requireNonNull(document.getData().get("userName")).toString(),
-                                                Objects.requireNonNull(document.getData().get("title")).toString(),
-                                                Objects.requireNonNull(document.getData().get("content")).toString(),
-                                                (Long) document.getData().get("recruitCreate"),
-                                                Objects.requireNonNull(document.getData().get("month")).toString(),
-                                                Objects.requireNonNull(document.getData().get("day")).toString(),
-                                                (Integer) totalMeetingNumber,
-                                                (Integer) nowMeetingNumber
-                                        ));
-                                        contentIdList.add(document.getId());
-                                        totalMeetingNumberList.add(totalMeetingNumber);
-                                        nowMeetingNumberList.add(nowMeetingNumber);
+                                        if (nowMeetingNumber <= totalMeetingNumber) {
+                                            if (nowMeetingNumber == 1) {
+                                                recruitBoards.add(new RecruitBoard(
+                                                        Objects.requireNonNull(document.getData().get("userId")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("userName")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("title")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("content")).toString(),
+                                                        (Long) document.getData().get("recruitCreate"),
+                                                        Objects.requireNonNull(document.getData().get("month")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("day")).toString(),
+                                                        (Integer) totalMeetingNumber,
+                                                        (Integer) nowMeetingNumber,
+                                                        Objects.requireNonNull(document.getData().get("chatUserId1")).toString()
+                                                ));
+                                                contentIdList.add(document.getId());
+                                                totalMeetingNumberList.add(totalMeetingNumber);
+                                                nowMeetingNumberList.add(nowMeetingNumber);
+                                            } else if (nowMeetingNumber == 2) {
+                                                recruitBoards.add(new RecruitBoard(
+                                                        Objects.requireNonNull(document.getData().get("userId")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("userName")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("title")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("content")).toString(),
+                                                        (Long) document.getData().get("recruitCreate"),
+                                                        Objects.requireNonNull(document.getData().get("month")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("day")).toString(),
+                                                        (Integer) totalMeetingNumber,
+                                                        (Integer) nowMeetingNumber,
+                                                        Objects.requireNonNull(document.getData().get("chatUserId1")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("chatUserId2")).toString()
+                                                ));
+                                                contentIdList.add(document.getId());
+                                                totalMeetingNumberList.add(totalMeetingNumber);
+                                                nowMeetingNumberList.add(nowMeetingNumber);
 
+                                            } else if (nowMeetingNumber == 3) {
+                                                recruitBoards.add(new RecruitBoard(
+                                                        Objects.requireNonNull(document.getData().get("userId")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("userName")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("title")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("content")).toString(),
+                                                        (Long) document.getData().get("recruitCreate"),
+                                                        Objects.requireNonNull(document.getData().get("month")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("day")).toString(),
+                                                        (Integer) totalMeetingNumber,
+                                                        (Integer) nowMeetingNumber,
+                                                        Objects.requireNonNull(document.getData().get("chatUserId1")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("chatUserId2")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("chatUserId3")).toString()
+                                                ));
+                                                contentIdList.add(document.getId());
+                                                totalMeetingNumberList.add(totalMeetingNumber);
+                                                nowMeetingNumberList.add(nowMeetingNumber);
+
+                                            } else {
+                                                recruitBoards.add(new RecruitBoard(
+                                                        Objects.requireNonNull(document.getData().get("userId")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("userName")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("title")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("content")).toString(),
+                                                        (Long) document.getData().get("recruitCreate"),
+                                                        Objects.requireNonNull(document.getData().get("month")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("day")).toString(),
+                                                        (Integer) totalMeetingNumber,
+                                                        (Integer) nowMeetingNumber,
+                                                        Objects.requireNonNull(document.getData().get("chatUserId1")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("chatUserId2")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("chatUserId3")).toString(),
+                                                        Objects.requireNonNull(document.getData().get("chatUserId4")).toString()
+                                                ));
+                                                contentIdList.add(document.getId());
+                                                totalMeetingNumberList.add(totalMeetingNumber);
+                                                nowMeetingNumberList.add(nowMeetingNumber);
+                                            }
+                                        }
                                     }
                                 } else {
                                     Log.d(TAG, "error getting documents", task.getException());
@@ -162,12 +222,11 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
 
         // 마감여부
         TextView recruitIsDead = cardView.findViewById(R.id.recruit_card_deadline);
-
         // intent => 모집 중인지 아닌지 알려주는 코드 보내기
-        if (!recruitBoards.get(position).isDeadlineCheck()) {
-            recruitIsDead.setText("모집중");
-        } else {
+        if (recruitBoards.get(position).getNowMeetingNumber() == recruitBoards.get(position).getTotalMeetingNumber()) {
             recruitIsDead.setText("마감");
+        } else {
+            recruitIsDead.setText("모집중");
         }
 
         // 현재 인원 / 전체 인원

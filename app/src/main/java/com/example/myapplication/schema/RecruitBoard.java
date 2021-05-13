@@ -1,5 +1,8 @@
 package com.example.myapplication.schema;
 
+import android.app.Activity;
+import android.widget.Toast;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,13 +32,20 @@ public class RecruitBoard implements Serializable {
     private final Map<String, Boolean> clicks = new HashMap<>();
     private int totalMeetingNumber;
     private int nowMeetingNumber;
+    private ArrayList<String> userIdList;
+
+    private String chatUserId1;
+    private String chatUserId2;
+    private String chatUserId3;
+    private String chatUserId4;
 
     // 아직 주소데이터를 넣지 않음
     // clicks 넣어야 하나?
     // clickCount 는 마지막에 개발@@@@@@@@@@@
     public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
                         long createRecruit, String recruitMonth, String recruitDay,
-                        int totalMeetingNumber, int nowMeetingNumber) {
+                        int totalMeetingNumber, int nowMeetingNumber,
+                        String chatUserId1) {
         this.userIdRecruit      = userIdRecruit;
         this.nameRecruit        = nameRecruit;
         this.titleRecruit       = titleRecruit;
@@ -45,6 +55,61 @@ public class RecruitBoard implements Serializable {
         this.recruitDay         = recruitDay;
         this.totalMeetingNumber = totalMeetingNumber;
         this.nowMeetingNumber   = nowMeetingNumber;
+        this.chatUserId1        = chatUserId1;
+    }
+
+    public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
+                        long createRecruit, String recruitMonth, String recruitDay,
+                        int totalMeetingNumber, int nowMeetingNumber,
+                        String chatUserId1, String chatUserId2) {
+        this.userIdRecruit      = userIdRecruit;
+        this.nameRecruit        = nameRecruit;
+        this.titleRecruit       = titleRecruit;
+        this.contentRecruit     = contentRecruit;
+        this.createRecruit      = createRecruit;
+        this.recruitMonth       = recruitMonth;
+        this.recruitDay         = recruitDay;
+        this.totalMeetingNumber = totalMeetingNumber;
+        this.nowMeetingNumber   = nowMeetingNumber;
+        this.chatUserId1        = chatUserId1;
+        this.chatUserId2        = chatUserId2;
+    }
+
+    public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
+                        long createRecruit, String recruitMonth, String recruitDay,
+                        int totalMeetingNumber, int nowMeetingNumber,
+                        String chatUserId1, String chatUserId2, String chatUserId3) {
+        this.userIdRecruit      = userIdRecruit;
+        this.nameRecruit        = nameRecruit;
+        this.titleRecruit       = titleRecruit;
+        this.contentRecruit     = contentRecruit;
+        this.createRecruit      = createRecruit;
+        this.recruitMonth       = recruitMonth;
+        this.recruitDay         = recruitDay;
+        this.totalMeetingNumber = totalMeetingNumber;
+        this.nowMeetingNumber   = nowMeetingNumber;
+        this.chatUserId1        = chatUserId1;
+        this.chatUserId2        = chatUserId2;
+        this.chatUserId3        = chatUserId3;
+    }
+
+    public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
+                        long createRecruit, String recruitMonth, String recruitDay,
+                        int totalMeetingNumber, int nowMeetingNumber,
+                        String chatUserId1, String chatUserId2, String chatUserId3, String chatUserId4) {
+        this.userIdRecruit      = userIdRecruit;
+        this.nameRecruit        = nameRecruit;
+        this.titleRecruit       = titleRecruit;
+        this.contentRecruit     = contentRecruit;
+        this.createRecruit      = createRecruit;
+        this.recruitMonth       = recruitMonth;
+        this.recruitDay         = recruitDay;
+        this.totalMeetingNumber = totalMeetingNumber;
+        this.nowMeetingNumber   = nowMeetingNumber;
+        this.chatUserId1        = chatUserId1;
+        this.chatUserId2        = chatUserId2;
+        this.chatUserId3        = chatUserId3;
+        this.chatUserId4        = chatUserId4;
     }
 
     public String getUserIdRecruit() {
@@ -94,6 +159,34 @@ public class RecruitBoard implements Serializable {
     // 현재 모집원 수 증가
     public void setNowMeetingNumber(int nowMeetingNumber) {
         this.nowMeetingNumber = nowMeetingNumber;
+    }
+
+    public String getChatUserId1() {
+        return chatUserId1;
+    }
+
+    public String getChatUserId2() {
+        return chatUserId2;
+    }
+
+    public void setChatUserId2(String chatUserId2) {
+        this.chatUserId2 = chatUserId2;
+    }
+
+    public String getChatUserId3() {
+        return chatUserId3;
+    }
+
+    public void setChatUserId3(String chatUserId3) {
+        this.chatUserId3 = chatUserId3;
+    }
+
+    public String getChatUserId4() {
+        return chatUserId4;
+    }
+
+    public void setChatUserId4(String chatUserId4) {
+        this.chatUserId4 = chatUserId4;
     }
 
 

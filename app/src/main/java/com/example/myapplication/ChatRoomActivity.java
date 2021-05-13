@@ -46,6 +46,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private ChatAdapter                     chatAdapter;
     private ArrayList<RecruitBoard.Chat>    chats;
+    private ArrayList<String>               userChatNames;
     private RecyclerView.LayoutManager      layoutManager;
 
     private FirebaseUser        user;
@@ -57,7 +58,6 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private String contentId        = null;
     private String userId           = null;
-    private String recruitUserId    = null;
     private static final String TAG = "ChatRoomActivity";
 
 
@@ -73,7 +73,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         recyclerView     = findViewById(R.id.chat_recyclerview);
 
         contentId           = getIntent().getStringExtra("contentId");
-        recruitUserId       = getIntent().getStringExtra("recruitUserId");
         firebaseFirestore   = FirebaseFirestore.getInstance();
         user                = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -103,6 +102,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(this);
         chats         = new ArrayList<>();
+        userChatNames = new ArrayList<>();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -184,7 +184,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
     public void onResume() {
         super.onResume();
-        chatAdapter = new ChatAdapter(this, chats, contentId, recruitUserId);
+        chatAdapter = new ChatAdapter(this, chats, contentId, userChatNames);
         chatEdit = findViewById(R.id.chat_edit);
         chatEdit.setText("");
         recyclerView.setAdapter(chatAdapter);

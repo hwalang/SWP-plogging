@@ -50,8 +50,8 @@ dependencies {
 
     //news
     //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //date-time
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
@@ -63,5 +63,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.google.firebase:firebase-database:19.7.0'
 
+    //noinspection GradleCompatible,GradleCompatible
+    implementation "com.android.support:support-compat:28.0.0"
+
 }
-apply plugin: 'com.google.gms.google-services'
