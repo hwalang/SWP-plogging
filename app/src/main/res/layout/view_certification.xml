@@ -9,8 +9,9 @@
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <TextView
@@ -18,17 +19,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="제목" />
+            android:text="제목"
+            android:textSize="25dp"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_gravity="end"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:gravity="center">
 
             <TextView
-                android:paddingRight="8dp"
+                android:paddingRight="10dp"
                 android:id="@+id/certifyitem_created"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,6 +44,7 @@
                 android:id="@+id/certifyitem_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="10dp"
                 android:text="작성자" />
         </LinearLayout>
     </LinearLayout>
@@ -66,9 +71,8 @@
         <ImageView
             android:id="@+id/certifyitem_favorite_imageview"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
-
             android:layout_marginLeft="8dp"
             android:contentDescription="좋아요"
             app:srcCompat="@drawable/feel" />
@@ -81,6 +85,8 @@
             android:backgroundTint="#FFFFFF"
             android:contentDescription="댓글"
             app:backgroundTint="#FFFFFF"
+            app:fabSize="mini"
+            app:maxImageSize="25dp"
             app:srcCompat="@drawable/ic_baseline_comment_24"
             tools:ignore="UnusedAttribute,VectorDrawableCompat" />
 
