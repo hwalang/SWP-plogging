@@ -57,20 +57,20 @@ import static android.content.ContentValues.TAG;
 
 public class CommentActivity extends AppCompatActivity {
     private static final String TAG = "CommentActivity";
-    EditText commentEdit;
-    Button commentSend;
+    private EditText commentEdit;
+    private Button commentSend;
 
-    CommentAdapter commentAdapter;
-    RecyclerView recyclerview;
-    ArrayList<CertificationBoard.Comment> commentList;
+    private CommentAdapter commentAdapter;
+    private RecyclerView recyclerview;
+    private ArrayList<CertificationBoard.Comment> commentList;
 
-    FirebaseUser firebaseUser;
-    String userId = null;
-    DatabaseReference firebaseDatabase;
-    String userName;
-    String userProfileUrl;
+    private FirebaseUser firebaseUser;
+    private String userId = null;
+    private DatabaseReference firebaseDatabase;
+    private String userName;
+    private String userProfileUrl;
 
-    FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore;
     private CertificationBoard.Comment commentInfo;
 
     private String contentId = null;

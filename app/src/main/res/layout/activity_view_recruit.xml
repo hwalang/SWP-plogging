@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ViewRecruitActivity"
+    android:padding="5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/view_recruit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제목"
+            android:layout_margin="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            >
+            <TextView
+                android:id="@+id/view_recruit_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="작성일"
+                android:layout_margin="5dp"
+                />
+            <TextView
+                android:id="@+id/view_recruit_writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="작성자"
+                android:layout_margin="5dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        >
+        <TextView
+            android:id="@+id/view_recruit_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="작성자 주소"
+            android:layout_margin="5dp"
+            />
+        <TextView
+            android:id="@+id/view_recruit_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="약속 날짜"
+            android:layout_margin="5dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/view_recruit_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="내용"
+        android:layout_margin="5dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:id="@+id/view_recruit_now_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현재 인원수"
+            android:layout_margin="5dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:layout_margin="5dp"
+            />
+        <TextView
+            android:id="@+id/view_recruit_total_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체 인원수"
+            android:layout_margin="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <Button
+                android:id="@+id/view_recruit_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="신청"
+                android:visibility="invisible"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        >
+        <Button
+            android:id="@+id/view_recruit_enter_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="입장"
+            android:visibility="invisible"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            >
+            <TextView
+                android:id="@+id/view_recruit_deadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="마감 여부"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        >
+        <Button
+            android:id="@+id/view_recruit_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="수정"
+            android:visibility="invisible"
+            />
+        <Button
+        android:id="@+id/view_recruit_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="삭제"
+        android:visibility="invisible"
+        />
+    </LinearLayout>
+
+
+</LinearLayout>

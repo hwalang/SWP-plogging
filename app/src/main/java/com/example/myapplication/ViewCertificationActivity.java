@@ -29,6 +29,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import adapter.CertificationAdapter;
 
 public class ViewCertificationActivity extends AppCompatActivity {
     FirebaseUser user = null;
@@ -37,7 +41,12 @@ public class ViewCertificationActivity extends AppCompatActivity {
     CertificationBoard certificationBoard;
     String contentId;
 
-    Integer MODIFY_CODE = 101;
+    TextView title;
+    TextView created;
+    TextView writer;
+    TextView content;
+
+    private static final int MODIFY_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +60,17 @@ public class ViewCertificationActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         // 제목
-        TextView title = findViewById(R.id.view_certifyitem_title);
+        title = findViewById(R.id.view_certifyitem_title);
         title.setText(certificationBoard.getBoardTitle());
 
         // 작성일
-        TextView created = findViewById(R.id.view_certifyitem_created);
+        created = findViewById(R.id.view_certifyitem_created);
         SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
         String createText = timeFormat.format(new Date(certificationBoard.getBoardCreate()));
         created.setText(createText);
 
         // 작성자
-        TextView writer = findViewById(R.id.view_certifyitem_user);
+        writer = findViewById(R.id.view_certifyitem_user);
         writer.setText(certificationBoard.getName());
 
         // 이미지
@@ -69,7 +78,7 @@ public class ViewCertificationActivity extends AppCompatActivity {
                 (ImageView) findViewById(R.id.view_certifyitem_imageview));
 
         // 내용
-        TextView content = findViewById(R.id.view_certifyitem_content);
+        content = findViewById(R.id.view_certifyitem_content);
         content.setText(certificationBoard.getBoardContent());
 
         // 좋아요
@@ -108,19 +117,17 @@ public class ViewCertificationActivity extends AppCompatActivity {
                     }
                 });
 
+                // collection 삭제하려면 nodeJs 를 사용해야 하는데 내가 사용 못함..
                 deleteBtn.setVisibility(View.VISIBLE);
                 deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ViewCertificationActivity.this, "인증글 삭제", Toast.LENGTH_SHORT).show();
                         firebaseFirestore.collection("certification").document(contentId)
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(ViewCertificationActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
-                                        Log.d("ViewCertification", "contentId = " + contentId);
-                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
