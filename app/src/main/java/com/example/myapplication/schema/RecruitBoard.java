@@ -44,7 +44,7 @@ public class RecruitBoard implements Serializable {
     // clickCount 는 마지막에 개발@@@@@@@@@@@
     public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
                         long createRecruit, String recruitMonth, String recruitDay,
-                        int totalMeetingNumber, int nowMeetingNumber,
+                        int totalMeetingNumber, int nowMeetingNumber, String address,
                         String chatUserId1) {
         this.userIdRecruit      = userIdRecruit;
         this.nameRecruit        = nameRecruit;
@@ -55,12 +55,13 @@ public class RecruitBoard implements Serializable {
         this.recruitDay         = recruitDay;
         this.totalMeetingNumber = totalMeetingNumber;
         this.nowMeetingNumber   = nowMeetingNumber;
+        this.address            = address;
         this.chatUserId1        = chatUserId1;
     }
 
     public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
                         long createRecruit, String recruitMonth, String recruitDay,
-                        int totalMeetingNumber, int nowMeetingNumber,
+                        int totalMeetingNumber, int nowMeetingNumber, String address,
                         String chatUserId1, String chatUserId2) {
         this.userIdRecruit      = userIdRecruit;
         this.nameRecruit        = nameRecruit;
@@ -71,13 +72,14 @@ public class RecruitBoard implements Serializable {
         this.recruitDay         = recruitDay;
         this.totalMeetingNumber = totalMeetingNumber;
         this.nowMeetingNumber   = nowMeetingNumber;
+        this.address            = address;
         this.chatUserId1        = chatUserId1;
         this.chatUserId2        = chatUserId2;
     }
 
     public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
                         long createRecruit, String recruitMonth, String recruitDay,
-                        int totalMeetingNumber, int nowMeetingNumber,
+                        int totalMeetingNumber, int nowMeetingNumber, String address,
                         String chatUserId1, String chatUserId2, String chatUserId3) {
         this.userIdRecruit      = userIdRecruit;
         this.nameRecruit        = nameRecruit;
@@ -88,6 +90,7 @@ public class RecruitBoard implements Serializable {
         this.recruitDay         = recruitDay;
         this.totalMeetingNumber = totalMeetingNumber;
         this.nowMeetingNumber   = nowMeetingNumber;
+        this.address            = address;
         this.chatUserId1        = chatUserId1;
         this.chatUserId2        = chatUserId2;
         this.chatUserId3        = chatUserId3;
@@ -95,7 +98,7 @@ public class RecruitBoard implements Serializable {
 
     public RecruitBoard(String userIdRecruit, String nameRecruit, String titleRecruit, String contentRecruit,
                         long createRecruit, String recruitMonth, String recruitDay,
-                        int totalMeetingNumber, int nowMeetingNumber,
+                        int totalMeetingNumber, int nowMeetingNumber, String address,
                         String chatUserId1, String chatUserId2, String chatUserId3, String chatUserId4) {
         this.userIdRecruit      = userIdRecruit;
         this.nameRecruit        = nameRecruit;
@@ -106,6 +109,7 @@ public class RecruitBoard implements Serializable {
         this.recruitDay         = recruitDay;
         this.totalMeetingNumber = totalMeetingNumber;
         this.nowMeetingNumber   = nowMeetingNumber;
+        this.address            = address;
         this.chatUserId1        = chatUserId1;
         this.chatUserId2        = chatUserId2;
         this.chatUserId3        = chatUserId3;
@@ -187,6 +191,10 @@ public class RecruitBoard implements Serializable {
 
     public void setChatUserId4(String chatUserId4) {
         this.chatUserId4 = chatUserId4;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
 

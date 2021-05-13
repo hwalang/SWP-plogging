@@ -53,10 +53,10 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
 
     Spinner                 spinnerMember;
     ArrayAdapter<String>    adapterMember;
-    ArrayList<String>       userIdList;
     int                     recruitMemberNumber;
     String                  day;
     String                  month;
+    String                  userAddress;
 
     @SuppressLint("ResourceType")
     @Override
@@ -94,6 +94,23 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
             month           = recruitMonth.getText().toString();
             day             = recruitDay.getText().toString();
 
+            firebaseDatabase.child("users").child(userId).child("address")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            } else {
+                                // 성공
+                                Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
+                                String userAddress = String.valueOf(Objects.requireNonNull(task.getResult()).getValue());
+
+                                address.setText(userAddress);
+                            }
+                        }
+                    });
+
             ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,71 +126,85 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                         Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
                                         userName = Objects.requireNonNull(task.getResult().getValue()).toString();
 
-                                        // 주소는 아직 안 넣음
-                                        recruitBoard = new RecruitBoard(
-                                                userId,
-                                                userName,
-                                                title.getText().toString(),
-                                                content.getText().toString(),
-                                                System.currentTimeMillis(),
-                                                month,
-                                                day,
-                                                recruitMemberNumber,
-                                                1,
-                                                userId
-                                        );
+                                        firebaseDatabase.child("users").child(userId).child("address")
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                        Map<String, Object> data = new HashMap<>();
+                                                        if (!task.isSuccessful()) {
+                                                            Log.e("firebase", "Error getting data", task.getException());
+                                                        } else {
+                                                            Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
+                                                            userAddress = Objects.requireNonNull(task.getResult().getValue()).toString();
 
-                                        data.put("userId", userId);
-                                        data.put("userName", userName);
-                                        data.put("title", title.getText().toString());
-                                        data.put("content", content.getText().toString());
-                                        data.put("recruitCreate", System.currentTimeMillis());
-                                        data.put("month", recruitMonth.getText().toString());
-                                        data.put("day", recruitDay.getText().toString());
-                                        data.put("totalMember", recruitMemberNumber);
-                                        data.put("nowMember", 1);
-                                        data.put("clickCount", recruitBoard.getClickCount());
-                                        data.put("deadLine", recruitBoard.isDeadlineCheck());
-                                        data.put("chatUserId1", userId);
-                                        //data.put("chatUserId2", "");
-                                        //data.put("chatUserId3", "");
-                                        //data.put("chatUserId4", "");
+                                                            // 주소는 아직 안 넣음
+                                                            recruitBoard = new RecruitBoard(
+                                                                    userId,
+                                                                    userName,
+                                                                    title.getText().toString(),
+                                                                    content.getText().toString(),
+                                                                    System.currentTimeMillis(),
+                                                                    month,
+                                                                    day,
+                                                                    recruitMemberNumber,
+                                                                    1,
+                                                                    userAddress,
+                                                                    userId
+                                                            );
 
-                                        if (contentId != null) {
-                                            DocumentReference documentReference = firebaseFirestore.collection("recruitment").document(contentId);
-                                            documentReference.set(data)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Toast.makeText(AddRecruitActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                                            data.put("userId", userId);
+                                                            data.put("userName", userName);
+                                                            data.put("title", title.getText().toString());
+                                                            data.put("content", content.getText().toString());
+                                                            data.put("recruitCreate", System.currentTimeMillis());
+                                                            data.put("month", recruitMonth.getText().toString());
+                                                            data.put("day", recruitDay.getText().toString());
+                                                            data.put("totalMember", recruitMemberNumber);
+                                                            data.put("nowMember", 1);
+                                                            data.put("clickCount", recruitBoard.getClickCount());
+                                                            data.put("deadLine", recruitBoard.isDeadlineCheck());
+                                                            data.put("chatUserId1", userId);
+                                                            data.put("address", userAddress);
+
+                                                            if (contentId != null) {
+                                                                DocumentReference documentReference = firebaseFirestore.collection("recruitment").document(contentId);
+                                                                documentReference.set(data)
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void aVoid) {
+                                                                                Toast.makeText(AddRecruitActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        })
+                                                                        .addOnFailureListener(new OnFailureListener() {
+                                                                            @Override
+                                                                            public void onFailure(@NonNull Exception e) {
+                                                                                Log.w("AddRecruitActivity", "Error writing document", e);
+                                                                            }
+                                                                        });
+                                                            } else {
+                                                                firebaseFirestore.collection("recruitment")
+                                                                        .add(data)
+                                                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                            @Override
+                                                                            public void onSuccess(DocumentReference documentReference) {
+                                                                                documentReference.set(data);
+                                                                                Toast.makeText(AddRecruitActivity.this, "모집글 작성", Toast.LENGTH_SHORT).show();
+                                                                                Log.d("documentId", "문서 id = " + documentReference.getId());
+                                                                            }
+                                                                        })
+                                                                        .addOnFailureListener(new OnFailureListener() {
+                                                                            @Override
+                                                                            public void onFailure(@NonNull Exception e) {
+                                                                                Toast.makeText(AddRecruitActivity.this, "모집글 작성 실패", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        });
+                                                            }
                                                         }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w("AddRecruitActivity", "Error writing document", e);
-                                                        }
-                                                    });
-                                        } else {
-                                            firebaseFirestore.collection("recruitment")
-                                                    .add(data)
-                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentReference documentReference) {
-                                                            documentReference.set(data);
-                                                            Toast.makeText(AddRecruitActivity.this, "모집글 작성", Toast.LENGTH_SHORT).show();
-                                                            Log.d("documentId", "문서 id = " + documentReference.getId());
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(AddRecruitActivity.this, "모집글 작성 실패", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                        }
+                                                        finish();
+                                                    }
+                                                });
                                     }
-                                    finish();
                                 }
                             });
 

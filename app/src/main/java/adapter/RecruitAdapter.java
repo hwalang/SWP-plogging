@@ -102,6 +102,7 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                                                         Objects.requireNonNull(document.getData().get("day")).toString(),
                                                         (Integer) totalMeetingNumber,
                                                         (Integer) nowMeetingNumber,
+                                                        Objects.requireNonNull(document.getData().get("address")).toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId1")).toString()
                                                 ));
                                                 contentIdList.add(document.getId());
@@ -118,6 +119,7 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                                                         Objects.requireNonNull(document.getData().get("day")).toString(),
                                                         (Integer) totalMeetingNumber,
                                                         (Integer) nowMeetingNumber,
+                                                        Objects.requireNonNull(document.getData().get("address")).toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId1")).toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId2")).toString()
                                                 ));
@@ -136,6 +138,7 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                                                         Objects.requireNonNull(document.getData().get("day")).toString(),
                                                         (Integer) totalMeetingNumber,
                                                         (Integer) nowMeetingNumber,
+                                                        document.getData().get("address").toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId1")).toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId2")).toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId3")).toString()
@@ -155,6 +158,7 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
                                                         Objects.requireNonNull(document.getData().get("day")).toString(),
                                                         (Integer) totalMeetingNumber,
                                                         (Integer) nowMeetingNumber,
+                                                        document.getData().get("address").toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId1")).toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId2")).toString(),
                                                         Objects.requireNonNull(document.getData().get("chatUserId3")).toString(),
@@ -216,9 +220,9 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
         String recruitDateText = "약속 날짜: " + recruitMonth + "월 " + recruitDay + "일";
         recruitDate.setText(recruitDateText);
 
-        // 작성자 주소: 아직 구현안됨
-//        TextView recruitAddress = cardView.findViewById(R.id.recruit_card_address);
-//        recruitAddress.setText(recruitBoards.get(position).get);
+        // 작성자 주소
+        TextView recruitAddress = cardView.findViewById(R.id.recruit_card_address);
+        recruitAddress.setText(recruitBoards.get(position).getAddress());
 
         // 마감여부
         TextView recruitIsDead = cardView.findViewById(R.id.recruit_card_deadline);

@@ -107,8 +107,9 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
         viewModifyBtn       = findViewById(R.id.view_recruit_modify);
         viewDeleteBtn       = findViewById(R.id.view_recruit_delete);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        user                = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore   = FirebaseFirestore.getInstance();
+        databaseReference   = FirebaseDatabase.getInstance().getReference();
 
         // 제목
         viewTitle.setText(recruitBoard.getTitleRecruit());
@@ -145,10 +146,26 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
 
         // 푸시알림 시스템 권한 요청
         notificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
-
-        databaseReference = FirebaseDatabase.getInstance().getReference();
         if (user != null) {
             userId = user.getUid();
+            // 작성자 주소
+            databaseReference.child("users").child(userId).child("address")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            } else {
+                                // 성공
+                                Log.d("firebase", String.valueOf(Objects.requireNonNull(task.getResult()).getValue()));
+                                String address = String.valueOf(Objects.requireNonNull(task.getResult()).getValue());
+
+                                viewAddress.setText(address);
+                            }
+                        }
+                    });
+
             databaseReference.child("users").child(userId).child("userName")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -327,7 +344,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.GREEN);
             notificationChannel.enableVibration(true);
-            notificationChannel.setDescription(userName + "님이 가입 신청을 했습니다.");
+            notificationChannel.setDescription(userName + "님은 해당 모임에 가입했습니다.");
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
@@ -351,7 +368,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
                 .setContentTitle("가입 알림")
-                .setContentText(userName + "님이 가입 했습니다.")
+                .setContentText(userName + "님은 해당 모임에 가입 했습니다.")
                 .setSmallIcon(R.drawable.people)
                 .setContentIntent(pendingIntent1)
                 .setAutoCancel(true);
