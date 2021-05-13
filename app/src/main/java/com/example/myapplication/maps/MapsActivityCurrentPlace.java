@@ -10,11 +10,12 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -41,8 +42,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.maps.android.SphericalUtil;
 
@@ -58,6 +57,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     private GoogleMap mMap;
     private Marker currentMarker = null;
+    private Marker canMarker;
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -73,10 +73,12 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
 
-
+    double tLatitude;
+    double tLongitude;
     Location mCurrentLocation;
     LatLng currentPosition;
     LatLng latLng = null;
+    LatLng trashPosition;
     LatLng previousPosition = null;
     Marker addedMarker = null;
     int tracking = 0;
@@ -307,6 +309,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             public void onMapClick(LatLng latLng) {
 
                 Log.d( TAG, "onMapClick :");
+
             }
         });
     }
@@ -447,11 +450,24 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
 
-        final Button pinCamera = (Button)findViewById(R.id.location);
-        pinCamera.setOnClickListener(new View.OnClickListener() {
+        final Button trashcan = (Button)findViewById(R.id.can);
+        trashcan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMap.moveCamera(cameraUpdate);
+                LatLng trashPosition = new LatLng(location.getLatitude(), location.getLongitude());
+
+                String garbageCan = "쓰레기통";
+
+                MarkerOptions markerOptions1 = new MarkerOptions();
+                markerOptions1.position(trashPosition);
+                markerOptions1.title(garbageCan);
+                markerOptions1.snippet(markerSnippet);
+                BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.drawable.garbagecan);
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, 50, 50, false);
+                markerOptions1.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                canMarker = mMap.addMarker(markerOptions1);
             }
         });
 
