@@ -28,7 +28,6 @@
                 android:scaleType="centerCrop"
                 android:id="@+id/walk_img"/>
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -36,7 +35,7 @@
                 android:textSize="20dp"
                 android:padding="10dp"
                 android:fontFamily="@font/surround"
-                android:textColor = "@color/white"
+                android:textColor = "@color/black"
                 android:id="@+id/walk_name"/>
 
 

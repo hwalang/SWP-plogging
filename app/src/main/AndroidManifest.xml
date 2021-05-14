@@ -16,9 +16,8 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Mountine"></activity>
-        <activity android:name=".Park" />
-        <activity android:name=".Walk" />
+        <activity android:name=".MountineActivity"></activity>
+        <activity android:name=".ParkActivity" />
         <activity android:name=".loginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

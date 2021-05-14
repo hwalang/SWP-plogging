@@ -15,20 +15,12 @@
         >
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="100dp">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/gradient"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/img"
-                android:scaleType="centerCrop"
-                android:id="@+id/park_img"/>
-
-
+                android:background="@color/grey"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -36,7 +28,7 @@
                 android:textSize="20dp"
                 android:padding="10dp"
                 android:fontFamily="@font/surround"
-                android:textColor = "@color/white"
+                android:textColor = "@color/black"
                 android:id="@+id/park_name"/>
              <LinearLayout
                 android:layout_width="match_parent"
@@ -49,9 +41,20 @@
                      android:text="Source"
                      android:textSize="15dp"
                      android:padding="10dp"
+                     android:layout_weight="1"
                      android:fontFamily="@font/surround"
-                     android:textColor = "@color/white"
+                     android:textColor = "@color/black"
                      android:id="@+id/park_location"/>
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:text="col"
+                     android:textSize="15dp"
+                     android:padding="10dp"
+                     android:layout_weight="2"
+                     android:fontFamily="@font/surround"
+                     android:textColor = "@color/black"
+                     android:id="@+id/park_col"/>
 
              </LinearLayout>
 

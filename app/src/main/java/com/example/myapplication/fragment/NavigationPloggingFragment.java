@@ -11,11 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.MainActivity;
-import com.example.myapplication.Mountine;
-import com.example.myapplication.Park;
+import com.example.myapplication.MountineActivity;
+import com.example.myapplication.ParkActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.Walk;
+import com.example.myapplication.WalkActivity;
 
 public class NavigationPloggingFragment extends Fragment {
     Button walk,park,moun;
@@ -27,21 +26,21 @@ public class NavigationPloggingFragment extends Fragment {
         walk = view.findViewById(R.id.walk);
         walk.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(getActivity(),Walk.class);
+                Intent intent = new Intent(getActivity(), WalkActivity.class);
                 startActivity(intent);
             }
         });
         park = view.findViewById(R.id.park);
         park.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(getActivity(),Park.class);
+                Intent intent = new Intent(getActivity(), ParkActivity.class);
                 startActivity(intent);
             }
         });
         moun = view.findViewById(R.id.mountine);
         moun.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(getActivity(),Mountine.class);
+                Intent intent = new Intent(getActivity(), MountineActivity.class);
                 startActivity(intent);
             }
         });
