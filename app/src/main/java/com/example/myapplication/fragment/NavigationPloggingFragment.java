@@ -26,7 +26,7 @@ public class NavigationPloggingFragment extends Fragment {
         walk = view.findViewById(R.id.walk);
         walk.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(getActivity(), WalkActivity.class);
+                Intent intent = new Intent(getActivity(), ParkActivity.class);
                 startActivity(intent);
             }
         });
