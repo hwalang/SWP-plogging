@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -42,18 +43,64 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+
+import static android.content.ContentValues.TAG;
 
 
 public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
+
+
+//    public String userName;
+//    public String profileImageUrl;
+//    public String uid;
+//    public String birth;
+//    public String gender;
+//    public String address;
+//    public double garbageCanLat;
+//    public double garbageCanLong;
+//    // UserModel
+
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
+    FirebaseDatabase mDatabase;
+    DatabaseReference firebaseDatabase;
+
+    FirebaseUser user;
+    String userId = null;
+    String uid;
+
+    private ArrayList<LatLng> arrayPoints;
+    private PolylineOptions polylineOptions = new PolylineOptions();
 
     private GoogleMap mMap;
     private Marker currentMarker = null;
@@ -73,8 +120,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
 
-    double tLatitude;
-    double tLongitude;
+    private double tLatitude;
+    private double tLongitude;
     Location mCurrentLocation;
     LatLng currentPosition;
     LatLng latLng = null;
@@ -448,6 +495,12 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
         currentMarker = mMap.addMarker(markerOptions);
 
+        polylineOptions.color(Color.RED);
+        polylineOptions.width(15);
+        arrayPoints.add(currentLatLng);
+        polylineOptions.addAll(arrayPoints);
+        mMap.addPolyline(polylineOptions);
+
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
 
         final Button trashcan = (Button)findViewById(R.id.can);
@@ -468,6 +521,45 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 markerOptions1.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
                 canMarker = mMap.addMarker(markerOptions1);
+
+                Map<String, Object> user = new HashMap<>();
+                user.put("garbageCanLat", location.getLatitude());
+                user.put("garbageCanLong", location.getLongitude());
+
+                db.collection("garbageCan")
+                        .add(user)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "저장 완료");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "저장 실패");
+                            }
+                        });
+
+//                String key = mDatabase.getReference().child("users").push().getKey();
+//                UserModel userModel = new UserModel();
+//                Map<String, Object> postValues = userModel.toMap();
+//
+//                Map<String, Object> childUpdates = new HashMap<>();
+//                childUpdates.put("/users/" + key, postValues);
+//                childUpdates.put("/user-users/" + )
+
+//                UserModel userModel = new UserModel();
+//
+//
+//                userModel.garbageCanLat = location.getLatitude();
+//                userModel.garbageCanLong = location.getLongitude();
+//
+//                user = FirebaseAuth.getInstance().getCurrentUser();
+//                uid = user.getUid();
+//
+//                mDatabase.getReference().child("users").child(uid).setValue(userModel);
+
             }
         });
 
