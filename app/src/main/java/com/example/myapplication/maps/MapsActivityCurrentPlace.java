@@ -99,7 +99,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     String userId = null;
     String uid;
 
-    private ArrayList<LatLng> arrayPoints;
+    private ArrayList<LatLng> arrayPoints = new ArrayList<LatLng>();
     private PolylineOptions polylineOptions = new PolylineOptions();
 
     private GoogleMap mMap;
