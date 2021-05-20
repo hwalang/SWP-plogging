@@ -1,39 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_certify"
+    android:id="@+id/main_plogging"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentEnd="false"
-    android:layout_alignParentRight="false"
-    android:layout_alignParentBottom="true">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/certifyitemfragment_recyclerview"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:fontFamily="@font/surround"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="폴로깅"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <Button
+        android:id="@+id/walk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:text="walk"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/walk"
+        app:iconSize="130dp"
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/maps"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/purple_200"
-        android:clickable="true"
-        android:contentDescription="글작성"
-        android:focusable="true"
-        android:hapticFeedbackEnabled="false"
-        app:backgroundTint="@color/purple_200"
-        app:rippleColor="@color/purple_200"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        tools:ignore="VectorDrawableCompat" />
-</RelativeLayout>
+        app:iconTint="@color/purple_700" />
+
+    <Button
+        android:id="@+id/park"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="park"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:icon="@drawable/park"
+        app:iconSize="130dp" />
+
+    <Button
+        android:id="@+id/mountine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:text="mountine"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/mountine"
+        app:iconSize="130dp"
+        app:iconTint="@color/purple_200" />
+</LinearLayout>

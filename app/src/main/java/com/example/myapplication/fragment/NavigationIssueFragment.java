@@ -84,6 +84,7 @@ public class NavigationIssueFragment extends Fragment {
 
             }
 
+
             @Override
             public void onFailure(Call<Headlines> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
@@ -94,7 +95,7 @@ public class NavigationIssueFragment extends Fragment {
 
     public String getCountry(){
         Locale locale = Locale.getDefault();
-        String country = "plogging";
+        String country = "recycling";
         return country.toLowerCase();
     }
 }

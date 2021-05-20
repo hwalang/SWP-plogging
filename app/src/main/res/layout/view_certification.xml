@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:background="@color/white"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/certifyitem_title"
@@ -20,24 +20,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="제목"
-            android:textSize="25dp"
-            />
+            android:textSize="25dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
             android:layout_gravity="end"
             android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:gravity="center">
 
             <TextView
-                android:paddingRight="10dp"
                 android:id="@+id/certifyitem_created"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="작성일"
                 android:paddingEnd="8dp"
+                android:paddingRight="10dp"
+                android:text="작성일"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
@@ -52,16 +51,18 @@
     <ImageView
         android:id="@+id/certifyitem_imageview_content"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:scaleType="fitXY"
         tools:ignore="ContentDescription" />
+
     <TextView
-        android:layout_marginLeft="8dp"
         android:id="@+id/certifyitem_content_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="내용"
-        android:layout_marginStart="8dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="내용" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,10 +79,10 @@
             app:srcCompat="@drawable/feel" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_margin="3.5dp"
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="3.5dp"
             android:backgroundTint="#FFFFFF"
             android:contentDescription="댓글"
             app:backgroundTint="#FFFFFF"
@@ -93,10 +94,10 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginLeft="8dp"
         android:id="@+id/certifyitem_favorite_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="like_0"
-        android:layout_marginStart="8dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="like_0" />
 </LinearLayout>

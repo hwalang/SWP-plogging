@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_issue"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    tools:context=".ParkActivity"
     android:orientation="vertical">
 
     <TextView
@@ -14,37 +14,43 @@
         android:fontFamily="@font/surround"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="ISSUE"
+        android:text="공원"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp" />
-
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:text="Search"
-        android:textColor="@color/white" />
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
 
+        <EditText
+            android:id="@+id/park_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:hint="찾을 공원을 입력하세요" />
+ㄴ
+        <Button
+            android:id="@+id/park_button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="search"
+            android:textSize="12sp" />
 
+    </LinearLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/park_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </LinearLayout>
