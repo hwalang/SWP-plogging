@@ -68,7 +68,7 @@ public class profileActivity extends AppCompatActivity {
         user =FirebaseAuth.getInstance().getCurrentUser();
         userId = user.getUid();
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
-        firebaseDatabase.child("users").child(userId).child("userName")
+        firebaseDatabase.child("users").child(userId).child("userName") //리얼타임 데이터
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override

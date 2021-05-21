@@ -20,11 +20,11 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+   <!-- <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mou_recyclerView"
             android:layout_width="match_parent"
@@ -32,5 +32,5 @@
             android:layout_marginTop="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 </androidx.appcompat.widget.LinearLayoutCompat>

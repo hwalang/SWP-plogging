@@ -6,9 +6,27 @@ public class moModel {
     private String image;
     private String location;
     private String mouname;
+    private double moulat;
+    private double moulong;
 
     public String getCos() {
         return cos;
+    }
+
+    public double getMoulat() {
+        return moulat;
+    }
+
+    public void setMoulat(double moulat) {
+        this.moulat = moulat;
+    }
+
+    public double getMoulong() {
+        return moulong;
+    }
+
+    public void setMoulong(double moulong) {
+        this.moulong = moulong;
     }
 
     public void setCos(String cos) {

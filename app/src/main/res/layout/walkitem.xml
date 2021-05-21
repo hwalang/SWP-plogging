@@ -13,20 +13,10 @@
         app:cardCornerRadius="10dp"
         android:id="@+id/cardView"
         >
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradient"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/img"
-                android:scaleType="centerCrop"
-                android:id="@+id/walk_img"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -37,9 +27,25 @@
                 android:fontFamily="@font/surround"
                 android:textColor = "@color/black"
                 android:id="@+id/walk_name"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="bottom"
+                >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="location"
+                android:fontFamily="@font/surroundair"
+                android:textSize="20dp"
+                android:paddingLeft="20dp"
+                android:textColor="@color/black"
+                android:id="@+id/walk_location"
+                />
+        </LinearLayout>
 
-
-        </FrameLayout>
+        </LinearLayout>
 
 
     </androidx.cardview.widget.CardView>

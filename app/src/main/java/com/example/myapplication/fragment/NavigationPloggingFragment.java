@@ -2,6 +2,7 @@ package com.example.myapplication.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class NavigationPloggingFragment extends Fragment {
             public void onClick(View view){
                 Intent intent = new Intent(getActivity(), MountineActivity.class);
                 startActivity(intent);
+
             }
         });
 

@@ -80,6 +80,13 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5'
 
     implementation 'com.android.volley:volley:1.2.0'
+    implementation 'com.google.firebase:firebase-storage'
+    //img
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    // FirebaseUI Storage only
+    //implementation 'com.firebaseui:firebase-ui-storage:6.4.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }
 

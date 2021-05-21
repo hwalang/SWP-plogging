@@ -1,13 +1,17 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +41,14 @@ public class mouAdapter extends RecyclerView.Adapter<mouAdapter.mouAdapterViewHo
        Glide.with(holder.itemView).load(arrayList.get(position).getImage()).into(holder.mou_img);
         holder.mou_location.setText(arrayList.get(position).getLocation());
         holder.mou_name.setText(arrayList.get(position).getMouname());
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("dd","dd");
+
+            }
+        });
     }
 
     @Override
@@ -49,12 +61,13 @@ public class mouAdapter extends RecyclerView.Adapter<mouAdapter.mouAdapterViewHo
 
         ImageView mou_img;
         TextView mou_location, mou_name;
+        CardView cardView;
         public mouAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             mou_img = itemView.findViewById(R.id.mou_img);
             mou_location = itemView.findViewById(R.id.mou_location);
             mou_name = itemView.findViewById(R.id.mou_name);
-
+            cardView = itemView.findViewById(R.id.mou_cardView);
         }
     }
 }
