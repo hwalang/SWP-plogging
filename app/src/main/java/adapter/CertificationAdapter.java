@@ -186,10 +186,6 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
             }
         });
 
-        // 좋아요 수
-        TextView certifyitem_favorite_count = cardView.findViewById(R.id.certifyitem_favorite_count);
-        certifyitem_favorite_count.setText(String.valueOf(certificationBoards.get(position).getCertifyFeel()));
-
         // 좋아요 이미지를 누르면 좋아요 수 증가
         cardView.findViewById(R.id.certifyitem_favorite_imageview).setOnClickListener(new View.OnClickListener() {
             @Override
