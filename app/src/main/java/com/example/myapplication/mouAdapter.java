@@ -15,12 +15,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.maps.MapsActivityCurrentPlace;
 
 import java.util.ArrayList;
 
 public class mouAdapter extends RecyclerView.Adapter<mouAdapter.mouAdapterViewHolder> {
     ArrayList<moModel> arrayList;
     Context context;
+
 
     public mouAdapter(ArrayList<moModel> arrayList, Context context) {
         this.arrayList = arrayList;
@@ -46,6 +48,13 @@ public class mouAdapter extends RecyclerView.Adapter<mouAdapter.mouAdapterViewHo
             @Override
             public void onClick(View view) {
                 Log.d("dd","dd");
+                Intent intent = new Intent(view.getContext(),MapsActivityCurrentPlace.class);
+                intent.putExtra("mouname",arrayList.get(position).getMouname());
+                intent.putExtra("location",arrayList.get(position).getLocation());
+                intent.putExtra("moulat",arrayList.get(position).getMoulat());
+                intent.putExtra("moulong",arrayList.get(position).getMoulong());
+
+                context.startActivity(intent);
 
             }
         });

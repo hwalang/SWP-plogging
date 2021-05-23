@@ -2,8 +2,10 @@ package com.example.myapplication;
 
 public class parkModel {
     private String parkcol;
-    private String parklocation;
+    private String location;
     private String parkname;
+    private double parklat;
+    private double parklong;
 
     public String getParkcol() {
         return parkcol;
@@ -13,12 +15,12 @@ public class parkModel {
         this.parkcol = parkcol;
     }
 
-    public String getParklocation() {
-        return parklocation;
+    public String getlocation() {
+        return location;
     }
 
-    public void setParklocation(String parklocation) {
-        this.parklocation = parklocation;
+    public void setlocation(String parklocation) {
+        this.location = parklocation;
     }
 
     public String getParkname() {
@@ -27,5 +29,21 @@ public class parkModel {
 
     public void setParkname(String parkname) {
         this.parkname = parkname;
+    }
+
+    public double getParklat() {
+        return parklat;
+    }
+
+    public void setParklat(double parklat) {
+        this.parklat = parklat;
+    }
+
+    public double getParklong() {
+        return parklong;
+    }
+
+    public void setParklong(double parklong) {
+        this.parklong = parklong;
     }
 }

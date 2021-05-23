@@ -43,7 +43,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
@@ -56,6 +61,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         ActivityCompat.OnRequestPermissionsResultCallback {
 
 
+    private DatabaseReference mDatabase;
     private GoogleMap mMap;
     private Marker currentMarker = null;
 
@@ -133,7 +139,10 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 if ( tracking == 1){
                     button.setText("그만");
                 }
-                else button.setText("시작");
+                else {
+                    button.setText("시작");
+                    addedMarker.remove();
+                }
             }
         });
 
@@ -159,13 +168,18 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 if (previousPosition == null) previousPosition = currentPosition;
 
                 if ( (addedMarker != null) && tracking == 1 ) {
-                    double radius = 500; // 500m distance.
+                    double radius = 0;
 
                     double distance = SphericalUtil.computeDistanceBetween(currentPosition, addedMarker.getPosition());
 
-                    if ((distance < radius) && (!previousPosition.equals(currentPosition))) {
+                    if ((distance > radius) && (!previousPosition.equals(currentPosition))) {
+                        if (distance > 1000){
+                            String Ldistance = String.format("%.1f", (distance/1000));
+                            Toast.makeText(MapsActivityCurrentPlace.this, addedMarker.getTitle() + "까지 " + Ldistance + "km 남음", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(MapsActivityCurrentPlace.this, addedMarker.getTitle() + "까지 " + (int) distance + "m 남음", Toast.LENGTH_LONG).show();
+                        }
 
-                        Toast.makeText(MapsActivityCurrentPlace.this, addedMarker.getTitle() + "까지" + (int) distance + "m 남음", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -193,6 +207,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         Log.d(TAG, "onMapReady :");
 
         mMap = googleMap;
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -309,6 +325,48 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 Log.d( TAG, "onMapClick :");
             }
         });
+
+        Intent secondIntent = getIntent();
+        String mouName = secondIntent.getStringExtra("mouname");
+        String moulocation = secondIntent.getStringExtra("location");
+        double mouLat = secondIntent.getDoubleExtra("moulat", 3.5);
+        double mouLong = secondIntent.getDoubleExtra("moulong", 3.5);
+        Log.d(TAG, "산이름 : " + mouName);
+        Log.d(TAG, "산주소 : " + moulocation);
+        Log.d(TAG, "산경도 : " + mouLat);
+        Log.d(TAG, "산위도 : " + mouLong);
+
+        LatLng mouLatlng = new LatLng(mouLat,mouLong);
+        MarkerOptions moumarkerOptions = new MarkerOptions();
+        moumarkerOptions.position(mouLatlng);
+        moumarkerOptions.title(mouName);
+        moumarkerOptions.snippet(moulocation);
+        moumarkerOptions.draggable(true);
+        moumarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+        addedMarker = mMap.addMarker(moumarkerOptions);
+
+
+
+        String parkName = secondIntent.getStringExtra("parkname");
+        String parklocation = secondIntent.getStringExtra("location");
+        double parkLat = secondIntent.getDoubleExtra("parklat", 3.5);
+        double parkLong = secondIntent.getDoubleExtra("parklong", 3.5);
+        Log.d(TAG, "공원이름 : " + parkName);
+        Log.d(TAG, "공원주소 : " + parklocation);
+        Log.d(TAG, "공원경도 : " + parkLat);
+        Log.d(TAG, "공원위도 : " + parkLong);
+
+        LatLng parkLatlng = new LatLng(parkLat,parkLong);
+        MarkerOptions parkmarkerOptions = new MarkerOptions();
+        parkmarkerOptions.position(parkLatlng);
+        parkmarkerOptions.title(parkName);
+        parkmarkerOptions.snippet(parklocation);
+        parkmarkerOptions.draggable(true);
+        parkmarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+        addedMarker = mMap.addMarker(parkmarkerOptions);
+
     }
 
 
@@ -434,7 +492,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
 
         LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18));
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(currentLatLng);
@@ -445,15 +503,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
         currentMarker = mMap.addMarker(markerOptions);
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-
-        final Button pinCamera = (Button)findViewById(R.id.location);
-        pinCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mMap.moveCamera(cameraUpdate);
-            }
-        });
+//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+//
+//        final Button pinCamera = (Button)findViewById(R.id.location);
+//        pinCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mMap.moveCamera(cameraUpdate);
+//            }
+//        });
 
 
 
