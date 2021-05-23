@@ -16,6 +16,7 @@ import com.example.myapplication.MountineActivity;
 import com.example.myapplication.ParkActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.WalkActivity;
+import com.example.myapplication.maps.MapsActivityCurrentPlace;
 
 public class NavigationPloggingFragment extends Fragment {
     Button walk,park,moun;
@@ -27,7 +28,7 @@ public class NavigationPloggingFragment extends Fragment {
         walk = view.findViewById(R.id.walk);
         walk.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(getActivity(), ParkActivity.class);
+                Intent intent = new Intent(getActivity(), MapsActivityCurrentPlace.class);
                 startActivity(intent);
             }
         });
