@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.schema.MounModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -43,6 +44,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,13 +53,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
@@ -67,6 +74,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+
+import okhttp3.Route;
 
 import static android.content.ContentValues.TAG;
 
@@ -87,13 +96,14 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 //    public double garbageCanLong;
 //    // UserModel
 
+    MounModel mounModel;
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-
-    FirebaseDatabase mDatabase;
-    DatabaseReference firebaseDatabase;
+    private DatabaseReference mRef;
+    private DatabaseReference firebaseDatabase;
 
     FirebaseUser user;
     String userId = null;
@@ -106,10 +116,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     private Marker currentMarker = null;
     private Marker canMarker;
 
+
+    Marker mouMarker;
+    String mounName;
+    Marker mounMarker;
+
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
-    private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
+    private static final int UPDATE_INTERVAL_MS = 2000;  // 2초
+    private static final int FASTEST_UPDATE_INTERVAL_MS = 1000; // 1초
 
 
     // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
@@ -129,6 +144,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     LatLng previousPosition = null;
     Marker addedMarker = null;
     int tracking = 0;
+    private Polyline polyline;
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -186,6 +202,61 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             }
         });
 
+//        firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("mountinue").child("0");
+//        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                mouLat = Double.parseDouble(snapshot.child("moulat").getValue().toString());
+//                mouLong = Double.parseDouble(snapshot.child("moulong").getValue().toString());
+//                mouPosition = new LatLng(mouLat,mouLong);
+//                mMap.addMarker(new MarkerOptions().position(mouPosition).title("가좌산"));
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.e("firebase", "Error getting data", task.getException());
+//                        } else {
+//                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                            mouLat = (double) task.getResult().getValue();
+//                        }
+//                    }
+//                });
+//        firebaseDatabase.child("mountinue").child("0").child("moulong")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.e("firebase", "Error getting data", task.getException());
+//                        } else {
+//                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                            mouLong = (double) task.getResult().getValue();
+//                        }
+//                    }
+//                });
+//        firebaseDatabase.child("mountinue").child("0").child("mouname")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.e("firebase", "Error getting data", task.getException());
+//                        } else {
+//                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                            mounName = task.getResult().getValue().toString();
+//                        }
+//                    }
+//                });
+
+
+
     }
 
 
@@ -196,9 +267,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             super.onLocationResult(locationResult);
 
             List<Location> locationList = locationResult.getLocations();
+            Log.d(TAG, "storeRoute" + String.valueOf(locationList));
 
             if (locationList.size() > 0) {
                 Location location = locationList.get(locationList.size() - 1);
+                Log.d(TAG, "storeRoute2" + location.getLatitude() + location.getLongitude());
                 //location = locationList.get(0);
 
                 previousPosition = currentPosition;
@@ -216,6 +289,29 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
                         Toast.makeText(MapsActivityCurrentPlace.this, addedMarker.getTitle() + "까지" + (int) distance + "m 남음", Toast.LENGTH_LONG).show();
                     }
+                    startPolyline(location);
+
+                    Map<String, Object> route = new HashMap<>();
+//                    route.put("locationLat", location.getLatitude());
+//                    route.put("locationLong", location.getLongitude());
+                    route.put("LocationList", locationList);
+
+                    /*db.collection("Route")
+                            .add(route)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "저장 완료");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "저장 실패");
+                                }
+                            });*/
+                    db.collection("Route").document("Route")
+                            .set(route);
                 }
 
 
@@ -229,6 +325,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet);
 
+
+
                 mCurrentLocation = location;
             }
 
@@ -237,6 +335,21 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
     };
 
+    public void startPolyline(Location location) {
+
+
+        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18));
+
+
+        polylineOptions.color(Color.RED);
+        polylineOptions.width(15);
+        arrayPoints.add(currentLatLng);
+        polylineOptions.addAll(arrayPoints);
+        mMap.addPolyline(polylineOptions);
+    }
+
+
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         Log.d(TAG, "onMapReady :");
@@ -244,8 +357,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         mMap = googleMap;
 
 
-
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener(){
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
             public void onMapLongClick(final LatLng latLng) {
@@ -264,7 +376,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     public void onClick(View v) {
                         String string_placeTitle = editText_placeTitle.getText().toString();
                         String string_placeDesc = editText_placeDesc.getText().toString();
-                        Toast.makeText(MapsActivityCurrentPlace.this, string_placeTitle+"\n"+string_placeDesc,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapsActivityCurrentPlace.this, string_placeTitle + "\n" + string_placeDesc, Toast.LENGTH_SHORT).show();
 
 
                         //맵을 클릭시 현재 위치에 마커 추가
@@ -275,12 +387,10 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                         markerOptions.draggable(true);
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
-                        if ( addedMarker != null ) mMap.clear();
+                        if (addedMarker != null) mMap.clear();
                         addedMarker = mMap.addMarker(markerOptions);
 
                         dialog.dismiss();
-
-
 
 
                     }
@@ -296,7 +406,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         setDefaultLocation();
 
 
-
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
@@ -305,9 +414,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
 
-
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
             // 2. 이미 퍼미션을 가지고 있다면
             // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
@@ -316,7 +424,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             startLocationUpdates(); // 3. 위치 업데이트 시작
 
 
-        }else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
+        } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
 
             // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
@@ -329,7 +437,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
                     public void onClick(View view) {
 
                         // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                        ActivityCompat.requestPermissions( MapsActivityCurrentPlace.this, REQUIRED_PERMISSIONS,
+                        ActivityCompat.requestPermissions(MapsActivityCurrentPlace.this, REQUIRED_PERMISSIONS,
                                 PERMISSIONS_REQUEST_CODE);
                     }
                 }).show();
@@ -338,12 +446,11 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                ActivityCompat.requestPermissions( this, REQUIRED_PERMISSIONS,
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
 
         }
-
 
 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -355,8 +462,70 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             @Override
             public void onMapClick(LatLng latLng) {
 
-                Log.d( TAG, "onMapClick :");
+                Log.d(TAG, "onMapClick :");
 
+            }
+        });
+//        mRef = FirebaseDatabase.getInstance().getReference();
+//        firebaseDatabase = mRef.child("mountinue").child("1");
+//
+//        firebaseDatabase.child("location")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.e("firebase", "Error getting data", task.getException());
+//                        } else {
+//                            Log.d("firebase", task.getResult().getValue().toString());
+//
+//                        }
+//                    }
+//                });
+
+//        firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("mountinue").child("0");
+//        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                HashMap<String, Double> data = (HashMap<String, Double>) snapshot.getValue();
+//                Double mouLat = (Double) snapshot.child("moulat").getValue();
+//                Log.d(TAG, "firebase " + mouLat);
+//                Double mouLong = (Double) snapshot.child("moulong").getValue();
+//                LatLng mouPosition = new LatLng(mouLat,mouLong);
+//                mMap.addMarker(new MarkerOptions().position(mouPosition).title("가좌산"));
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+//        mouPosition = new LatLng(35.1614723064816,128.1027256845581);
+//
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(mouPosition);
+//        markerOptions.title(mounName);
+//        markerOptions.snippet(mounlocation);
+//        markerOptions.draggable(true);
+//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//
+//        mounMarker = mMap.addMarker(markerOptions);
+
+        DocumentReference docRef = db.collection("mountinue").document("da36c6e0-b2c0-11eb-9b1f-71a48436b59e");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG,  "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(TAG, "No Such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with", task.getException());
+                }
             }
         });
     }
