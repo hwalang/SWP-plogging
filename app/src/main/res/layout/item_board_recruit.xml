@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="제목"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,14 +34,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="작성일"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     />
                 <TextView
                     android:id="@+id/recruit_card_writer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="작성자"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -56,14 +56,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="약속날짜"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 />
             <TextView
                 android:id="@+id/recruit_card_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="작성자주소"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="마감여부"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -86,21 +86,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="현재 인원수"
-                        android:layout_margin="5dp"
+                        android:layout_margin="10dp"
                         />
                     <TextView
                         android:id="@+id/recruit_card_member_line"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/"
-                        android:layout_margin="5dp"
+                        android:layout_margin="10dp"
                         />
                     <TextView
                         android:id="@+id/recruit_card_total_member"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="전체 인원수"
-                        android:layout_margin="5dp"
+                        android:layout_margin="10dp"
                         />
                 </LinearLayout>
             </LinearLayout>
