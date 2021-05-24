@@ -65,7 +65,8 @@
 
 
         <activity android:name=".Detailed" />
-        <activity android:name=".maps.MapsActivityCurrentPlace" />
+        <activity android:name=".maps.MapsActivityCurrentPlace"
+            android:screenOrientation="portrait" />
         <activity android:name=".maps.Tmap" />
         <activity
             android:name=".registerActivity"
