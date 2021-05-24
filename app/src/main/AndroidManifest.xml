@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -74,6 +75,7 @@
         <activity android:name=".MountineActivity" />
         <activity android:name=".ParkActivity" />
         <activity android:name=".WalkActivity" />
+        <activity android:name=".stepCounter" />
 
 
 
