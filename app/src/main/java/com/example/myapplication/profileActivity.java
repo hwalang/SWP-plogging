@@ -97,14 +97,14 @@ public class profileActivity extends AppCompatActivity {
                     }
                 });
 
-//                        menu.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Intent intent = new Intent(profileActivity.this, stepCounter.class);
-//                                startActivity(intent);
-//                                finish();
-//                            }
-//                        });
+                        menu.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(profileActivity.this, stepCounter.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
 
                         // 메뉴 버튼은 만보기가 구현된 후 intent 할 예정
 

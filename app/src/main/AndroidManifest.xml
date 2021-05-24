@@ -23,9 +23,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
-
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/maps_api_key" />
 
@@ -39,34 +37,31 @@
         <activity
             android:name=".profileActivity"
             android:label="activity_profile"
-            android:parentActivityName=".loginActivity"/>
+            android:parentActivityName=".loginActivity" />
         <activity
             android:name=".BottomNavigation"
             android:parentActivityName=".profileActivity" />
-
         <activity
             android:name=".AddCertificationActivity"
-            android:parentActivityName=".BottomNavigation"/>
+            android:parentActivityName=".BottomNavigation" />
         <activity
             android:name=".ViewCertificationActivity"
-            android:parentActivityName=".BottomNavigation"/>
+            android:parentActivityName=".BottomNavigation" />
         <activity
             android:name=".CommentActivity"
-            android:parentActivityName=".BottomNavigation"/>
-
+            android:parentActivityName=".BottomNavigation" />
         <activity
             android:name=".ViewRecruitActivity"
-            android:parentActivityName=".BottomNavigation"/>
+            android:parentActivityName=".BottomNavigation" />
         <activity
             android:name=".ChatRoomActivity"
-            android:parentActivityName=".ViewRecruitActivity"/>
+            android:parentActivityName=".ViewRecruitActivity" />
         <activity
             android:name=".AddRecruitActivity"
-            android:parentActivityName=".BottomNavigation"/>
-
-
+            android:parentActivityName=".BottomNavigation" />
         <activity android:name=".Detailed" />
-        <activity android:name=".maps.MapsActivityCurrentPlace"
+        <activity
+            android:name=".maps.MapsActivityCurrentPlace"
             android:screenOrientation="portrait" />
         <activity android:name=".maps.Tmap" />
         <activity
@@ -75,10 +70,9 @@
         <activity android:name=".MountineActivity" />
         <activity android:name=".ParkActivity" />
         <activity android:name=".WalkActivity" />
-        <activity android:name=".stepCounter" />
-
-
-
+        <activity
+            android:name=".stepCounter"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
