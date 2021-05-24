@@ -198,21 +198,26 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                                     if (nowMember <= totalMember) {
                                         // 가입 인원을 다 채우지 않은 모집글인 경우
                                         if (nowMember == 1) {
+                                            // 가입 인원이 1명
                                             isChatUserId2 = true;
                                             viewApplyBtn.setVisibility(View.VISIBLE);
                                             viewApplyBtn.setOnClickListener(ViewRecruitActivity.this);
                                             createNotificationChannel();
                                         } else if (nowMember == 2) {
+                                            // 가입 인원이 2명
                                             if (!recruitBoard.getChatUserId2().equals(userId)) {
+                                                // 가입 인원에 현재 사용자가 없을때
                                                 isChatUserId3 = true;
                                                 viewApplyBtn.setVisibility(View.VISIBLE);
                                                 viewApplyBtn.setOnClickListener(ViewRecruitActivity.this);
                                                 createNotificationChannel();
                                             } else {
+                                                viewApplyBtn.setVisibility(View.INVISIBLE);
                                                 viewEnterChatBtn.setVisibility(View.VISIBLE);
                                                 viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
                                             }
                                         } else if (nowMember == 3) {
+                                            // 가입 인원이 3명
                                             if (!recruitBoard.getChatUserId2().equals(userId)) {
                                                 if (!recruitBoard.getChatUserId3().equals(userId)) {
                                                     isChatUserId4 = true;
@@ -220,15 +225,18 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                                                     viewApplyBtn.setOnClickListener(ViewRecruitActivity.this);
                                                     createNotificationChannel();
                                                 } else {
+                                                    viewApplyBtn.setVisibility(View.INVISIBLE);
                                                     viewEnterChatBtn.setVisibility(View.VISIBLE);
                                                     viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
                                                 }
                                             } else {
+                                                viewApplyBtn.setVisibility(View.INVISIBLE);
                                                 viewEnterChatBtn.setVisibility(View.VISIBLE);
                                                 viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
                                             }
                                         } else {
                                             // 최대 가입자 수와 일치했을때
+                                            // 파이어스토어에 저장된 id와 일치하면
                                             if (recruitBoard.getChatUserId2().equals(userId)) {
                                                 viewEnterChatBtn.setVisibility(View.VISIBLE);
                                                 viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
@@ -289,6 +297,20 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
 
 
                 viewEnterChatBtn.setVisibility(View.VISIBLE);
+                viewApplyBtn.setVisibility(View.INVISIBLE);
+
+                // 현재 인원수 / 전체 인원수
+                viewNowMember.setText(String.valueOf(recruitBoard.getNowMeetingNumber()));
+                viewTotalMember.setText(String.valueOf(recruitBoard.getTotalMeetingNumber()));
+
+                // 마감 여부
+                if (nowMember == totalMember) {
+                    // 마감
+                    viewDeadLine.setText("마감");
+                } else {
+                    // 마감x
+                    viewDeadLine.setText("모집중");
+                }
                 onResume();
                 break;
             case R.id.view_recruit_enter_chat:

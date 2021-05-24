@@ -3,22 +3,22 @@
     <item
         android:id="@+id/action_plogging"
         android:enabled="true"
-        android:icon="@android:drawable/btn_minus"
+        android:icon="@drawable/people"
         android:title="@string/plogging" />
     <item
         android:id="@+id/action_certify"
         android:enabled="true"
-        android:icon="@android:drawable/btn_star_big_on"
+        android:icon="@drawable/certification_icon"
         android:title="@string/certify" />
     <item
         android:id="@+id/action_recruit"
         android:enabled="true"
-        android:icon="@android:drawable/btn_star"
+        android:icon="@drawable/recruitment_icon"
         android:title="@string/recruit" />
     <item
         android:id="@+id/action_issue"
         android:enabled="true"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/issue_icon"
         android:title="@string/issue" />
 
 </menu>

@@ -7,10 +7,24 @@
     android:layout_height="wrap_content"
     android:padding="7dp">
 
+    <TextView
+        android:id="@+id/recruitment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:fontFamily="@font/surround"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="모집"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recruit_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/recruitment_title"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 

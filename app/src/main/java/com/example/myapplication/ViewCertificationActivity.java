@@ -84,9 +84,6 @@ public class ViewCertificationActivity extends AppCompatActivity {
         // 좋아요
         ImageView likeImage = findViewById(R.id.view_certifyitem_favorite);
 
-        // 좋아요 수
-        TextView likeCount = findViewById(R.id.view_certifyitem_favorite_count);
-
         // 댓글 버튼
         FloatingActionButton commentBtn = findViewById(R.id.view_certifyitem_comment);
         commentBtn.setOnClickListener(new View.OnClickListener() {
