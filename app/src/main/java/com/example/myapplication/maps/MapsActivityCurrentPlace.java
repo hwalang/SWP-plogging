@@ -86,6 +86,7 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     LatLng previousPosition = null;
     Marker addedMarker = null;
     int tracking = 0;
+    private int camera = 0;
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -503,15 +504,23 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
         currentMarker = mMap.addMarker(markerOptions);
 
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-//
-//        final Button pinCamera = (Button)findViewById(R.id.location);
-//        pinCamera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mMap.moveCamera(cameraUpdate);
-//            }
-//        });
+        if (camera == 0) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+            mMap.moveCamera(cameraUpdate);
+            camera++;
+        } else {
+            Log.d(TAG, "setCurrentLocation");
+        }
+
+
+        final Button pinCamera = (Button) findViewById(R.id.location);
+        pinCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+                mMap.moveCamera(cameraUpdate);
+            }
+        });
 
 
 
