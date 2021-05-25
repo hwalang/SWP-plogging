@@ -31,6 +31,10 @@ public class loginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        findViewById(R.id.gotoPasswordResetButton).setOnClickListener(onClickListener);
+
+
+
         SharedPreferences pref = getSharedPreferences("mine", MODE_PRIVATE);
         loginId = pref.getString("email", null);
         loginPwd = pref.getString("pwd", null);
@@ -93,4 +97,13 @@ public class loginActivity extends AppCompatActivity {
             }
         });
     }
+
+    View.OnClickListener onClickListener = (v) -> {
+        switch (v.getId()){
+            case R.id.gotoPasswordResetButton:
+                Intent intent = new Intent(this, passwordReset.class);
+                intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+        }
+    };
 }

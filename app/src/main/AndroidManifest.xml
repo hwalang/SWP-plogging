@@ -70,6 +70,7 @@
         <activity android:name=".MountineActivity" />
         <activity android:name=".ParkActivity" />
         <activity android:name=".WalkActivity" />
+        <activity android:name=".passwordReset" />
         <activity
             android:name=".stepCounter"
             android:screenOrientation="portrait" />
