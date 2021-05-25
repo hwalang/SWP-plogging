@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,6 +37,7 @@ public class profileActivity extends AppCompatActivity {
     private TextView editText2;
     private ImageView profile;
     private Button menu;
+    private Button logout;
     private Button navigation;
     private long backKeyPressedTime = 0;
     private Toast toast;
@@ -65,6 +67,7 @@ public class profileActivity extends AppCompatActivity {
         profile = findViewById(R.id.proFile);
         menu = findViewById(R.id.menu);
         navigation = findViewById(R.id.btn_Navigation);
+        logout = findViewById(R.id.Logout);
 
         user =FirebaseAuth.getInstance().getCurrentUser();
         userId = user.getUid();
@@ -128,6 +131,20 @@ public class profileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(profileActivity.this, BottomNavigation.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profileActivity.this, loginActivity.class);
+                startActivity(intent);
+                SharedPreferences pref = getSharedPreferences("mine", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                Toast.makeText(profileActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

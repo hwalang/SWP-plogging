@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,6 +23,7 @@ import java.lang.reflect.Member;
 public class loginActivity extends AppCompatActivity {
     private EditText emailLogin;
     private EditText emailPw;
+    String loginId, loginPwd;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -28,10 +31,22 @@ public class loginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        SharedPreferences pref = getSharedPreferences("mine", MODE_PRIVATE);
+        loginId = pref.getString("email", null);
+        loginPwd = pref.getString("pwd", null);
+
+        if (loginId != null || loginPwd != null) {
+            Intent intent = new Intent(loginActivity.this, profileActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
         Button join = (Button) findViewById(R.id.registerBtn);
         Button login = (Button) findViewById(R.id.Login);
         emailLogin = (EditText)findViewById(R.id.userIdRogin);
         emailPw = (EditText)findViewById(R.id.userPwRogin);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -54,12 +69,18 @@ public class loginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Intent intent = new Intent(loginActivity.this, profileActivity.class);
                                     startActivity(intent);
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString("email", email);
+                                    editor.putString("pwd", pwd);
+                                    editor.commit();
+                                    finish();
                                 } else {
                                     Toast.makeText(loginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
 
                                 }
                             }
                         });
+
             }
         });
 
