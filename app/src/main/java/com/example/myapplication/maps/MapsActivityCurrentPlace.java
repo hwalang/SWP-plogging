@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -52,6 +53,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.maps.android.SphericalUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,6 +62,9 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
+
+    private ArrayList<LatLng> arrayPoints = new ArrayList<LatLng>();
+    private PolylineOptions polylineOptions = new PolylineOptions();
 
     private DatabaseReference mDatabase;
     private GoogleMap mMap;
@@ -173,6 +178,8 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
 
                     double distance = SphericalUtil.computeDistanceBetween(currentPosition, addedMarker.getPosition());
 
+                    startPolyline(location);
+
                     if ((distance > radius) && (!previousPosition.equals(currentPosition))) {
                         if (distance > 1000){
                             String Ldistance = String.format("%.1f", (distance/1000));
@@ -202,6 +209,20 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
         }
 
     };
+
+    public void startPolyline(Location location) {
+
+
+        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18));
+
+
+        polylineOptions.color(Color.RED);
+        polylineOptions.width(15);
+        arrayPoints.add(currentLatLng);
+        polylineOptions.add(currentLatLng);
+        mMap.addPolyline(polylineOptions);
+    }
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
