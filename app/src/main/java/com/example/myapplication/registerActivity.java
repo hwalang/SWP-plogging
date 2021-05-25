@@ -195,6 +195,7 @@ public class registerActivity extends AppCompatActivity {
                                         userModel.uid = uid;
                                         userModel.address = address;
                                         userModel.profileImageUrl = imageUrl.getResult().toString();
+                                        userModel.steps = 0;
 
                                         if (Man.isChecked()) {
                                             userModel.gender = "남";

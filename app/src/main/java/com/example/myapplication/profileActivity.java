@@ -41,7 +41,8 @@ public class profileActivity extends AppCompatActivity {
     private Toast toast;
     String profileImageUrl;
 
-    DatabaseReference firebaseDatabase;
+    DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+
 
     FirebaseUser user;
     String userId = null;
@@ -67,7 +68,7 @@ public class profileActivity extends AppCompatActivity {
 
         user =FirebaseAuth.getInstance().getCurrentUser();
         userId = user.getUid();
-        firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+
         firebaseDatabase.child("users").child(userId).child("userName") //리얼타임 데이터
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -79,9 +80,9 @@ public class profileActivity extends AppCompatActivity {
                             Log.d("firebase", String.valueOf(task.getResult().getValue()));
                             String userName = task.getResult().getValue().toString();
                             editText1.setText(userName);
-                                               }
-                                           }
-                                       });
+                        }
+                    }
+                });
         firebaseDatabase.child("users").child(userId).child("profileImageUrl")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -96,26 +97,40 @@ public class profileActivity extends AppCompatActivity {
                         }
                     }
                 });
+        firebaseDatabase.child("users").child(userId).child("steps")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if(!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                            String steps = task.getResult().getValue().toString();
+                            editText2.setText(steps);
+                        }
+                    }
+                });
 
-                        menu.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(profileActivity.this, stepCounter.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profileActivity.this, stepCounter.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-                        // 메뉴 버튼은 만보기가 구현된 후 intent 할 예정
+        // 메뉴 버튼은 만보기가 구현된 후 intent 할 예정
 
-                        navigation.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(profileActivity.this, BottomNavigation.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
+        navigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profileActivity.this, BottomNavigation.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

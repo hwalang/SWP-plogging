@@ -15,17 +15,33 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class stepCounter extends AppCompatActivity implements SensorEventListener {
+
+    FirebaseUser user;
+    String userId = null;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference stepData;
+
     private TextView textView;
     private SensorManager mSensorManager;
     private Sensor mStepCounterSensor;
 //    private Sensor mStepDetectorSensor;
     private int mSteps = 0;
     private int mCounterSteps = 0;
+    private int storedSteps;
     int value = -1; //Step Counter
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -33,6 +49,27 @@ public class stepCounter extends AppCompatActivity implements SensorEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stepcounter);
+
+        user =FirebaseAuth.getInstance().getCurrentUser();
+        userId = user.getUid();
+        stepData = databaseReference.child("users").child(userId).child("steps");
+
+        stepData.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    storedSteps = Integer.parseInt(task.getResult().getValue().toString());
+                    Log.d("firebase", String.valueOf(task.getResult().getValue() + " " + storedSteps));
+
+
+                }
+            }
+        });
+
+
+
         textView = findViewById(R.id.steps);
         mSensorManager = (SensorManager)
                 getSystemService(Context.SENSOR_SERVICE);
@@ -51,6 +88,9 @@ public class stepCounter extends AppCompatActivity implements SensorEventListene
 
         Button button = findViewById(R.id.Reset);
         button.setOnClickListener(view -> {
+            storedSteps = storedSteps + mSteps;
+            Log.d("firebase", "steps = " + storedSteps);
+            stepData.setValue(storedSteps);
             mSteps = 0;
             mCounterSteps = 0;
             textView.setText(Integer.toString(mSteps));
