@@ -119,6 +119,7 @@
             android:layout_marginEnd="206dp"
             android:layout_marginRight="206dp"
             android:layout_marginBottom="5dp"
+            android:textSize="15dp"
             android:layout_toStartOf="@+id/recruit_cancel"
             android:layout_toLeftOf="@+id/recruit_cancel"
             android:text="확인" />
@@ -131,12 +132,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_margin="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="206dp"
-            android:layout_marginRight="206dp"
-            android:layout_marginBottom="5dp"
+            android:textSize="15dp"
             android:text="취소" />
     </RelativeLayout>
 </RelativeLayout>

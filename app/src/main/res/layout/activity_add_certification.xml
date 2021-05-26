@@ -3,14 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".AddCertificationActivity">
 
 
     <ImageView
 
         android:id="@+id/addPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:layout_margin="10dp"
         android:contentDescription="사진대체" />
 
@@ -27,9 +29,7 @@
             android:layout_height="wrap_content"
             android:autofillHints="제목"
             android:hint="제목"
-
             android:layout_margin = "5dp"
-
             android:inputType="text" />
 
         <EditText
@@ -56,6 +56,7 @@
         android:layout_toLeftOf="@id/write_certification_cancel"
         android:padding="5dp"
         android:text="확인"
+        android:textSize="15dp"
         android:theme="@style/Widget.AppCompat.Button.Small"
         android:layout_toStartOf="@id/write_certification_cancel"
         android:fontFamily="@font/surroundair"/>
@@ -68,6 +69,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="6dp"
+        android:textSize="15dp"
         android:padding="5dp"
         android:text="취소"
         android:theme="@style/Widget.AppCompat.Button.Small"

@@ -9,7 +9,7 @@
         android:id="@+id/frame_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="채팅방 이름"
+        android:text="채팅방"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:background="@color/grey"

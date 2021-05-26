@@ -79,4 +79,5 @@ public class mouAdapter extends RecyclerView.Adapter<mouAdapter.mouAdapterViewHo
             cardView = itemView.findViewById(R.id.mou_cardView);
         }
     }
+
 }
