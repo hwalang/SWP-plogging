@@ -7,18 +7,29 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="PLOGGING"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".IntroductoryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" >
+
+
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -28,11 +39,7 @@
             android:value="@string/maps_api_key" />
 
         <activity android:name=".loginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".profileActivity"
@@ -60,9 +67,7 @@
             android:name=".AddRecruitActivity"
             android:parentActivityName=".BottomNavigation" />
         <activity android:name=".Detailed" />
-        <activity
-            android:name=".maps.MapsActivityCurrentPlace"
-            android:screenOrientation="portrait" />
+        <activity android:name=".maps.MapsActivityCurrentPlace" />
         <activity android:name=".maps.Tmap" />
         <activity
             android:name=".registerActivity"
@@ -70,10 +75,9 @@
         <activity android:name=".MountineActivity" />
         <activity android:name=".ParkActivity" />
         <activity android:name=".WalkActivity" />
-        <activity android:name=".passwordReset" />
-        <activity
-            android:name=".stepCounter"
-            android:screenOrientation="portrait" />
+        <activity android:name=".TutorialActivity">
+
+        </activity>
     </application>
 
 </manifest>
