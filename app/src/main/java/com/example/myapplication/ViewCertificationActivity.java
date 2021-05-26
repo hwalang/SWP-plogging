@@ -107,7 +107,6 @@ public class ViewCertificationActivity extends AppCompatActivity {
                 modifyBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ViewCertificationActivity.this, "인증글 수정", Toast.LENGTH_SHORT).show();
                         Intent intentModify = new Intent(getApplicationContext(), AddCertificationActivity.class);
                         intentModify.putExtra("contentId", contentId);
                         startActivityForResult(intentModify, MODIFY_CODE);
@@ -124,13 +123,13 @@ public class ViewCertificationActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ViewCertificationActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ViewCertificationActivity.this, "인증글을 삭제했습니다", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ViewCertificationActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ViewCertificationActivity.this, "인증글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show();
                                         Log.d("ViewCertification", "contentId = " + contentId);
                                     }
                                 });

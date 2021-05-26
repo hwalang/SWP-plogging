@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,19 +61,15 @@ public class BottomNavigation extends AppCompatActivity {
                 item -> {
                     switch (item.getItemId()) {
                         case R.id.action_plogging:
-                            Toast.makeText(getApplicationContext(), "plogging 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationPloggingFragment).commit();
                             return true;
                         case R.id.action_certify:
-                            Toast.makeText(getApplicationContext(), "certify 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationCertifyFragment).commit();
                             return true;
                         case R.id.action_recruit:
-                            Toast.makeText(getApplicationContext(), "recruit 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationRecruitFragment).commit();
                             return true;
                         case R.id.action_issue:
-                            Toast.makeText(getApplicationContext(), "issue 선택", Toast.LENGTH_SHORT).show();
                             getSupportFragmentManager().beginTransaction().replace(R.id.main_content, navigationIssueFragment).commit();
                             return true;
                     }

@@ -159,7 +159,7 @@ public class AddCertificationActivity extends AppCompatActivity {
                                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                     @Override
                                                                     public void onSuccess(Void aVoid) {
-                                                                        Toast.makeText(AddCertificationActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                                                        Log.d(TAG, "success modification");
                                                                     }
                                                                 })
                                                                 .addOnFailureListener(new OnFailureListener() {
@@ -176,7 +176,6 @@ public class AddCertificationActivity extends AppCompatActivity {
                                                                     @Override
                                                                     public void onSuccess(DocumentReference documentReference) {
                                                                         documentReference.set(data);
-                                                                        Toast.makeText(AddCertificationActivity.this, "파이어스토어에 저장 성공", Toast.LENGTH_SHORT).show();
                                                                         Log.d(TAG, "문서ID: " + documentReference.getId());
                                                                     }
                                                                 })
@@ -211,8 +210,6 @@ public class AddCertificationActivity extends AppCompatActivity {
             write_certification_title = findViewById(R.id.write_certification_title);
             write_certification_explain = findViewById(R.id.write_certification_explain);
 
-        } else {
-            Toast.makeText(this, "계정이 없습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 

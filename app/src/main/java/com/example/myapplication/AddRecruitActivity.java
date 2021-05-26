@@ -173,7 +173,7 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                             @Override
                                                                             public void onSuccess(Void aVoid) {
-                                                                                Toast.makeText(AddRecruitActivity.this, "수정 완료", Toast.LENGTH_SHORT).show();
+                                                                                Log.d("AddRecruitActivity", "success modification");
                                                                             }
                                                                         })
                                                                         .addOnFailureListener(new OnFailureListener() {
@@ -189,7 +189,6 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                                                             @Override
                                                                             public void onSuccess(DocumentReference documentReference) {
                                                                                 documentReference.set(data);
-                                                                                Toast.makeText(AddRecruitActivity.this, "모집글 작성", Toast.LENGTH_SHORT).show();
                                                                                 Log.d("documentId", "문서 id = " + documentReference.getId());
                                                                             }
                                                                         })
@@ -216,8 +215,6 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                         finish();
                     }
                 });
-        } else {
-            Toast.makeText(this, "계정 없음", Toast.LENGTH_SHORT).show();
         }
     }
 

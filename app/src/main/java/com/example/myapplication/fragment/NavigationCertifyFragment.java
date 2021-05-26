@@ -87,9 +87,6 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             userId = user.getUid();
-            Toast.makeText(getActivity(), "계정 확인", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), "현재 계정이 없습니다.", Toast.LENGTH_SHORT).show();
         }
         recyclerview = rootView.findViewById(R.id.certifyitemfragment_recyclerview);
 
@@ -119,7 +116,6 @@ public class NavigationCertifyFragment extends Fragment implements View.OnClickL
         FloatingActionButton button = (FloatingActionButton) v;
 
         if (button.getId() == R.id.write_certification_button) {
-            Toast.makeText(getContext(), "인증글 작성 버튼 클릭", Toast.LENGTH_SHORT).show();
             // 갤러리 권한
             if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(getContext(), "권한 허용됨", Toast.LENGTH_SHORT).show();

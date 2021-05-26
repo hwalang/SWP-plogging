@@ -278,7 +278,6 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
         Intent intent;
         switch (btn.getId()) {
             case R.id.view_recruit_apply:
-                Toast.makeText(this, "신청 버튼", Toast.LENGTH_SHORT).show();
                 sendNotification();
                 nowMember++;
 
@@ -315,7 +314,6 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.view_recruit_enter_chat:
                 // 알림 때문에 입장 버튼이 먹통인가??
-                Toast.makeText(this, "입장 버튼", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getApplicationContext(), ChatRoomActivity.class);
                 intent.putExtra("contentId", contentId);
                 startActivity(intent);
@@ -324,7 +322,6 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                 if (recruitBoard.getNowMeetingNumber() != 1) {
                     Toast.makeText(this, "가입한 모집원이 있을때는 수정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "수정 버튼", Toast.LENGTH_SHORT).show();
                     intent = new Intent(getApplicationContext(), AddRecruitActivity.class);
                     intent.putExtra("contentId", contentId);
                     startActivity(intent);
@@ -338,7 +335,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(ViewRecruitActivity.this, "삭제 성공", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ViewRecruitActivity.this, "모집글을 삭제했습니다", Toast.LENGTH_SHORT).show();
                                 Log.d("ViewRecruitActivity", "contentId = " + contentId);
                                 finish();
                             }
@@ -346,7 +343,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ViewRecruitActivity.this, "삭제 실패", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ViewRecruitActivity.this, "모집글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show();
                                 Log.d("ViewRecruitActivity", "contentId = " + contentId);
                             }
                         });

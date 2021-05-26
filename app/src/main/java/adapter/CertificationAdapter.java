@@ -165,7 +165,6 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, "인증글 상세보기", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, ViewCertificationActivity.class);
                 intent.putExtra("certification", certificationBoards.get(position));
                 intent.putExtra("contentId", contentIdList.get(position));
@@ -178,7 +177,6 @@ public class CertificationAdapter extends RecyclerView.Adapter<CertificationAdap
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, "댓글 버튼 클릭", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, CommentActivity.class);
                 Log.d("documentId", "documentId = " + contentIdList.get(position));
                 intent.putExtra("contentId", contentIdList.get(position));

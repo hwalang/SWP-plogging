@@ -55,9 +55,6 @@ public class NavigationRecruitFragment extends Fragment implements View.OnClickL
         // 계정 작업
         if (user != null) {
             userId = user.getUid();
-            Toast.makeText(getActivity(), "계정 확인", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), "현재 계정이 없습니다.", Toast.LENGTH_SHORT).show();
         }
         recyclerView = rootView.findViewById(R.id.recruit_recyclerview);
         recyclerView .setHasFixedSize(true);
@@ -80,7 +77,6 @@ public class NavigationRecruitFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         FloatingActionButton button = (FloatingActionButton) v;
         if (button.getId() == R.id.write_recruit_button) {
-            Toast.makeText(getContext(), "모집글 작성", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), AddRecruitActivity.class);
             startActivity(intent);
         }

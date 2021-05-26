@@ -244,7 +244,6 @@ public class RecruitAdapter extends RecyclerView.Adapter<RecruitAdapter.RecruitV
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity.getContext(), "모집글 상세보기", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity.getContext(), ViewRecruitActivity.class);
                 intent.putExtra("recruit", recruitBoards.get(position));
                 intent.putExtra("contentId", contentIdList.get(position));  // chat + recruitment document id
