@@ -68,13 +68,14 @@
             android:parentActivityName=".BottomNavigation" />
         <activity android:name=".Detailed" />
         <activity android:name=".maps.MapsActivityCurrentPlace" />
-        <activity android:name=".maps.Tmap" />
         <activity
             android:name=".registerActivity"
             android:label="activity_sign_up" />
         <activity android:name=".MountineActivity" />
         <activity android:name=".ParkActivity" />
         <activity android:name=".WalkActivity" />
+        <activity android:name=".passwordReset" />
+        <activity android:name=".stepCounter" />
         <activity android:name=".TutorialActivity">
 
         </activity>

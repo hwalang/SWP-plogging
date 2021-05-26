@@ -222,6 +222,12 @@ public class registerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent intent = new Intent(registerActivity.this, loginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
 
 
