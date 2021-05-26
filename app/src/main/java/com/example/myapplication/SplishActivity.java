@@ -25,29 +25,8 @@ public class SplishActivity extends AppCompatActivity {
     int index;
     long delay = 200;
     Handler handler = new Handler();
-    @Override
-    protected void  onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Sleep(1500);
-                Intent intent = new Intent(SplishActivity.this, NavigationIssueFragment.class);
-                startActivity(intent);
-                finish();
-            }
-
-        });thread.start();
-        setContentView(R.layout.splish);
-        people = findViewById(R.id.people);
-        trash = findViewById(R.id.trash);
-        plogging = findViewById(R.id.plogging);
-
-        Animation mate1 = AnimationUtils.loadAnimation(this,R.anim.people_move);
-        people.setAnimation(mate1);
 
 
-    }
 
     private void Sleep(int i) {
     }
