@@ -124,6 +124,7 @@ public class ViewCertificationActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(ViewCertificationActivity.this, "인증글을 삭제했습니다", Toast.LENGTH_SHORT).show();
+                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

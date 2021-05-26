@@ -174,6 +174,7 @@ public class AddRecruitActivity extends AppCompatActivity implements AdapterView
                                                                             @Override
                                                                             public void onSuccess(Void aVoid) {
                                                                                 Log.d("AddRecruitActivity", "success modification");
+                                                                                Toast.makeText(AddRecruitActivity.this, "새로고침을 위해 나갔다가 들어와주세요", Toast.LENGTH_LONG).show();
                                                                             }
                                                                         })
                                                                         .addOnFailureListener(new OnFailureListener() {

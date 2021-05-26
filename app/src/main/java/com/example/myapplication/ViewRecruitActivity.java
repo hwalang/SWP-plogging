@@ -195,7 +195,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                                 } else {
                                     // 작성자와 동일 유저가 아닐 경우
                                     // 실력부족: 신청버튼을 누르면 자동으로 가입 -> 선착순..
-                                    if (nowMember <= totalMember) {
+                                    if (nowMember < totalMember) {
                                         // 가입 인원을 다 채우지 않은 모집글인 경우
                                         if (nowMember == 1) {
                                             // 가입 인원이 1명

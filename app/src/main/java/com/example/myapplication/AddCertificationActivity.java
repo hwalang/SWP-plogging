@@ -160,6 +160,7 @@ public class AddCertificationActivity extends AppCompatActivity {
                                                                     @Override
                                                                     public void onSuccess(Void aVoid) {
                                                                         Log.d(TAG, "success modification");
+                                                                        Toast.makeText(AddCertificationActivity.this, "새로고침을 위해서 나갔다가 들어와주세요", Toast.LENGTH_LONG).show();
                                                                     }
                                                                 })
                                                                 .addOnFailureListener(new OnFailureListener() {
