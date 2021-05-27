@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
 
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -67,7 +68,9 @@
             android:name=".AddRecruitActivity"
             android:parentActivityName=".BottomNavigation" />
         <activity android:name=".Detailed" />
-        <activity android:name=".maps.MapsActivityCurrentPlace" />
+        <activity
+            android:name=".maps.MapsActivityCurrentPlace"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".registerActivity"
             android:label="activity_sign_up" />
@@ -75,7 +78,9 @@
         <activity android:name=".ParkActivity" />
         <activity android:name=".WalkActivity" />
         <activity android:name=".passwordReset" />
-        <activity android:name=".stepCounter" />
+        <activity android:name=".stepCounter"
+            android:parentActivityName=".profileActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".TutorialActivity">
 
         </activity>

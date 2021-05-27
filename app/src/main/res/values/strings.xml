@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="user">user</string>
-    <string name="plogging">플로깅하기</string>
-    <string name="certify">인증글</string>
-    <string name="recruit">모집글</string>
-    <string name="issue">환경이슈</string>
+    <string name="plogging">plogging</string>
+    <string name="certify">certify</string>
+    <string name="recruit">recruit</string>
+    <string name="issue">issue</string>
     <string name="리스트">리스트</string>
     <string name="랭킹">랭킹</string>
     <string name="인증글">인증글</string>
@@ -20,5 +20,5 @@
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
     <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
     <string name="permission_required_toast">Location permission is required for this demo.</string>
-    <string name="explainPlogging">알고 계셨나요? \n Plogging은 \'이삭을 줍는다\'는 뜻인 스웨덴어와\n 영어단어 jogging(조깅)의 합성어로, 조깅하면서 쓰레기를 줍는 행동을 뜻합니다</string>
+    <string name="explainPlogging">알고 계셨나요? Plogging은 \'이삭을 줍는다\'는 뜻인 스웨덴어 plocka upp와\n 영어단어 jogging(조깅)의 합성어로, 조깅하면서 쓰레기를 줍는 행동을 뜻합니다</string>
 </resources>

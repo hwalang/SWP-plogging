@@ -10,7 +10,7 @@ public class UserModel {
     public String userName;
     public String profileImageUrl;
     public String uid;
-    public Long birth;
+    public String birth;
     public String gender;
     public String address;
     public int steps;
@@ -20,7 +20,7 @@ public class UserModel {
 
     }
 
-    public UserModel(String userName, String profileImageUrl, String uid, Long birth, String gender, String address, int steps) {
+    public UserModel(String userName, String profileImageUrl, String uid, String birth, String gender, String address, int steps) {
         this.userName = userName;
         this.profileImageUrl = profileImageUrl;
         this.uid = uid;
@@ -76,11 +76,11 @@ public class UserModel {
         this.uid = uid;
     }
 
-    public Long getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Long birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 

@@ -44,7 +44,7 @@ public class registerActivity extends AppCompatActivity {
     private EditText editText2;
     private EditText editText3;
     private EditText editText1;
-    private Long editText4;
+    private EditText editText4;
     private EditText editText6;
     private EditText editText5;
     private ImageView profile;
@@ -66,6 +66,7 @@ public class registerActivity extends AppCompatActivity {
         editText1 = findViewById(R.id.name);
         editText2 = findViewById(R.id.userId);
         editText3 = findViewById(R.id.userPw);
+        editText4 = findViewById(R.id.birth);
         editText6 = findViewById(R.id.userPwCheck);
         editText5 = findViewById(R.id.address);
         profile = findViewById(R.id.proFIle);
@@ -152,15 +153,15 @@ public class registerActivity extends AppCompatActivity {
         name = editText1.getText().toString();
         String email = editText2.getText().toString();
         String emailPw = editText3.getText().toString();
-        Long birth = Long.valueOf(((EditText) findViewById(R.id.birth)).getText().toString());
+        String birth = editText4.getText().toString();
         String address = editText5.getText().toString();
         String emailPwCheck = editText6.getText().toString();
         RadioButton Man = findViewById(R.id.RadioBtn1);
         RadioButton Woman = findViewById(R.id.RadioBtn2);
 
 
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(emailPw) || profile == null) {
-            Toast.makeText(registerActivity.this, "정보를 바르게 입력해 주세요.", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(emailPw) || TextUtils.isEmpty(address) || profile == null || TextUtils.isEmpty(birth)) {
+            Toast.makeText(registerActivity.this, "정보를 바르게 입력해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!emailPw.equals(emailPwCheck) ) {
