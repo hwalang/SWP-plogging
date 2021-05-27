@@ -39,10 +39,11 @@ public class IntroductoryActivity extends Activity {
             public void run() {
                 Intent intent = new Intent(getBaseContext(),TutorialActivity.class);
                 startActivity(intent);
+                finish();
             }
+
         },4400);
-        finish();
+
 
     }
-
 }
