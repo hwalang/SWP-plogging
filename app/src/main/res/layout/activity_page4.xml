@@ -39,26 +39,28 @@
         android:textColor="@color/black"
         android:fontFamily="@font/surround"
         android:text="환경이슈 한눈에 보기"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="115dp"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:fontFamily="@font/surroundair"
         android:text="플로깅을 하기전에 " />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="135dp"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:fontFamily="@font/surroundair"
         android:text="환경이슈들을 확인해 봐요!" />
 

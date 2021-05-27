@@ -39,12 +39,13 @@
         android:textColor="@color/black"
         android:fontFamily="@font/surround"
         android:text="플로깅을 통해서 환경지키기"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="115dp"
@@ -54,23 +55,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="135dp"
         android:textColor="@color/black"
         android:fontFamily="@font/surroundair"
         android:text="공원이나 산에 가서 플로깅을 해봐요" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="302dp"
-        android:layout_marginEnd="-3dp"
-        android:layout_marginRight="-3dp"
-        android:src="@drawable/back" />
 
 </RelativeLayout>

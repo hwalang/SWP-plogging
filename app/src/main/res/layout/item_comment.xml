@@ -6,7 +6,7 @@
     android:layout_margin="5dp"
     android:background="@color/white"
     android:paddingBottom="10dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="15dp">
 
     <include
         layout="@layout/view_comment"

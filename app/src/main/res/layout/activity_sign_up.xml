@@ -19,10 +19,10 @@
         android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
+        app:layout_constraintTop_toBottomOf="@+id/userId"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/userId"
@@ -35,10 +35,10 @@
         android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.299" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/name"
@@ -51,10 +51,11 @@
         android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintTop_toBottomOf="@+id/userPwCheck"
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <EditText
         android:id="@+id/birth"
@@ -67,10 +68,10 @@
         android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/address"
@@ -82,10 +83,10 @@
         android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
+        app:layout_constraintTop_toBottomOf="@+id/birth"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/userPwCheck"
@@ -99,18 +100,17 @@
         android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.435" />
-
+        app:layout_constraintTop_toBottomOf="@+id/userPw"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/proFIle"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:adjustViewBounds="true"
-
+        android:scaleType="fitXY"
         android:maxWidth="150dp"
         android:maxHeight="150dp"
         android:onClick="onclick"
@@ -120,7 +120,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.073"
+        app:layout_constraintVertical_bias="0.051"
         app:srcCompat="@drawable/ic_launcher_background"
         tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
@@ -128,15 +128,14 @@
         android:id="@+id/gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
-
+    app:layout_constraintVertical_bias="0.05"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address"
         tools:ignore="MissingConstraints">
 
 
@@ -158,8 +157,8 @@
 
     <Button
         android:id="@+id/register"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="277dp"
+        android:layout_height="40dp"
         android:layout_marginTop="150dp"
         android:fontFamily="@font/surround"
         android:text="가입하기"
@@ -167,6 +166,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.726" />
+        app:layout_constraintVertical_bias="0.575" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/surroundair"
+        android:text="꼭 프로필을 넣어주세요!"
+        android:textColor="@color/red"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/proFIle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
