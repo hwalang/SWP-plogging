@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    tools:context=".AddCertificationActivity">
+    android:background="@color/white">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
 
 
     <ImageView
@@ -12,7 +17,7 @@
         android:id="@+id/addPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:scaleType="center"
         android:layout_margin="10dp"
         android:contentDescription="사진대체" />
 
@@ -21,57 +26,73 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addPhoto"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-3dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/write_certification_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:autofillHints="제목"
             android:hint="제목"
-            android:layout_margin = "5dp"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/write_certification_explain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:autofillHints="내용"
             android:hint="내용"
-            android:layout_margin = "5dp"
             android:inputType="textMultiLine"
-            android:minLines="5"
             android:maxLines="12"
-            android:scrollbars="vertical"
-            />
+            android:minLines="5"
+            android:scrollbars="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/write_certification_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/surroundair"
+                android:padding="5dp"
+                android:text="확인"
+                android:textSize="15dp"
+                android:theme="@style/Widget.AppCompat.Button.Small" />
+
+            <Button
+                android:id="@+id/write_certification_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="6dp"
+                android:fontFamily="@font/surroundair"
+                android:padding="5dp"
+                android:text="취소"
+                android:textSize="15dp"
+                android:theme="@style/Widget.AppCompat.Button.Small" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/write_certification_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="6dp"
-        android:layout_toLeftOf="@id/write_certification_cancel"
-        android:padding="5dp"
-        android:text="확인"
-        android:textSize="15dp"
-        android:theme="@style/Widget.AppCompat.Button.Small"
-        android:layout_toStartOf="@id/write_certification_cancel"
-        android:fontFamily="@font/surroundair"/>
-
-    <Button
-        android:id="@+id/write_certification_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="6dp"
-        android:textSize="15dp"
-        android:padding="5dp"
-        android:text="취소"
-        android:theme="@style/Widget.AppCompat.Button.Small"
-        android:fontFamily="@font/surroundair"/>
 </RelativeLayout>
+</ScrollView>
