@@ -41,6 +41,7 @@ public class IntroductoryActivity extends Activity {
                 startActivity(intent);
             }
         },4400);
+        finish();
 
     }
 
