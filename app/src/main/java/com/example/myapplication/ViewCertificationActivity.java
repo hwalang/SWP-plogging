@@ -99,44 +99,45 @@ public class ViewCertificationActivity extends AppCompatActivity {
         Button modifyBtn = findViewById(R.id.modify_certification);
         Button deleteBtn = findViewById(R.id.delete_certification);
 
-        if (user != null) {
-            userId = user.getUid();
+        userId = user.getUid();
 
-            if (certificationBoard.getUserId().equals(userId)) {
-                modifyBtn.setVisibility(View.VISIBLE);
-                modifyBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intentModify = new Intent(getApplicationContext(), AddCertificationActivity.class);
-                        intentModify.putExtra("contentId", contentId);
-                        startActivityForResult(intentModify, MODIFY_CODE);
-                    }
-                });
+        if (certificationBoard.getUserId().equals(userId)) {
+            modifyBtn.setVisibility(View.VISIBLE);
+            modifyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentModify = new Intent(getApplicationContext(), AddCertificationActivity.class);
+                    intentModify.putExtra("contentId", contentId);
+                    startActivityForResult(intentModify, MODIFY_CODE);
+                }
+            });
 
-                // collection 삭제하려면 nodeJs 를 사용해야 하는데 내가 사용 못함..
-                deleteBtn.setVisibility(View.VISIBLE);
-                deleteBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        firebaseFirestore.collection("certification").document(contentId)
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(ViewCertificationActivity.this, "인증글을 삭제했습니다", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ViewCertificationActivity.this, "인증글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show();
-                                        Log.d("ViewCertification", "contentId = " + contentId);
-                                    }
-                                });
-                    }
-                });
-            }
+            // collection 삭제하려면 nodeJs 를 사용해야 하는데 내가 사용 못함..
+            deleteBtn.setVisibility(View.VISIBLE);
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    firebaseFirestore.collection("certification").document(contentId)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(ViewCertificationActivity.this, "인증글을 삭제했습니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(ViewCertificationActivity.this, "인증글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show();
+                                    Log.d("ViewCertification", "contentId = " + contentId);
+                                }
+                            });
+                }
+            });
+        } else {
+            modifyBtn.setVisibility(View.INVISIBLE);
+            deleteBtn.setVisibility(View.INVISIBLE);
         }
     }
     public void onResume() {
