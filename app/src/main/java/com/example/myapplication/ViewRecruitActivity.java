@@ -248,6 +248,15 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                                                 viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
                                             }
                                         }
+                                    } else if (recruitBoard.getChatUserId2().equals(userId)) {
+                                        viewEnterChatBtn.setVisibility(View.VISIBLE);
+                                        viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
+                                    } else if (recruitBoard.getChatUserId3().equals(userId)) {
+                                        viewEnterChatBtn.setVisibility(View.VISIBLE);
+                                        viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
+                                    } else if (recruitBoard.getChatUserId4().equals(userId)) {
+                                        viewEnterChatBtn.setVisibility(View.VISIBLE);
+                                        viewEnterChatBtn.setOnClickListener(ViewRecruitActivity.this);
                                     } else {
                                         Toast.makeText(ViewRecruitActivity.this, "더 이상 가입할 수 없습니다.", Toast.LENGTH_SHORT).show();
                                     }
@@ -293,7 +302,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                     updateFireStore("chatUserId4", userId);
                     recruitBoard.setChatUserId4(userId);
                 }
-
+                Toast.makeText(this, "새로고침을 위해 다시 들어와주세요", Toast.LENGTH_LONG).show();
 
                 viewEnterChatBtn.setVisibility(View.VISIBLE);
                 viewApplyBtn.setVisibility(View.INVISIBLE);

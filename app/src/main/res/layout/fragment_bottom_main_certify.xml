@@ -20,14 +20,6 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp" />
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        style="@style/Theme.Design"
-        android:layout_centerInParent="true">
-
-    </ProgressBar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/certifyitemfragment_recyclerview"
