@@ -302,7 +302,7 @@ public class ViewRecruitActivity extends AppCompatActivity implements View.OnCli
                     updateFireStore("chatUserId4", userId);
                     recruitBoard.setChatUserId4(userId);
                 }
-                Toast.makeText(this, "새로고침을 위해 다시 들어와주세요", Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewRecruitActivity.this, "새로고침을 위해 다시 들어와주세요", Toast.LENGTH_LONG).show();
 
                 viewEnterChatBtn.setVisibility(View.VISIBLE);
                 viewApplyBtn.setVisibility(View.INVISIBLE);
